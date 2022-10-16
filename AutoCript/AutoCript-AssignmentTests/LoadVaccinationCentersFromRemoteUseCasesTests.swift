@@ -66,6 +66,19 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         })
     }
     
+    func test_load_deliversNothingAfterItsInstanceHasBeenDeallocated() {
+        let client = ClientSpy()
+        var sut: RemoteVaccinationCentersLoader? = .init(url: anyURL(), client: client)
+        
+        var receivedResults = [RemoteVaccinationCentersLoader.LoadResult]()
+        sut?.load { receivedResults.append($0) }
+        
+        sut = nil
+        client.loadCompletion(with: anyNSError())
+        
+        XCTAssertEqual(receivedResults, [])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(string: "http://any-url.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteVaccinationCentersLoader, client: ClientSpy) {
