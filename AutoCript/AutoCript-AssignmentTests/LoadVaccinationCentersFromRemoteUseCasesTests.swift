@@ -91,16 +91,18 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
     }
     
     private class ClientSpy: HTTPClient {
-        private(set) var requestsURLs = [URL]()
-        private var completions = [(HTTPClient.Result) -> Void]()
+        private var requests = [(url: URL, completion: (HTTPClient.Result) -> Void)]()
+        
+        var requestsURLs: [URL] {
+            requests.map { $0.url }
+        }
         
         func get(from url: URL, completion: @escaping (HTTPClient.Result) -> Void) {
-            requestsURLs.append(url)
-            completions.append(completion)
+            requests.append((url, completion))
         }
         
         func loadCompletion(with error: Error, at index: Int = 0) {
-            completions[index](.failure(error))
+            requests[index].completion(.failure(error))
         }
     }
 }
