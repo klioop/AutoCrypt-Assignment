@@ -1,3 +1,5 @@
+[![AutoCrypt CI](https://github.com/klioop/AutoCrypt-Assignment/actions/workflows/actions.yml/badge.svg)](https://github.com/klioop/AutoCrypt-Assignment/actions/workflows/actions.yml)
+
 ### Load a List of Vaccination Centers from Remote Server Use-cases
 
 **Data**
@@ -15,14 +17,16 @@
 
 
 
-**VaccinationCenter** 
-let id: CenterID
-let name: String
-let facilityName: String
-let address: String
-let lat: Double
-let lng: Double
-let updatedAt: Date
+**VaccinationCenter**
+
+* id: CenterID
+  let name: String
+  let facilityN ame: String
+  let address: String
+  let lat: Double
+  let lng: Double
+  let updatedAt: Date
 
 **CenterID**
-let id: Int
+
+* let id: Int
