@@ -23,26 +23,59 @@ class RemoteVaccinationCentersLoader {
         self.client = client
     }
     
-    typealias LoadResult = Result<Void, Error>
+    typealias LoadResult = Result<[VaccinationCenter], Error>
     
     enum Error: Swift.Error {
         case connectivity
         case invalidData
     }
     
+    struct Root: Decodable {
+        let data: [Item]
+        
+        var centers: [VaccinationCenter] {
+            data.map { VaccinationCenter(id: CenterID(id: $0.id), name: $0.centerName, facilityName: $0.facilityName, address: $0.address, lat: $0.lat, lng: $0.lng, updatedAt: $0.updatedAt) }
+        }
+    }
+    
+    struct Item: Decodable {
+        let id: Int
+        let centerName, facilityName, address: String
+        let lat, lng: String
+        let updatedAt: String
+    }
+    
     func load(completion: @escaping (LoadResult) -> Void) {
         client.get(from: url) { result in
             switch result {
-            case let .success((_, response)):
+            case let .success((data, response)):
                 if response.statusCode != 200 {
                     completion(.failure(Error.invalidData))
+                    return
                 }
+                let root = try! JSONDecoder().decode(Root.self, from: data)
+                completion(.success(root.centers))
+                
                 
             case .failure:
                 completion(.failure(Error.connectivity))
             }
         }
     }
+}
+
+struct VaccinationCenter: Equatable {
+    let id: CenterID
+    let name: String
+    let facilityName: String
+    let address: String
+    let lat: String
+    let lng: String
+    let updatedAt: String
+}
+
+struct CenterID: Equatable {
+    let id: Int
 }
 
 class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
@@ -101,6 +134,28 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         }
     }
     
+    func test_load_deliversVaccinationCentersFrom200HTTPResponse() {
+        let (sut, client) = makeSUT()
+        let exp = expectation(description: "wait for load completion")
+        let center0 = makeItem(id: 0, name: "center0", lat: "10.0", lng: "11.0", updatedAt: "2022-10-16 14:04:08")
+        let center1 = makeItem(id: 1, name: "center1", lat: "2.5", lng: "32.7", updatedAt: "2022-10-10 11:04:08")
+        let data = makeJSON([center0.item, center1.item])
+        let response = anyHTTURLResponse(with: 200)
+        
+        var centers: [VaccinationCenter]?
+        sut.load { result in
+            if let receivedCenters = try? result.get() {
+                centers = receivedCenters
+            }
+            exp.fulfill()
+        }
+        
+        client.loadCompletion(with: data, from: response)
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertEqual(centers, [center0.model, center1.model])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(string: "http://any-url.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteVaccinationCentersLoader, client: ClientSpy) {
@@ -117,6 +172,48 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
     
     private func anyData() -> Data {
         Data("any data".utf8)
+    }
+    
+    private func uniqueCenter(id: Int = 0,
+                              name: String = "a name",
+                              facilityName: String = "a facility name",
+                              address: String = "a address",
+                              lat: String = "1.0",
+                              lng: String = "1.0",
+                              updatedAt: String = "2021-07-16 04:55:08"
+    ) -> VaccinationCenter {
+        let centerID = CenterID(id: id)
+        return VaccinationCenter(id: centerID, name: name, facilityName: facilityName, address: address, lat: lat, lng: lng, updatedAt: updatedAt)
+    }
+    
+    private func makeItem(id: Int = 0,
+                          name: String = "a name",
+                          facilityName: String = "a facility name",
+                          address: String = "a address",
+                          lat: String = "1.0",
+                          lng: String = "1.0",
+                          updatedAt: String)
+    -> (model: VaccinationCenter, item: [String: Any]) {
+        let model = uniqueCenter(id: id, name: name, facilityName: facilityName, address: address, lat: lat, lng: lng, updatedAt: updatedAt)
+        let item: [String: Any] = [
+            "id": id,
+            "centerName": name,
+            "facilityName": facilityName,
+            "address": address,
+            "lat": "\(lat)",
+            "lng": "\(lng)",
+            "updatedAt": updatedAt,
+        ].compactMapValues { $0 }
+        
+        return (model, item)
+    }
+    
+    private func makeJSON(_ items: [[String: Any]]) -> Data {
+        let json = [
+            "data": items
+        ]
+        
+        return try! JSONSerialization.data(withJSONObject: json)
     }
     
     private func anyHTTURLResponse(with code: Int) -> HTTPURLResponse {
