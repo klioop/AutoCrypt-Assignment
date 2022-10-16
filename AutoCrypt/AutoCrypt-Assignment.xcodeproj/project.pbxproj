@@ -20,6 +20,7 @@
 		3150817F28FBDF4600DA9EB7 /* RemoteAPIEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150817E28FBDF4600DA9EB7 /* RemoteAPIEndToEndTests.swift */; };
 		3150818728FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150818628FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift */; };
 		3150818828FBE13500DA9EB7 /* XCTestCase+trackMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150818628FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift */; };
+		3150818A28FC0CC400DA9EB7 /* VaccinationCentersUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150818928FC0CC400DA9EB7 /* VaccinationCentersUIIntegrationTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 		3150817C28FBDF4600DA9EB7 /* RemoteAPIEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RemoteAPIEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3150817E28FBDF4600DA9EB7 /* RemoteAPIEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAPIEndToEndTests.swift; sourceTree = "<group>"; };
 		3150818628FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+trackMemoryLeak.swift"; sourceTree = "<group>"; };
+		3150818928FC0CC400DA9EB7 /* VaccinationCentersUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersUIIntegrationTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 			children = (
 				3150818528FBE10C00DA9EB7 /* Helpers */,
 				3145BFF828FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift */,
+				3150818928FC0CC400DA9EB7 /* VaccinationCentersUIIntegrationTests.swift */,
 			);
 			path = "AutoCrypt-AssignmentTests";
 			sourceTree = "<group>";
@@ -306,6 +309,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3150818728FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift in Sources */,
+				3150818A28FC0CC400DA9EB7 /* VaccinationCentersUIIntegrationTests.swift in Sources */,
 				3145BFF928FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
