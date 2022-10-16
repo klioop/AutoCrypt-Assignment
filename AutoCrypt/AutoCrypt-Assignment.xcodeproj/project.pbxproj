@@ -25,6 +25,7 @@
 		3150819128FC46B900DA9EB7 /* VaccinationCenterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819028FC46B900DA9EB7 /* VaccinationCenterListViewController.swift */; };
 		3150819328FC472800DA9EB7 /* VaccinationCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819228FC472800DA9EB7 /* VaccinationCenterCell.swift */; };
 		3150819628FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819528FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift */; };
+		3150819828FC4BD600DA9EB7 /* VaccinationCenterCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819728FC4BD600DA9EB7 /* VaccinationCenterCellController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		3150819028FC46B900DA9EB7 /* VaccinationCenterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterListViewController.swift; sourceTree = "<group>"; };
 		3150819228FC472800DA9EB7 /* VaccinationCenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterCell.swift; sourceTree = "<group>"; };
 		3150819528FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersRefreshController.swift; sourceTree = "<group>"; };
+		3150819728FC4BD600DA9EB7 /* VaccinationCenterCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterCellController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -189,6 +191,7 @@
 			children = (
 				3150819028FC46B900DA9EB7 /* VaccinationCenterListViewController.swift */,
 				3150819528FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift */,
+				3150819728FC4BD600DA9EB7 /* VaccinationCenterCellController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				3150817528FBDC7800DA9EB7 /* URLSessionHTTPClient.swift in Sources */,
 				3150819328FC472800DA9EB7 /* VaccinationCenterCell.swift in Sources */,
 				3145BFC928FBA92200798FC0 /* AppDelegate.swift in Sources */,
+				3150819828FC4BD600DA9EB7 /* VaccinationCenterCellController.swift in Sources */,
 				3150816D28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift in Sources */,
 				3150816F28FBD4C900DA9EB7 /* HTTPClient.swift in Sources */,
 				3145BFCB28FBA92200798FC0 /* SceneDelegate.swift in Sources */,

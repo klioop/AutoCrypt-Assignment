@@ -9,15 +9,15 @@ import UIKit
 
 public final class VaccinationCenterListViewController: UITableViewController {
     public typealias LoadCompletion = (RemoteVaccinationCentersLoader.LoadResult) -> Void
-    private var tableModels = [VaccinationCenter]()
+    private var tableModels = [VaccinationCenterCellController]()
     
     var refreshController: VaccinationCentersRefreshController?
     
     public convenience init(load: @escaping (@escaping LoadCompletion) -> Void) {
         self.init()
         self.refreshController = VaccinationCentersRefreshController(load: load)
-        refreshController?.onRefresh = { [weak self] in
-            self?.tableModels = $0
+        refreshController?.onRefresh = { [weak self] centers in
+            self?.tableModels = centers.map { VaccinationCenterCellController(model: $0) }
         }
     }
     
@@ -32,13 +32,6 @@ public final class VaccinationCenterListViewController: UITableViewController {
     }
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = VaccinationCenterCell()
-        let model = tableModels[indexPath.row]
-        
-        cell.nameLabel.text = model.name
-        cell.facilityNameLabel.text = model.facilityName
-        cell.addressLabel.text = model.address
-        cell.updatedAtLabel.text = model.updatedAt
-        return cell
+        tableModels[indexPath.row].view()
     }
 }
