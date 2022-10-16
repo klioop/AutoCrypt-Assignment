@@ -53,8 +53,12 @@ class RemoteVaccinationCentersLoader {
                     completion(.failure(Error.invalidData))
                     return
                 }
-                let root = try! JSONDecoder().decode(Root.self, from: data)
-                completion(.success(root.centers))
+                do {
+                    let root = try JSONDecoder().decode(Root.self, from: data)
+                    completion(.success(root.centers))
+                } catch {
+                    completion(.failure(Error.invalidData))
+                }
                 
                 
             case .failure:
@@ -104,7 +108,7 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         })
     }
     
-    func test_load_deliversErrorOnNon200HTTPResponseStatusCode() {
+    func test_load_deliversErrorOnNon200HTTPResponse() {
         let (sut, client) = makeSUT()
         let samples = [201, 250, 299, 300, 401, 500]
         
@@ -115,7 +119,16 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         }
     }
     
-    func test_load_deliversVaccinationCentersFrom200HTTPResponse() {
+    func test_load_deliversErrorOn200HTTPResponseWithInvalidData() {
+        let (sut, client) = makeSUT()
+        let invalidData = Data("invalid data".utf8)
+        
+        expect(sut, toCompletedWith: .failure(.invalidData), when: {
+            client.loadCompletion(with: invalidData, from: anyHTTURLResponse(with: 200))
+        })
+    }
+    
+    func test_load_deliversVaccinationCentersFrom200HTTPResponseWithValiData() {
         let (sut, client) = makeSUT()
         let center0 = makeItem(id: 0, name: "center0", lat: "10.0", lng: "11.0", updatedAt: "2022-10-16 14:04:08")
         let center1 = makeItem(id: 1, name: "center1", lat: "2.5", lng: "32.7", updatedAt: "2022-10-10 11:04:08")
