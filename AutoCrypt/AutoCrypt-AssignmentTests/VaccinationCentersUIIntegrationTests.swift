@@ -8,60 +8,6 @@
 import XCTest
 import AutoCrypt_Assignment
 
-final class VaccinationCenterListViewController: UITableViewController {
-    typealias LoadCompletion = (RemoteVaccinationCentersLoader.LoadResult) -> Void
-    private var tableModels = [VaccinationCenter]()
-    
-    var load: ((@escaping LoadCompletion) -> Void)?
-    
-    convenience init(load: @escaping (@escaping LoadCompletion) -> Void) {
-        self.init()
-        self.load = load
-    }
-    
-    override func viewDidLoad() {
-        self.refreshControl = UIRefreshControl()
-        refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        
-        refresh()
-    }
-    
-    @objc private func refresh() {
-        refreshControl?.beginRefreshing()
-        load? { [weak self] result in
-            switch result {
-            case let .success(centers):
-                self?.tableModels = centers
-                
-            case .failure: break
-            }
-            self?.refreshControl?.endRefreshing()
-        }
-    }
-    
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tableModels.count
-    }
-    
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = VaccinationCenterCell()
-        let model = tableModels[indexPath.row]
-        
-        cell.nameLabel.text = model.name
-        cell.facilityNameLabel.text = model.facilityName
-        cell.addressLabel.text = model.address
-        cell.updatedAtLabel.text = model.updatedAt
-        return cell
-    }
-}
-
-final class VaccinationCenterCell: UITableViewCell {
-    let nameLabel = UILabel()
-    let facilityNameLabel = UILabel()
-    let addressLabel = UILabel()
-    let updatedAtLabel = UILabel()
-}
-
 class VaccinationCentersUIIntegrationTests: XCTestCase {
     
     func test_userInitiateRequestLoading_requestsCenters() {
