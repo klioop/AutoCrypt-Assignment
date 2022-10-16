@@ -21,6 +21,7 @@
 		3150818728FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150818628FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift */; };
 		3150818828FBE13500DA9EB7 /* XCTestCase+trackMemoryLeak.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150818628FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift */; };
 		3150818A28FC0CC400DA9EB7 /* VaccinationCentersUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150818928FC0CC400DA9EB7 /* VaccinationCentersUIIntegrationTests.swift */; };
+		3150818C28FC2B5800DA9EB7 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150818B28FC2B5800DA9EB7 /* TestHelpers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +59,7 @@
 		3150817E28FBDF4600DA9EB7 /* RemoteAPIEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteAPIEndToEndTests.swift; sourceTree = "<group>"; };
 		3150818628FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+trackMemoryLeak.swift"; sourceTree = "<group>"; };
 		3150818928FC0CC400DA9EB7 /* VaccinationCentersUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersUIIntegrationTests.swift; sourceTree = "<group>"; };
+		3150818B28FC2B5800DA9EB7 /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -160,6 +162,7 @@
 			isa = PBXGroup;
 			children = (
 				3150818628FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift */,
+				3150818B28FC2B5800DA9EB7 /* TestHelpers.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -311,6 +314,7 @@
 				3150818728FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift in Sources */,
 				3150818A28FC0CC400DA9EB7 /* VaccinationCentersUIIntegrationTests.swift in Sources */,
 				3145BFF928FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift in Sources */,
+				3150818C28FC2B5800DA9EB7 /* TestHelpers.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

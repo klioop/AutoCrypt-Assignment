@@ -76,23 +76,6 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         return (sut, loader)
     }
     
-    
-    private func anyNSError() -> NSError {
-        NSError(domain: "a error", code: 0)
-    }
-    
-    private func uniqueCenter(id: Int = 0,
-                              name: String = "a name",
-                              facilityName: String = "a facility name",
-                              address: String = "a address",
-                              lat: String = "1.0",
-                              lng: String = "1.0",
-                              updatedAt: String = "2021-07-16 04:55:08"
-    ) -> VaccinationCenter {
-        let centerID = CenterID(id: id)
-        return VaccinationCenter(id: centerID, name: name, facilityName: facilityName, address: address, lat: lat, lng: lng, updatedAt: updatedAt)
-    }
-    
     private class LoaderSpy {
         private(set) var loadCallCount = 0
         private(set) var requestCompletions = [(RemoteVaccinationCentersLoader.LoadResult)-> Void]()
