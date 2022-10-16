@@ -23,11 +23,13 @@ class RemoteVaccinationCentersLoader {
         self.client = client
     }
     
+    typealias LoadResult = Result<Void, Error>
+    
     enum Error: Swift.Error {
         case connectivity
     }
     
-    func load(completion: @escaping (Result<Void, Error>) -> Void) {
+    func load(completion: @escaping (LoadResult) -> Void) {
         client.get(from: url) { result in
             switch result {
             case .failure:
