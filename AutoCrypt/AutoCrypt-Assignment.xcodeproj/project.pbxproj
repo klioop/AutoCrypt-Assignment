@@ -26,6 +26,7 @@
 		3150819328FC472800DA9EB7 /* VaccinationCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819228FC472800DA9EB7 /* VaccinationCenterCell.swift */; };
 		3150819628FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819528FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift */; };
 		3150819828FC4BD600DA9EB7 /* VaccinationCenterCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819728FC4BD600DA9EB7 /* VaccinationCenterCellController.swift */; };
+		3150819B28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +69,7 @@
 		3150819228FC472800DA9EB7 /* VaccinationCenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterCell.swift; sourceTree = "<group>"; };
 		3150819528FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersRefreshController.swift; sourceTree = "<group>"; };
 		3150819728FC4BD600DA9EB7 /* VaccinationCenterCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterCellController.swift; sourceTree = "<group>"; };
+		3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersUIComposer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +120,7 @@
 		3145BFC728FBA92200798FC0 /* AutoCrypt-Assignment */ = {
 			isa = PBXGroup;
 			children = (
+				3150819928FC4D0A00DA9EB7 /* Composers */,
 				3150819428FC478900DA9EB7 /* Vaccination Presentation */,
 				3150818D28FC42C900DA9EB7 /* Vaccination Views */,
 				3150816B28FBD40B00DA9EB7 /* Vaccination API */,
@@ -209,6 +212,14 @@
 			children = (
 			);
 			path = "Vaccination Presentation";
+			sourceTree = "<group>";
+		};
+		3150819928FC4D0A00DA9EB7 /* Composers */ = {
+			isa = PBXGroup;
+			children = (
+				3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */,
+			);
+			path = Composers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -343,6 +354,7 @@
 			files = (
 				3150817528FBDC7800DA9EB7 /* URLSessionHTTPClient.swift in Sources */,
 				3150819328FC472800DA9EB7 /* VaccinationCenterCell.swift in Sources */,
+				3150819B28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift in Sources */,
 				3145BFC928FBA92200798FC0 /* AppDelegate.swift in Sources */,
 				3150819828FC4BD600DA9EB7 /* VaccinationCenterCellController.swift in Sources */,
 				3150816D28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift in Sources */,

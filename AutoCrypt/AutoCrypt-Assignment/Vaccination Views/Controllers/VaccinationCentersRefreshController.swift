@@ -7,9 +7,7 @@
 
 import UIKit
 
-final class VaccinationCentersRefreshController: NSObject {
-    typealias LoadCompletion = (RemoteVaccinationCentersLoader.LoadResult) -> Void
-    
+final class VaccinationCentersRefreshController: NSObject {    
     private(set) lazy var view: UIRefreshControl = {
         let view = UIRefreshControl()
         view.addTarget(self, action: #selector(refresh), for: .valueChanged)

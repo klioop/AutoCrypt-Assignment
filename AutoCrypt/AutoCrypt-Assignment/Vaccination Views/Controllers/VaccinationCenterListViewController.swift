@@ -8,22 +8,22 @@
 import UIKit
 
 public final class VaccinationCenterListViewController: UITableViewController {
-    public typealias LoadCompletion = (RemoteVaccinationCentersLoader.LoadResult) -> Void
     private var tableModels = [VaccinationCenterCellController]()
     
     var refreshController: VaccinationCentersRefreshController?
     
-    public convenience init(load: @escaping (@escaping LoadCompletion) -> Void) {
+    convenience init(refreshController: VaccinationCentersRefreshController) {
         self.init()
-        self.refreshController = VaccinationCentersRefreshController(load: load)
-        refreshController?.onRefresh = { [weak self] centers in
-            self?.tableModels = centers.map { VaccinationCenterCellController(model: $0) }
-        }
+        self.refreshController = refreshController
+    }
+    
+    func set(_ controllers: [VaccinationCenterCellController]) {
+        tableModels = controllers
+        tableView.reloadData()
     }
     
     public override func viewDidLoad() {
-        self.refreshControl = refreshController?.view
-        
+        refreshControl = refreshController?.view
         refreshController?.refresh()
     }
     
