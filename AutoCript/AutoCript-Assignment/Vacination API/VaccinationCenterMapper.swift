@@ -36,15 +36,16 @@ enum VaccinationCenterMapper {
         let updatedAt: String
     }
     
+    static var is_OK: Int {
+        200
+    }
+    
     static func map(_ data: Data, from response: HTTPURLResponse) throws -> [VaccinationCenter] {
-        guard response.statusCode == 200 else { throw Error.invalidData }
+        guard
+            response.statusCode == is_OK,
+            let root = try? JSONDecoder().decode(Root.self, from: data)
+        else { throw Error.invalidData }
         
-        do {
-            let decoder = JSONDecoder()
-            let root = try decoder.decode(Root.self, from: data)
-            return root.centers
-        } catch {
-            throw Error.invalidData
-        }
+        return root.centers
     }
 }
