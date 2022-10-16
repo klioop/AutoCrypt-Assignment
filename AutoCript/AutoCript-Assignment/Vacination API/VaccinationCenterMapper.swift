@@ -12,7 +12,16 @@ enum VaccinationCenterMapper {
         private let data: [Item]
         
         var centers: [VaccinationCenter] {
-            data.map { VaccinationCenter(id: CenterID(id: $0.id), name: $0.centerName, facilityName: $0.facilityName, address: $0.address, lat: $0.lat, lng: $0.lng, updatedAt: $0.updatedAt) }
+            data.map { center(from: $0) }
+        }
+        
+        private func center(from item: Item) -> VaccinationCenter {
+            VaccinationCenter(id: CenterID(id: item.id),
+                              name: item.centerName,
+                              facilityName: item.facilityName,
+                              address: item.address,
+                              lat: item.lat, lng: item.lng,
+                              updatedAt: item.updatedAt)
         }
     }
     
