@@ -8,8 +8,7 @@
 import XCTest
 import AutoCrypt_Assignment
 
-final class VaccinationCenterListViewController: UIViewController {
-    
+final class VaccinationCenterListViewController: UITableViewController {
     typealias LoadCompletion = (Result<[VaccinationCenter], RemoteVaccinationCentersLoader.Error>) -> Void
     
     var load: ((LoadCompletion) -> Void)?
@@ -20,7 +19,13 @@ final class VaccinationCenterListViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        self.load? { _ in }
+        refresh()
+        self.refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(refresh), for: .valueChanged)
+    }
+    
+    @objc private func refresh() {
+        load? { _ in }
     }
 }
 
@@ -41,6 +46,20 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
 
         XCTAssertEqual(loader.loadCallCount, 1)
     }
+    
+    func test_userInitiateReload_requestsCenters() {
+        let loader = LoaderSpy()
+        let sut = VaccinationCenterListViewController(load: loader.load)
+    
+        sut.loadViewIfNeeded()
+        XCTAssertEqual(loader.loadCallCount, 1)
+        
+        sut.simulateUserInitiateReload()
+        XCTAssertEqual(loader.loadCallCount, 2)
+        
+        sut.simulateUserInitiateReload()
+        XCTAssertEqual(loader.loadCallCount, 3)
+    }
 
     // MARK: - Helpers
     
@@ -50,5 +69,11 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         func load(completion: (Result<[VaccinationCenter], RemoteVaccinationCentersLoader.Error>) -> Void) {
             loadCallCount += 1
         }
+    }
+}
+
+private extension VaccinationCenterListViewController {
+    func simulateUserInitiateReload() {
+        refreshControl?.sendActions(for: .valueChanged)
     }
 }
