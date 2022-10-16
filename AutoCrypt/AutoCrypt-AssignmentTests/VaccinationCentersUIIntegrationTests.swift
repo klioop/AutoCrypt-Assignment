@@ -10,6 +10,7 @@ import AutoCrypt_Assignment
 
 final class VaccinationCenterListViewController: UITableViewController {
     typealias LoadCompletion = (RemoteVaccinationCentersLoader.LoadResult) -> Void
+    private var tableModels = [VaccinationCenter]()
     
     var load: ((@escaping LoadCompletion) -> Void)?
     
@@ -27,10 +28,38 @@ final class VaccinationCenterListViewController: UITableViewController {
     
     @objc private func refresh() {
         refreshControl?.beginRefreshing()
-        load? { [weak self] _ in
+        load? { [weak self] result in
+            switch result {
+            case let .success(centers):
+                self?.tableModels = centers
+                
+            case .failure: break
+            }
             self?.refreshControl?.endRefreshing()
         }
     }
+    
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        tableModels.count
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = VaccinationCenterCell()
+        let model = tableModels[indexPath.row]
+        
+        cell.nameLabel.text = model.name
+        cell.facilityNameLabel.text = model.facilityName
+        cell.addressLabel.text = model.address
+        cell.updatedAtLabel.text = model.updatedAt
+        return cell
+    }
+}
+
+final class VaccinationCenterCell: UITableViewCell {
+    let nameLabel = UILabel()
+    let facilityNameLabel = UILabel()
+    let addressLabel = UILabel()
+    let updatedAtLabel = UILabel()
 }
 
 class VaccinationCentersUIIntegrationTests: XCTestCase {
@@ -65,6 +94,17 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         loader.completeLoading(with: [uniqueCenter()])
         XCTAssertEqual(sut.isShowingLoadingIndicator, false, "센터 리스트 리로드가 성공적으로 끝나면 로딩 인디케이터를 보여주지 않는다")
     }
+    
+    func test_successfulLoadCompletion_rendersCentersLoaded() {
+        let (sut, loader) = makeSUT()
+        let center0 = uniqueCenter(id: 1, name: "first center", facilityName: "first facility name", address: "first address", updatedAt: "2021-07-16 04:55:08")
+        let center1 = uniqueCenter(id: 2, name: "second center", facilityName: "second facility name", address: "second address", updatedAt: "2021-07-17 04:55:08")
+        
+        sut.loadViewIfNeeded()
+        loader.completeLoading(with: [center0, center1])
+        
+        assertThat(sut, isRendering: [center0, center1])
+    }
 
     // MARK: - Helpers
     
@@ -74,6 +114,27 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         trackMemoryLeak(loader, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
         return (sut, loader)
+    }
+    
+    private func assertThat(_ sut: VaccinationCenterListViewController, isRendering models: [VaccinationCenter], file: StaticString = #filePath, line: UInt = #line) {
+        guard sut.numberOfCentersRendered == models.count else {
+            return XCTFail("\(sut.numberOfCentersRendered) 은 \(models.count) 와 같아야 한다", file: file, line: line)
+        }
+        
+        models.enumerated().forEach { row, center in
+            assertThat(sut, configuresFor: center, at: row, file: file, line: line)
+        }
+    }
+    
+    private func assertThat(_ sut: VaccinationCenterListViewController, configuresFor center: VaccinationCenter, at row: Int, file: StaticString = #filePath, line: UInt = #line) {
+        guard let centerView = sut.centerView(at: row) as? VaccinationCenterCell else {
+            return XCTFail("\(row) 의 예방접종센터 셀은 존재해야 한다", file: file, line: line)
+        }
+        
+        XCTAssertEqual(centerView.name, center.name, file: file, line: line)
+        XCTAssertEqual(centerView.facilityName, center.facilityName, file: file, line: line)
+        XCTAssertEqual(centerView.address, center.address, file: file, line: line)
+        XCTAssertEqual(centerView.updatedAt, center.updatedAt, file: file, line: line)
     }
     
     private class LoaderSpy {
@@ -103,7 +164,39 @@ private extension VaccinationCenterListViewController {
         refreshControl!.isRefreshing
     }
     
+    var numberOfCentersRendered: Int {
+        tableView.numberOfRows(inSection: 0)
+    }
+    
+    private var listSection: Int {
+        0
+    }
+    
+    func centerView(at row: Int) -> UITableViewCell? {
+        let dataSource = tableView.dataSource
+        let indexPath = IndexPath(row: row, section: listSection)
+        return dataSource?.tableView(tableView, cellForRowAt: indexPath)
+    }
+    
     func simulateUserInitiateReload() {
         refreshControl?.sendActions(for: .valueChanged)
+    }
+}
+
+private extension VaccinationCenterCell {
+    var name: String? {
+        nameLabel.text
+    }
+    
+    var facilityName: String? {
+        facilityNameLabel.text
+    }
+    
+    var address: String? {
+        addressLabel.text
+    }
+    
+    var updatedAt: String? {
+        updatedAtLabel.text
     }
 }

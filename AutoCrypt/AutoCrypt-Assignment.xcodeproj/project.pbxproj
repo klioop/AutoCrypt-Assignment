@@ -110,6 +110,7 @@
 		3145BFC728FBA92200798FC0 /* AutoCrypt-Assignment */ = {
 			isa = PBXGroup;
 			children = (
+				3150818D28FC42C900DA9EB7 /* Views */,
 				3150816B28FBD40B00DA9EB7 /* Vacination API */,
 				3150816A28FBD3F000DA9EB7 /* Vacination Feature */,
 				3145BFC828FBA92200798FC0 /* AppDelegate.swift */,
@@ -165,6 +166,13 @@
 				3150818B28FC2B5800DA9EB7 /* TestHelpers.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		3150818D28FC42C900DA9EB7 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
