@@ -26,27 +26,27 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES"
+      onlyGenerateCoverageForSpecifiedTargets = "YES">
+      <CodeCoverageTargets>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "3145BFC428FBA92200798FC0"
+            BuildableName = "AutoCript-Assignment.app"
+            BlueprintName = "AutoCript-Assignment"
+            ReferencedContainer = "container:AutoCript-Assignment.xcodeproj">
+         </BuildableReference>
+      </CodeCoverageTargets>
       <Testables>
          <TestableReference
             skipped = "NO"
-            parallelizable = "YES">
+            testExecutionOrdering = "random">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3145BFDA28FBA92500798FC0"
                BuildableName = "AutoCript-AssignmentTests.xctest"
                BlueprintName = "AutoCript-AssignmentTests"
-               ReferencedContainer = "container:AutoCript-Assignment.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3150817B28FBDF4600DA9EB7"
-               BuildableName = "RemoteAPIEndToEndTests.xctest"
-               BlueprintName = "RemoteAPIEndToEndTests"
                ReferencedContainer = "container:AutoCript-Assignment.xcodeproj">
             </BuildableReference>
          </TestableReference>
