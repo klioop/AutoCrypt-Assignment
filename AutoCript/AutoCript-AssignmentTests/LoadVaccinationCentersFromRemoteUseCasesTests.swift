@@ -8,7 +8,7 @@
 import XCTest
 
 protocol HTTPClient {
-    typealias Result = Swift.Result<Void, Error>
+    typealias Result = Swift.Result<(Data, HTTPURLResponse), Error>
     
     func get(from url: URL, completion: @escaping (Result) -> Void)
 }
@@ -27,15 +27,19 @@ class RemoteVaccinationCentersLoader {
     
     enum Error: Swift.Error {
         case connectivity
+        case invalidData
     }
     
     func load(completion: @escaping (LoadResult) -> Void) {
         client.get(from: url) { result in
             switch result {
+            case let .success((_, response)):
+                if response.statusCode != 200 {
+                    completion(.failure(Error.invalidData))
+                }
+                
             case .failure:
                 completion(.failure(Error.connectivity))
-                
-            default: break
             }
         }
     }
@@ -76,6 +80,26 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         XCTAssertNotNil(receivedError)
     }
     
+    func test_load_deliversErrorOnNon200HTTPResponseStatusCode() {
+        let (sut, client) = makeSUT()
+        let exp = expectation(description: "wait for load completion")
+        
+        var receivedError: Error?
+        sut.load { result in
+            if case let .failure(error) = result {
+                receivedError = error
+            }
+            exp.fulfill()
+        }
+        
+        let anyData = Data("any data".utf8)
+        let non200HttpResponse = HTTPURLResponse(url: anyURL(), statusCode: 400, httpVersion: nil, headerFields: nil)!
+        client.loadCompletion(with: anyData, from: non200HttpResponse)
+        wait(for: [exp], timeout: 1.0)
+        
+        XCTAssertNotNil(receivedError)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(string: "http://any-url.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteVaccinationCentersLoader, client: ClientSpy) {
@@ -84,6 +108,10 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         trackMemoryLeak(client, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
         return (sut, client)
+    }
+    
+    private func anyURL() -> URL {
+        URL(string: "http://any-url.com")!
     }
     
     private func trackMemoryLeak(_ instance: AnyObject, file: StaticString, line: UInt) {
@@ -105,6 +133,10 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         
         func loadCompletion(with error: Error, at index: Int = 0) {
             requests[index].completion(.failure(error))
+        }
+        
+        func loadCompletion(with data: Data, from response: HTTPURLResponse, at index: Int = 0) {
+            requests[index].completion(.success((data, response)))
         }
     }
 }
