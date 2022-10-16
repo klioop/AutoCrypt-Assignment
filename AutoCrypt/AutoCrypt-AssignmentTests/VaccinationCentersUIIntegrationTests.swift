@@ -31,34 +31,20 @@ final class VaccinationCenterListViewController: UITableViewController {
 
 class VaccinationCentersUIIntegrationTests: XCTestCase {
     
-    func test_init_doesNotSendAnyMessage() {
-        let loader = LoaderSpy()
-        _ = VaccinationCenterListViewController(load: loader.load)
-        
-        XCTAssertEqual(loader.loadCallCount, 0)
-    }
-    
-    func test_viewDidLoad_requestsCenters() {
+    func test_userInitiateRequestLoading_requestsCenters() {
         let loader = LoaderSpy()
         let sut = VaccinationCenterListViewController(load: loader.load)
+        
+        XCTAssertEqual(loader.loadCallCount, 0, "생성시 요청하지 않는다")
 
         sut.loadViewIfNeeded()
-
-        XCTAssertEqual(loader.loadCallCount, 1)
-    }
-    
-    func test_userInitiateReload_requestsCenters() {
-        let loader = LoaderSpy()
-        let sut = VaccinationCenterListViewController(load: loader.load)
-    
-        sut.loadViewIfNeeded()
-        XCTAssertEqual(loader.loadCallCount, 1)
+        XCTAssertEqual(loader.loadCallCount, 1, "뷰가 로드되면 센터 리스트를 한 번 요청한다")
         
         sut.simulateUserInitiateReload()
-        XCTAssertEqual(loader.loadCallCount, 2)
+        XCTAssertEqual(loader.loadCallCount, 2, "유저가 리로드 하면 센터 리스트를 한 번더 요청한다")
         
         sut.simulateUserInitiateReload()
-        XCTAssertEqual(loader.loadCallCount, 3)
+        XCTAssertEqual(loader.loadCallCount, 3, "유저가 리로드를 한번 더 하면 센터 리스트를 세번 째 요청한다")
     }
 
     // MARK: - Helpers
