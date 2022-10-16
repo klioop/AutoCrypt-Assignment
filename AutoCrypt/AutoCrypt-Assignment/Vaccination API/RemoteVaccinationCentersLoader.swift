@@ -16,7 +16,7 @@ public final class RemoteVaccinationCentersLoader {
         self.client = client
     }
     
-    public typealias LoadResult = Result<[VaccinationCenter], Error>
+    public typealias LoadResult = Result<[VaccinationCenter], Swift.Error>
     
     public enum Error: Swift.Error {
         case connectivity

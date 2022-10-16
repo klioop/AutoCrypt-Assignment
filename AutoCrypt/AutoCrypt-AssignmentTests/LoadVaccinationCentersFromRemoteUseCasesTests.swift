@@ -39,7 +39,7 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         let samples = [201, 250, 299, 300, 401, 500]
         
         samples.enumerated().forEach { index, code in
-            expect(sut, toCompletedWith: .failure(.invalidData), when: {
+            expect(sut, toCompletedWith: .failure(RemoteVaccinationCentersLoader.Error.invalidData), when: {
                 client.loadCompletion(with: anyData(), from: anyHTTURLResponse(with: code), at: index)
             })
         }
@@ -49,7 +49,7 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         let (sut, client) = makeSUT()
         let invalidData = Data("invalid data".utf8)
         
-        expect(sut, toCompletedWith: .failure(.invalidData), when: {
+        expect(sut, toCompletedWith: .failure(RemoteVaccinationCentersLoader.Error.invalidData), when: {
             client.loadCompletion(with: invalidData, from: anyHTTURLResponse(with: 200))
         })
     }
@@ -76,7 +76,7 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         sut = nil
         client.loadCompletion(with: anyNSError())
         
-        XCTAssertEqual(receivedResults, [])
+        XCTAssertTrue(receivedResults.isEmpty)
     }
     
     // MARK: - Helpers
@@ -97,7 +97,7 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
             case let (.success(receivedData), .success(expectedData)):
                 XCTAssertEqual(receivedData, expectedData, file: file, line: line)
                 
-            case let (.failure(receivedError), .failure(expectedError)):
+            case let (.failure(receivedError as RemoteVaccinationCentersLoader.Error), .failure(expectedError as RemoteVaccinationCentersLoader.Error)):
                 XCTAssertEqual(receivedError, expectedError, file: file, line: line)
                 
             default:
@@ -109,30 +109,6 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         
         action()
         wait(for: [exp], timeout: 1.0)
-    }
-    
-    private func anyNSError() -> NSError {
-        NSError(domain: "a error", code: 0)
-    }
-    
-    private func anyURL() -> URL {
-        URL(string: "http://any-url.com")!
-    }
-    
-    private func anyData() -> Data {
-        Data("any data".utf8)
-    }
-    
-    private func uniqueCenter(id: Int = 0,
-                              name: String = "a name",
-                              facilityName: String = "a facility name",
-                              address: String = "a address",
-                              lat: String = "1.0",
-                              lng: String = "1.0",
-                              updatedAt: String = "2021-07-16 04:55:08"
-    ) -> VaccinationCenter {
-        let centerID = CenterID(id: id)
-        return VaccinationCenter(id: centerID, name: name, facilityName: facilityName, address: address, lat: lat, lng: lng, updatedAt: updatedAt)
     }
     
     private func makeItem(id: Int = 0,

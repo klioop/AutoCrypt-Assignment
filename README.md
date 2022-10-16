@@ -17,6 +17,8 @@
 
 
 
+### Model
+
 **VaccinationCenter**
 
 * id: CenterID
@@ -30,3 +32,13 @@
 **CenterID**
 
 * let id: Int
+
+
+
+### UX Goals - Scene for a List of Vaccination Centers
+
+✅ 뷰가 로드 되면 첫 페이지의 접종 센터 리스트가 보여진다
+
+✅ 접종 센터 리스트가 로드 되는 동안 로딩인디케이터가 보여진다
+
+✅ 유저가 리로드 행동을 하면 다시 첫 페이지의 접종 센터 리스트만 보여진다
