@@ -82,20 +82,23 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
     
     func test_load_deliversErrorOnNon200HTTPResponseStatusCode() {
         let (sut, client) = makeSUT()
-        let exp = expectation(description: "wait for load completion")
+        let samples = [201, 250, 299, 300, 401, 500]
         
-        var receivedError: Error?
-        sut.load { result in
-            if case let .failure(error) = result {
-                receivedError = error
+        samples.enumerated().forEach { index, code in
+            let exp = expectation(description: "wait for load completion")
+            var receivedError: Error?
+            sut.load { result in
+                if case let .failure(error) = result {
+                    receivedError = error
+                }
+                exp.fulfill()
             }
-            exp.fulfill()
+            
+            client.loadCompletion(with: anyData(), from: anyHTTURLResponse(with: code), at: index)
+            wait(for: [exp], timeout: 1.0)
+            
+            XCTAssertNotNil(receivedError)
         }
-        
-        client.loadCompletion(with: anyData(), from: anyHTTURLResponse(with: 400))
-        wait(for: [exp], timeout: 1.0)
-        
-        XCTAssertNotNil(receivedError)
     }
     
     // MARK: - Helpers
