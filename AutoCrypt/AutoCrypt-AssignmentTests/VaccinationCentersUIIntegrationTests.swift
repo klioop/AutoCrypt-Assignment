@@ -77,11 +77,13 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     }
     
     private class LoaderSpy {
-        private(set) var loadCallCount = 0
         private(set) var requestCompletions = [(RemoteVaccinationCentersLoader.LoadResult)-> Void]()
         
+        var loadCallCount: Int {
+            requestCompletions.count
+        }
+        
         func load(completion: @escaping (RemoteVaccinationCentersLoader.LoadResult) -> Void) {
-            loadCallCount += 1
             requestCompletions.append(completion)
         }
         
