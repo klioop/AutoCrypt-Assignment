@@ -36,8 +36,7 @@ final class VaccinationCenterListViewController: UITableViewController {
 class VaccinationCentersUIIntegrationTests: XCTestCase {
     
     func test_userInitiateRequestLoading_requestsCenters() {
-        let loader = LoaderSpy()
-        let sut = VaccinationCenterListViewController(load: loader.load)
+        let (sut, loader) = makeSUT()
         
         XCTAssertEqual(loader.loadCallCount, 0, "생성시 요청하지 않는다")
 
@@ -52,8 +51,7 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     }
     
     func test_userInitiateRequestLoading_showsLoadingIndicator() {
-        let loader = LoaderSpy()
-        let sut = VaccinationCenterListViewController(load: loader.load)
+        let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
         XCTAssertEqual(sut.isShowingLoadingIndicator, true)
@@ -69,6 +67,31 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     }
 
     // MARK: - Helpers
+    
+    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: VaccinationCenterListViewController, loader: LoaderSpy) {
+        let loader = LoaderSpy()
+        let sut = VaccinationCenterListViewController(load: loader.load)
+        trackMemoryLeak(loader, file: file, line: line)
+        trackMemoryLeak(sut, file: file, line: line)
+        return (sut, loader)
+    }
+    
+    
+    private func anyNSError() -> NSError {
+        NSError(domain: "a error", code: 0)
+    }
+    
+    private func uniqueCenter(id: Int = 0,
+                              name: String = "a name",
+                              facilityName: String = "a facility name",
+                              address: String = "a address",
+                              lat: String = "1.0",
+                              lng: String = "1.0",
+                              updatedAt: String = "2021-07-16 04:55:08"
+    ) -> VaccinationCenter {
+        let centerID = CenterID(id: id)
+        return VaccinationCenter(id: centerID, name: name, facilityName: facilityName, address: address, lat: lat, lng: lng, updatedAt: updatedAt)
+    }
     
     private class LoaderSpy {
         private(set) var loadCallCount = 0
@@ -87,22 +110,7 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
             requestCompletions[index](.success(centers))
         }
     }
-    
-    private func anyNSError() -> NSError {
-        NSError(domain: "a error", code: 0)
-    }
-    
-    private func uniqueCenter(id: Int = 0,
-                              name: String = "a name",
-                              facilityName: String = "a facility name",
-                              address: String = "a address",
-                              lat: String = "1.0",
-                              lng: String = "1.0",
-                              updatedAt: String = "2021-07-16 04:55:08"
-    ) -> VaccinationCenter {
-        let centerID = CenterID(id: id)
-        return VaccinationCenter(id: centerID, name: name, facilityName: facilityName, address: address, lat: lat, lng: lng, updatedAt: updatedAt)
-    }
+
 }
 
 private extension VaccinationCenterListViewController {
