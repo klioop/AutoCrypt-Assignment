@@ -20,12 +20,12 @@
 **VaccinationCenter**
 
 * id: CenterID
-  let name: String
-  let facilityN ame: String
-  let address: String
-  let lat: Double
-  let lng: Double
-  let updatedAt: Date
+* name: String
+* facilityN ame: String
+* address: String
+* lat: String
+* lng: String
+* updatedAt: String
 
 **CenterID**
 
