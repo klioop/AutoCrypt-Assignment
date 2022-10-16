@@ -9,24 +9,47 @@ import XCTest
 
 class RemoteVaccinationCentersLoader {
     let url: URL
-    let loader: LoaderSpy
+    let client: HTTPClient
     
-    init(url: URL, loader: LoaderSpy) {
+    init(url: URL, client: HTTPClient) {
         self.url = url
-        self.loader = loader
+        self.client = client
+    }
+    
+    func load() {
+        client.get(from: url)
     }
 }
 
-class LoaderSpy {
+protocol HTTPClient {
+    func get(from url: URL)
+}
+
+class ClientSpy: HTTPClient {
     private(set) var requestsURLs = [URL]()
+    
+    func get(from url: URL) {
+        requestsURLs.append(url)
+    }
+    
 }
 
 class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
     
     func test_init_doesNotSendAnyMessage() {
-        let loader = LoaderSpy()
-        _ = RemoteVaccinationCentersLoader(url: URL(string: "http://any-url.com")!, loader: loader)
+        let client = ClientSpy()
+        _ = RemoteVaccinationCentersLoader(url: URL(string: "http://any-url.com")!, client: client)
         
-        XCTAssertEqual(loader.requestsURLs, [])
+        XCTAssertEqual(client.requestsURLs, [])
+    }
+    
+    func test_load_requestsLoadCentersFromAGivenURL() {
+        let client = ClientSpy()
+        let url = URL(string: "http://any-url.com")!
+        let sut = RemoteVaccinationCentersLoader(url: url, client: client)
+
+        sut.load()
+
+        XCTAssertEqual(client.requestsURLs, [url])
     }
 }
