@@ -25,15 +25,6 @@ protocol HTTPClient {
     func get(from url: URL)
 }
 
-class ClientSpy: HTTPClient {
-    private(set) var requestsURLs = [URL]()
-    
-    func get(from url: URL) {
-        requestsURLs.append(url)
-    }
-    
-}
-
 class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
     
     func test_init_doesNotSendAnyMessage() {
@@ -56,5 +47,13 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         let sut = RemoteVaccinationCentersLoader(url: url, client: client)
         
         return (sut, client)
+    }
+    
+    private class ClientSpy: HTTPClient {
+        private(set) var requestsURLs = [URL]()
+        
+        func get(from url: URL) {
+            requestsURLs.append(url)
+        }
     }
 }
