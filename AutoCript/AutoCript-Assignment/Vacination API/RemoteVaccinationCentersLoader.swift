@@ -27,18 +27,14 @@ public final class RemoteVaccinationCentersLoader {
         client.get(from: url) { [weak self] result in
             guard self != nil else { return }
             
-            switch result {
-            case let .success((data, response)):
-                do {
-                    let centers = try VaccinationCenterMapper.map(data, from: response)
-                    completion(.success(centers))
-                } catch {
-                    completion(.failure(Error.invalidData))
-                }
-                
-            case .failure:
-                completion(.failure(Error.connectivity))
-            }
+            completion(result
+                    .mapError { _ in Error.connectivity }
+                    .flatMap { data, response in
+                        guard let centers = try? VaccinationCenterMapper.map(data, from: response) else {
+                            return .failure(Error.invalidData)
+                        }
+                        return .success(centers)
+                    })
         }
     }
 }
