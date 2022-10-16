@@ -92,9 +92,7 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
             exp.fulfill()
         }
         
-        let anyData = Data("any data".utf8)
-        let non200HttpResponse = HTTPURLResponse(url: anyURL(), statusCode: 400, httpVersion: nil, headerFields: nil)!
-        client.loadCompletion(with: anyData, from: non200HttpResponse)
+        client.loadCompletion(with: anyData(), from: anyHTTURLResponse(with: 400))
         wait(for: [exp], timeout: 1.0)
         
         XCTAssertNotNil(receivedError)
@@ -112,6 +110,14 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
     
     private func anyURL() -> URL {
         URL(string: "http://any-url.com")!
+    }
+    
+    private func anyData() -> Data {
+        Data("any data".utf8)
+    }
+    
+    private func anyHTTURLResponse(with code: Int) -> HTTPURLResponse {
+        HTTPURLResponse(url: anyURL(), statusCode: code, httpVersion: nil, headerFields: nil)!
     }
     
     private func trackMemoryLeak(_ instance: AnyObject, file: StaticString, line: UInt) {
