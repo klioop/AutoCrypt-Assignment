@@ -15,6 +15,7 @@
 		3150816D28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150816C28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift */; };
 		3150816F28FBD4C900DA9EB7 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150816E28FBD4C900DA9EB7 /* HTTPClient.swift */; };
 		3150817128FBD4F100DA9EB7 /* VaccinationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150817028FBD4F100DA9EB7 /* VaccinationCenter.swift */; };
+		3150817328FBD52800DA9EB7 /* VaccinationCenterMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150817228FBD52800DA9EB7 /* VaccinationCenterMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,6 +40,7 @@
 		3150816C28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteVaccinationCentersLoader.swift; sourceTree = "<group>"; };
 		3150816E28FBD4C900DA9EB7 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		3150817028FBD4F100DA9EB7 /* VaccinationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenter.swift; sourceTree = "<group>"; };
+		3150817228FBD52800DA9EB7 /* VaccinationCenterMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +114,7 @@
 			children = (
 				3150816C28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift */,
 				3150816E28FBD4C900DA9EB7 /* HTTPClient.swift */,
+				3150817228FBD52800DA9EB7 /* VaccinationCenterMapper.swift */,
 			);
 			path = "Vacination API";
 			sourceTree = "<group>";
@@ -221,6 +224,7 @@
 				3150816F28FBD4C900DA9EB7 /* HTTPClient.swift in Sources */,
 				3145BFCB28FBA92200798FC0 /* SceneDelegate.swift in Sources */,
 				3150817128FBD4F100DA9EB7 /* VaccinationCenter.swift in Sources */,
+				3150817328FBD52800DA9EB7 /* VaccinationCenterMapper.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
