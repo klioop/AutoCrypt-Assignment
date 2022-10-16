@@ -6,7 +6,7 @@
 //
 
 import XCTest
-import AutoCript_Assignment
+import AutoCrypt_Assignment
 
 class RemoteAPIEndToEndTests: XCTestCase {
 

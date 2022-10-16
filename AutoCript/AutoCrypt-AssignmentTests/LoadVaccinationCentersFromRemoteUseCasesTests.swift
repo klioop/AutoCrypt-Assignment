@@ -1,12 +1,12 @@
 //
 //  LoadVaccinationCentersFromRemoteUseCasesTests.swift
-//  AutoCript-AssignmentTests
+//  AutoCrypt_AssignmentTests
 //
 //  Created by klioop on 2022/10/16.
 //
 
 import XCTest
-import AutoCript_Assignment
+import AutoCrypt_Assignment
 
 class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
     

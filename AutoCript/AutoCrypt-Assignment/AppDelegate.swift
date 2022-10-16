@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  AutoCript-Assignment
+//  AutoCrypt-Assignment
 //
 //  Created by klioop on 2022/10/16.
 //

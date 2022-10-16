@@ -1,6 +1,6 @@
 //
 //  XCTestCase+trackMemoryLeak.swift
-//  AutoCript-AssignmentTests
+//  AutoCrypt-AssignmentTests
 //
 //  Created by klioop on 2022/10/16.
 //
