@@ -24,6 +24,7 @@
 		3150818C28FC2B5800DA9EB7 /* TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150818B28FC2B5800DA9EB7 /* TestHelpers.swift */; };
 		3150819128FC46B900DA9EB7 /* VaccinationCenterListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819028FC46B900DA9EB7 /* VaccinationCenterListViewController.swift */; };
 		3150819328FC472800DA9EB7 /* VaccinationCenterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819228FC472800DA9EB7 /* VaccinationCenterCell.swift */; };
+		3150819628FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819528FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +65,7 @@
 		3150818B28FC2B5800DA9EB7 /* TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelpers.swift; sourceTree = "<group>"; };
 		3150819028FC46B900DA9EB7 /* VaccinationCenterListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterListViewController.swift; sourceTree = "<group>"; };
 		3150819228FC472800DA9EB7 /* VaccinationCenterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterCell.swift; sourceTree = "<group>"; };
+		3150819528FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersRefreshController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -114,6 +116,7 @@
 		3145BFC728FBA92200798FC0 /* AutoCrypt-Assignment */ = {
 			isa = PBXGroup;
 			children = (
+				3150819428FC478900DA9EB7 /* Vaccination Presentation */,
 				3150818D28FC42C900DA9EB7 /* Vaccination Views */,
 				3150816B28FBD40B00DA9EB7 /* Vaccination API */,
 				3150816A28FBD3F000DA9EB7 /* Vaccination Feature */,
@@ -185,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				3150819028FC46B900DA9EB7 /* VaccinationCenterListViewController.swift */,
+				3150819528FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -195,6 +199,13 @@
 				3150819228FC472800DA9EB7 /* VaccinationCenterCell.swift */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		3150819428FC478900DA9EB7 /* Vaccination Presentation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = "Vaccination Presentation";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -333,6 +344,7 @@
 				3150816D28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift in Sources */,
 				3150816F28FBD4C900DA9EB7 /* HTTPClient.swift in Sources */,
 				3145BFCB28FBA92200798FC0 /* SceneDelegate.swift in Sources */,
+				3150819628FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift in Sources */,
 				3150817128FBD4F100DA9EB7 /* VaccinationCenter.swift in Sources */,
 				3150817328FBD52800DA9EB7 /* VaccinationCenterMapper.swift in Sources */,
 				3150819128FC46B900DA9EB7 /* VaccinationCenterListViewController.swift in Sources */,
