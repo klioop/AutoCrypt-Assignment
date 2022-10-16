@@ -97,20 +97,11 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
     
     func test_load_deliversErrorOnFails() {
         let (sut, client) = makeSUT()
-        let exp = expectation(description: "wait for load completion")
+        let connectivityError = RemoteVaccinationCentersLoader.Error.connectivity
         
-        var receivedError: Error?
-        sut.load { result in
-            if case let .failure(error) = result {
-                receivedError = error
-            }
-            exp.fulfill()
-        }
-        
-        client.loadCompletion(with: NSError(domain: "a error", code: 0))
-        wait(for: [exp], timeout: 1.0)
-        
-        XCTAssertNotNil(receivedError)
+        expect(sut, toCompletedWith: .failure(connectivityError), when: {
+            client.loadCompletion(with: connectivityError)
+        })
     }
     
     func test_load_deliversErrorOnNon200HTTPResponseStatusCode() {
@@ -118,42 +109,22 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         let samples = [201, 250, 299, 300, 401, 500]
         
         samples.enumerated().forEach { index, code in
-            let exp = expectation(description: "wait for load completion")
-            var receivedError: Error?
-            sut.load { result in
-                if case let .failure(error) = result {
-                    receivedError = error
-                }
-                exp.fulfill()
-            }
-            
-            client.loadCompletion(with: anyData(), from: anyHTTURLResponse(with: code), at: index)
-            wait(for: [exp], timeout: 1.0)
-            
-            XCTAssertNotNil(receivedError)
+            expect(sut, toCompletedWith: .failure(.invalidData), when: {
+                client.loadCompletion(with: anyData(), from: anyHTTURLResponse(with: code), at: index)
+            })
         }
     }
     
     func test_load_deliversVaccinationCentersFrom200HTTPResponse() {
         let (sut, client) = makeSUT()
-        let exp = expectation(description: "wait for load completion")
         let center0 = makeItem(id: 0, name: "center0", lat: "10.0", lng: "11.0", updatedAt: "2022-10-16 14:04:08")
         let center1 = makeItem(id: 1, name: "center1", lat: "2.5", lng: "32.7", updatedAt: "2022-10-10 11:04:08")
         let data = makeJSON([center0.item, center1.item])
         let response = anyHTTURLResponse(with: 200)
         
-        var centers: [VaccinationCenter]?
-        sut.load { result in
-            if let receivedCenters = try? result.get() {
-                centers = receivedCenters
-            }
-            exp.fulfill()
-        }
-        
-        client.loadCompletion(with: data, from: response)
-        wait(for: [exp], timeout: 1.0)
-        
-        XCTAssertEqual(centers, [center0.model, center1.model])
+        expect(sut, toCompletedWith: .success([center0.model, center1.model]), when: {
+            client.loadCompletion(with: data, from: response)
+        })
     }
     
     // MARK: - Helpers
@@ -164,6 +135,32 @@ class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
         trackMemoryLeak(client, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
         return (sut, client)
+    }
+    
+    private func expect(_ sut: RemoteVaccinationCentersLoader, toCompletedWith expectedResult: RemoteVaccinationCentersLoader.LoadResult, when action: () -> Void, file: StaticString = #filePath, line: UInt = #line) {
+        let exp = expectation(description: "wait for load completion")
+        
+        sut.load { receivedResult in
+            switch (receivedResult, expectedResult) {
+            case let (.success(receivedData), .success(expectedData)):
+                XCTAssertEqual(receivedData, expectedData, file: file, line: line)
+                
+            case let (.failure(receivedError), .failure(expectedError)):
+                XCTAssertEqual(receivedError, expectedError, file: file, line: line)
+                
+            default:
+                XCTFail("\(expectedResult) 를 기대했지만 \(receivedResult) 가 나옴", file: file, line: line)
+            }
+            
+            exp.fulfill()
+        }
+        
+        action()
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    private func anyNSError() -> NSError {
+        NSError(domain: "a error", code: 0)
     }
     
     private func anyURL() -> URL {
