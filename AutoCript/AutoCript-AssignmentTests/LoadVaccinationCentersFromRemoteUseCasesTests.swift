@@ -37,19 +37,24 @@ class ClientSpy: HTTPClient {
 class LoadVaccinationCentersFromRemoteUseCasesTests: XCTestCase {
     
     func test_init_doesNotSendAnyMessage() {
-        let client = ClientSpy()
-        _ = RemoteVaccinationCentersLoader(url: URL(string: "http://any-url.com")!, client: client)
+        let (_, client) = makeSUT()
         
         XCTAssertEqual(client.requestsURLs, [])
     }
     
     func test_load_requestsLoadCentersFromAGivenURL() {
-        let client = ClientSpy()
-        let url = URL(string: "http://any-url.com")!
-        let sut = RemoteVaccinationCentersLoader(url: url, client: client)
+        let url = URL(string: "http://a-url.com")!
+        let (sut, client) = makeSUT(url: url)
 
         sut.load()
 
         XCTAssertEqual(client.requestsURLs, [url])
+    }
+    
+    private func makeSUT(url: URL = URL(string: "http://any-url.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteVaccinationCentersLoader, client: ClientSpy) {
+        let client = ClientSpy()
+        let sut = RemoteVaccinationCentersLoader(url: url, client: client)
+        
+        return (sut, client)
     }
 }
