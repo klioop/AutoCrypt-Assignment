@@ -16,6 +16,7 @@
 		3150816F28FBD4C900DA9EB7 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150816E28FBD4C900DA9EB7 /* HTTPClient.swift */; };
 		3150817128FBD4F100DA9EB7 /* VaccinationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150817028FBD4F100DA9EB7 /* VaccinationCenter.swift */; };
 		3150817328FBD52800DA9EB7 /* VaccinationCenterMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150817228FBD52800DA9EB7 /* VaccinationCenterMapper.swift */; };
+		3150817528FBDC7800DA9EB7 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150817428FBDC7800DA9EB7 /* URLSessionHTTPClient.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -41,6 +42,7 @@
 		3150816E28FBD4C900DA9EB7 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		3150817028FBD4F100DA9EB7 /* VaccinationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenter.swift; sourceTree = "<group>"; };
 		3150817228FBD52800DA9EB7 /* VaccinationCenterMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterMapper.swift; sourceTree = "<group>"; };
+		3150817428FBDC7800DA9EB7 /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				3150816C28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift */,
 				3150816E28FBD4C900DA9EB7 /* HTTPClient.swift */,
 				3150817228FBD52800DA9EB7 /* VaccinationCenterMapper.swift */,
+				3150817428FBDC7800DA9EB7 /* URLSessionHTTPClient.swift */,
 			);
 			path = "Vacination API";
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3150817528FBDC7800DA9EB7 /* URLSessionHTTPClient.swift in Sources */,
 				3145BFC928FBA92200798FC0 /* AppDelegate.swift in Sources */,
 				3150816D28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift in Sources */,
 				3150816F28FBD4C900DA9EB7 /* HTTPClient.swift in Sources */,
