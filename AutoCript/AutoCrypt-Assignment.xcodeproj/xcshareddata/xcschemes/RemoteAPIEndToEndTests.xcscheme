@@ -17,9 +17,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3145BFC428FBA92200798FC0"
-            BuildableName = "AutoCript-Assignment.app"
-            BlueprintName = "AutoCript-Assignment"
-            ReferencedContainer = "container:AutoCript-Assignment.xcodeproj">
+            BuildableName = "AutoCrypt-Assignment.app"
+            BlueprintName = "AutoCrypt-Assignment"
+            ReferencedContainer = "container:AutoCrypt-Assignment.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
@@ -31,7 +31,7 @@
                BlueprintIdentifier = "3150817B28FBDF4600DA9EB7"
                BuildableName = "RemoteAPIEndToEndTests.xctest"
                BlueprintName = "RemoteAPIEndToEndTests"
-               ReferencedContainer = "container:AutoCript-Assignment.xcodeproj">
+               ReferencedContainer = "container:AutoCrypt-Assignment.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>

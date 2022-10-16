@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3145BFC428FBA92200798FC0"
-               BuildableName = "AutoCript-Assignment.app"
-               BlueprintName = "AutoCript-Assignment"
-               ReferencedContainer = "container:AutoCript-Assignment.xcodeproj">
+               BuildableName = "AutoCrypt-Assignment.app"
+               BlueprintName = "AutoCrypt-Assignment"
+               ReferencedContainer = "container:AutoCrypt-Assignment.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3145BFC428FBA92200798FC0"
-            BuildableName = "AutoCript-Assignment.app"
-            BlueprintName = "AutoCript-Assignment"
-            ReferencedContainer = "container:AutoCript-Assignment.xcodeproj">
+            BuildableName = "AutoCrypt-Assignment.app"
+            BlueprintName = "AutoCrypt-Assignment"
+            ReferencedContainer = "container:AutoCrypt-Assignment.xcodeproj">
          </BuildableReference>
       </CodeCoverageTargets>
       <Testables>
@@ -45,9 +45,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "3145BFDA28FBA92500798FC0"
-               BuildableName = "AutoCript-AssignmentTests.xctest"
-               BlueprintName = "AutoCript-AssignmentTests"
-               ReferencedContainer = "container:AutoCript-Assignment.xcodeproj">
+               BuildableName = "AutoCrypt-AssignmentTests.xctest"
+               BlueprintName = "AutoCrypt-AssignmentTests"
+               ReferencedContainer = "container:AutoCrypt-Assignment.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -67,9 +67,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3145BFC428FBA92200798FC0"
-            BuildableName = "AutoCript-Assignment.app"
-            BlueprintName = "AutoCript-Assignment"
-            ReferencedContainer = "container:AutoCript-Assignment.xcodeproj">
+            BuildableName = "AutoCrypt-Assignment.app"
+            BlueprintName = "AutoCrypt-Assignment"
+            ReferencedContainer = "container:AutoCrypt-Assignment.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -84,9 +84,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "3145BFC428FBA92200798FC0"
-            BuildableName = "AutoCript-Assignment.app"
-            BlueprintName = "AutoCript-Assignment"
-            ReferencedContainer = "container:AutoCript-Assignment.xcodeproj">
+            BuildableName = "AutoCrypt-Assignment.app"
+            BlueprintName = "AutoCrypt-Assignment"
+            ReferencedContainer = "container:AutoCrypt-Assignment.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

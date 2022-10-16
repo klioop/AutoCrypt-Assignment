@@ -40,13 +40,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3145BFC528FBA92200798FC0 /* AutoCript-Assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AutoCript-Assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3145BFC528FBA92200798FC0 /* AutoCrypt-Assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AutoCrypt-Assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3145BFC828FBA92200798FC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3145BFCA28FBA92200798FC0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		3145BFD128FBA92500798FC0 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3145BFD428FBA92500798FC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3145BFD628FBA92500798FC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3145BFDB28FBA92500798FC0 /* AutoCript-AssignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AutoCript-AssignmentTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3145BFDB28FBA92500798FC0 /* AutoCrypt-AssignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AutoCrypt-AssignmentTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3145BFF828FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadVaccinationCentersFromRemoteUseCasesTests.swift; sourceTree = "<group>"; };
 		3150816C28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteVaccinationCentersLoader.swift; sourceTree = "<group>"; };
 		3150816E28FBD4C900DA9EB7 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -96,8 +96,8 @@
 		3145BFC628FBA92200798FC0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3145BFC528FBA92200798FC0 /* AutoCript-Assignment.app */,
-				3145BFDB28FBA92500798FC0 /* AutoCript-AssignmentTests.xctest */,
+				3145BFC528FBA92200798FC0 /* AutoCrypt-Assignment.app */,
+				3145BFDB28FBA92500798FC0 /* AutoCrypt-AssignmentTests.xctest */,
 				3150817C28FBDF4600DA9EB7 /* RemoteAPIEndToEndTests.xctest */,
 			);
 			name = Products;
@@ -164,9 +164,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3145BFC428FBA92200798FC0 /* AutoCript-Assignment */ = {
+		3145BFC428FBA92200798FC0 /* AutoCrypt-Assignment */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3145BFEF28FBA92600798FC0 /* Build configuration list for PBXNativeTarget "AutoCript-Assignment" */;
+			buildConfigurationList = 3145BFEF28FBA92600798FC0 /* Build configuration list for PBXNativeTarget "AutoCrypt-Assignment" */;
 			buildPhases = (
 				3145BFC128FBA92200798FC0 /* Sources */,
 				3145BFC228FBA92200798FC0 /* Frameworks */,
@@ -176,14 +176,14 @@
 			);
 			dependencies = (
 			);
-			name = "AutoCript-Assignment";
+			name = "AutoCrypt-Assignment";
 			productName = "AutoCript-Assignment";
-			productReference = 3145BFC528FBA92200798FC0 /* AutoCript-Assignment.app */;
+			productReference = 3145BFC528FBA92200798FC0 /* AutoCrypt-Assignment.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3145BFDA28FBA92500798FC0 /* AutoCript-AssignmentTests */ = {
+		3145BFDA28FBA92500798FC0 /* AutoCrypt-AssignmentTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3145BFF228FBA92600798FC0 /* Build configuration list for PBXNativeTarget "AutoCript-AssignmentTests" */;
+			buildConfigurationList = 3145BFF228FBA92600798FC0 /* Build configuration list for PBXNativeTarget "AutoCrypt-AssignmentTests" */;
 			buildPhases = (
 				3145BFD728FBA92500798FC0 /* Sources */,
 				3145BFD828FBA92500798FC0 /* Frameworks */,
@@ -194,9 +194,9 @@
 			dependencies = (
 				3145BFDD28FBA92500798FC0 /* PBXTargetDependency */,
 			);
-			name = "AutoCript-AssignmentTests";
+			name = "AutoCrypt-AssignmentTests";
 			productName = "AutoCript-AssignmentTests";
-			productReference = 3145BFDB28FBA92500798FC0 /* AutoCript-AssignmentTests.xctest */;
+			productReference = 3145BFDB28FBA92500798FC0 /* AutoCrypt-AssignmentTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 		3150817B28FBDF4600DA9EB7 /* RemoteAPIEndToEndTests */ = {
@@ -240,7 +240,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3145BFC028FBA92200798FC0 /* Build configuration list for PBXProject "AutoCript-Assignment" */;
+			buildConfigurationList = 3145BFC028FBA92200798FC0 /* Build configuration list for PBXProject "AutoCrypt-Assignment" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -253,8 +253,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3145BFC428FBA92200798FC0 /* AutoCript-Assignment */,
-				3145BFDA28FBA92500798FC0 /* AutoCript-AssignmentTests */,
+				3145BFC428FBA92200798FC0 /* AutoCrypt-Assignment */,
+				3145BFDA28FBA92500798FC0 /* AutoCrypt-AssignmentTests */,
 				3150817B28FBDF4600DA9EB7 /* RemoteAPIEndToEndTests */,
 			);
 		};
@@ -324,12 +324,12 @@
 /* Begin PBXTargetDependency section */
 		3145BFDD28FBA92500798FC0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3145BFC428FBA92200798FC0 /* AutoCript-Assignment */;
+			target = 3145BFC428FBA92200798FC0 /* AutoCrypt-Assignment */;
 			targetProxy = 3145BFDC28FBA92500798FC0 /* PBXContainerItemProxy */;
 		};
 		3150818128FBDF4600DA9EB7 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3145BFC428FBA92200798FC0 /* AutoCript-Assignment */;
+			target = 3145BFC428FBA92200798FC0 /* AutoCrypt-Assignment */;
 			targetProxy = 3150818028FBDF4600DA9EB7 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -530,7 +530,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoCript-Assignment.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AutoCript-Assignment";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoCrypt-Assignment.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AutoCrypt-Assignment";
 			};
 			name = Debug;
 		};
@@ -550,7 +550,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoCript-Assignment.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AutoCript-Assignment";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoCrypt-Assignment.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AutoCrypt-Assignment";
 			};
 			name = Release;
 		};
@@ -568,7 +568,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoCript-Assignment.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AutoCript-Assignment";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoCrypt-Assignment.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AutoCrypt-Assignment";
 			};
 			name = Debug;
 		};
@@ -586,14 +586,14 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoCript-Assignment.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AutoCript-Assignment";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/AutoCrypt-Assignment.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/AutoCrypt-Assignment";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3145BFC028FBA92200798FC0 /* Build configuration list for PBXProject "AutoCript-Assignment" */ = {
+		3145BFC028FBA92200798FC0 /* Build configuration list for PBXProject "AutoCrypt-Assignment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3145BFED28FBA92600798FC0 /* Debug */,
@@ -602,7 +602,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3145BFEF28FBA92600798FC0 /* Build configuration list for PBXNativeTarget "AutoCript-Assignment" */ = {
+		3145BFEF28FBA92600798FC0 /* Build configuration list for PBXNativeTarget "AutoCrypt-Assignment" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3145BFF028FBA92600798FC0 /* Debug */,
@@ -611,7 +611,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3145BFF228FBA92600798FC0 /* Build configuration list for PBXNativeTarget "AutoCript-AssignmentTests" */ = {
+		3145BFF228FBA92600798FC0 /* Build configuration list for PBXNativeTarget "AutoCrypt-AssignmentTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3145BFF328FBA92600798FC0 /* Debug */,
