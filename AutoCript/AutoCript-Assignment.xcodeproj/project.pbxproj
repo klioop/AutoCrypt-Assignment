@@ -11,7 +11,7 @@
 		3145BFCB28FBA92200798FC0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145BFCA28FBA92200798FC0 /* SceneDelegate.swift */; };
 		3145BFD228FBA92500798FC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3145BFD128FBA92500798FC0 /* Assets.xcassets */; };
 		3145BFD528FBA92500798FC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3145BFD328FBA92500798FC0 /* LaunchScreen.storyboard */; };
-		3145BFE028FBA92600798FC0 /* AutoCript_AssignmentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145BFDF28FBA92600798FC0 /* AutoCript_AssignmentTests.swift */; };
+		3145BFF928FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145BFF828FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -32,7 +32,7 @@
 		3145BFD428FBA92500798FC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3145BFD628FBA92500798FC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3145BFDB28FBA92500798FC0 /* AutoCript-AssignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AutoCript-AssignmentTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3145BFDF28FBA92600798FC0 /* AutoCript_AssignmentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AutoCript_AssignmentTests.swift; sourceTree = "<group>"; };
+		3145BFF828FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadVaccinationCentersFromRemoteUseCasesTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +86,7 @@
 		3145BFDE28FBA92600798FC0 /* AutoCript-AssignmentTests */ = {
 			isa = PBXGroup;
 			children = (
-				3145BFDF28FBA92600798FC0 /* AutoCript_AssignmentTests.swift */,
+				3145BFF828FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift */,
 			);
 			path = "AutoCript-AssignmentTests";
 			sourceTree = "<group>";
@@ -200,7 +200,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3145BFE028FBA92600798FC0 /* AutoCript_AssignmentTests.swift in Sources */,
+				3145BFF928FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
