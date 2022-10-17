@@ -106,6 +106,18 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         loader.completeLoadMoreWithError()
         assertThat(sut, isRendering: [center])
     }
+    
+    func test_loadCentersCompletion_dispatchesFromBackgroundToMainThread() {
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+        
+        let exp = expectation(description: "wait for background queue")
+        DispatchQueue.global().async {
+            loader.completeLoading(with: [])
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
 
     // MARK: - Helpers
     
@@ -163,11 +175,15 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         
         func completeLoading(with centers: [VaccinationCenter], at index: Int = 0) {
             requestCompletions[index].onNext(Paginated(items: centers, loadMoreSingle: { [weak self] in
-                let subject = PublishSubject<Paginated<VaccinationCenter>>()
-                self?.loadMoreRequests.append(subject)
-                return subject.asSingle()
+                self?.loadMoreSingle() ?? Observable.empty().asSingle()
             }))
             requestCompletions[index].onCompleted()
+        }
+        
+        func loadMoreSingle() -> Single<Paginated<VaccinationCenter>> {
+            let subject = PublishSubject<Paginated<VaccinationCenter>>()
+            loadMoreRequests.append(subject)
+            return subject.asSingle()
         }
         
         func completeLoadMore(with centers: [VaccinationCenter] = [], lastPage: Bool = false, at index: Int = 0) {
