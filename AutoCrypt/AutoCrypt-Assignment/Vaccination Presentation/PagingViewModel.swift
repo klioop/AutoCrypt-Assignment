@@ -13,11 +13,11 @@ final class PagingViewModel {
     private let bag = DisposeBag()
     private let paginatedRelay = PublishRelay<Paginated<VaccinationCenter>>()
     
-    let loadMoreLoader: () -> Single<Paginated<VaccinationCenter>>
+    var loadMoreLoader: (() -> Single<Paginated<VaccinationCenter>>)?
     
     var isLoading = false
     
-    init(loadMoreLoader: @escaping () -> Single<Paginated<VaccinationCenter>>) {
+    init(loadMoreLoader: (() -> Single<Paginated<VaccinationCenter>>)?) {
         self.loadMoreLoader = loadMoreLoader
     }
     
@@ -28,7 +28,7 @@ final class PagingViewModel {
     func loadMore() {
         guard !isLoading else { return }
         
-        loadMoreLoader()
+        loadMoreLoader?()
             .do(onSubscribe: { [weak self] in
                 self?.isLoading = true
             }, onDispose:{ [weak self] in

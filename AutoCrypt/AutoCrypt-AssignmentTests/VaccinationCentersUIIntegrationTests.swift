@@ -38,6 +38,18 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         
         sut.simulateLoadMoreAction()
         XCTAssertEqual(loader.loadMoreCallCount, 1, "요청된 로드가 끝나지 않는 도중에 한 번 더 리스트가 요청되면 리스트를 요청하지 않는다")
+        
+        loader.completeLoadMore(lastPage: false, at: 0)
+        sut.simulateLoadMoreAction()
+        XCTAssertEqual(loader.loadMoreCallCount, 2, "추가적으로 요청된 로드가 성공적으로 끝나고, 리스트가 추가적으로 요청되면 리스트를 더 요청한다")
+        
+        loader.completeLoadMoreWithError(at: 1)
+        sut.simulateLoadMoreAction()
+        XCTAssertEqual(loader.loadMoreCallCount, 3, "추가적으로 요청된 로드가 실패로 끝나고, 리스트가 추가적으로 요청되면 리스트를 요청한다")
+        
+        loader.completeLoadMore(lastPage: true, at: 2)
+        sut.simulateLoadMoreAction()
+        XCTAssertEqual(loader.loadMoreCallCount, 3, "추가적으로 요청된 로드가 성공적으로 끝나고, 마지막 페이지면 추가로 더 리스트를 요청해도 리스트는 요청되지 않는다")
     }
     
     func test_userInitiateRequestLoading_showsLoadingIndicator() {
@@ -100,12 +112,15 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     
     private class LoaderSpy {
         private(set) var requestCompletions = [PublishSubject<Paginated<VaccinationCenter>>]()
+        private(set) var loadMoreRequests = [PublishSubject<Paginated<VaccinationCenter>>]()
         
         var loadCallCount: Int {
             requestCompletions.count
         }
         
-        private(set) var loadMoreCallCount = 0
+        var loadMoreCallCount: Int {
+            loadMoreRequests.count
+        }
         
         func loadSingle() -> Single<Paginated<VaccinationCenter>> {
             let subject = PublishSubject<Paginated<VaccinationCenter>>()
@@ -119,10 +134,28 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         }
         
         func completeLoading(with centers: [VaccinationCenter], at index: Int = 0) {
-            requestCompletions[index].onNext(Paginated(items: centers, loadMore: { [weak self] _ in
-                self?.loadMoreCallCount += 1
+            requestCompletions[index].onNext(Paginated(items: centers, loadMoreSingle: { [weak self] in
+                let subject = PublishSubject<Paginated<VaccinationCenter>>()
+                self?.loadMoreRequests.append(subject)
+                return subject.asSingle()
             }))
             requestCompletions[index].onCompleted()
+        }
+        
+        func completeLoadMore(with centers: [VaccinationCenter] = [], lastPage: Bool = false, at index: Int = 0) {
+            loadMoreRequests[index].onNext(Paginated(
+                items: centers,
+                loadMoreSingle: lastPage ? nil : { [weak self] in
+                    let subject = PublishSubject<Paginated<VaccinationCenter>>()
+                    self?.loadMoreRequests.append(subject)
+                    return subject.asSingle()
+            }))
+            loadMoreRequests[index].onCompleted()
+        }
+        
+        func completeLoadMoreWithError(at index: Int = 0) {
+            loadMoreRequests[index].onError(anyNSError())
+            loadMoreRequests[index].onCompleted()
         }
     }
 }

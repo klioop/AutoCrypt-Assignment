@@ -18,12 +18,14 @@ public final class VaccinationCentersUIComposer {
         refreshController.onLoad = { [weak centerListController] paginated in
             centerListController?.set(paginated.items.map { VaccinationCenterCellController(model: $0) })
             
-            guard let loadMoreSingle = paginated.loadMoreSingle else {
-                return
+            let pagingViewModel = PagingViewModel(loadMoreLoader: paginated.loadMoreSingle)
+            let pagingController = PagingController(viewModel: pagingViewModel)
+            
+            pagingController.onLoadMore = { [weak centerListController] in
+                centerListController?.add($0.items.map { VaccinationCenterCellController(model: $0) })
+                pagingViewModel.loadMoreLoader = $0.loadMoreSingle
             }
             
-            let pagingViewModel = PagingViewModel(loadMoreLoader: loadMoreSingle)
-            let pagingController = PagingController(viewModel: pagingViewModel)
             centerListController?.pagingController = pagingController
         }
         
