@@ -11,10 +11,11 @@ public typealias LoadCompletion = (RemoteVaccinationCentersLoader.LoadResult) ->
 
 public final class VaccinationCentersUIComposer {
     static public func vaccinationCenterListComposedWith(load: @escaping (@escaping LoadCompletion) -> Void) -> VaccinationCenterListViewController {
-        let refreshController = VaccinationCentersRefreshController(load: load)
+        let viewModel = VaccinationCentersViewModel(load: load)
+        let refreshController = VaccinationCentersRefreshController(viewModel: viewModel)
         let centerListController = VaccinationCenterListViewController(refreshController: refreshController)
         
-        refreshController.onRefresh = { [weak centerListController] centers in
+        refreshController.onLoad = { [weak centerListController] centers in
             centerListController?.set(centers.map { VaccinationCenterCellController(model: $0) })
         }
         return centerListController
