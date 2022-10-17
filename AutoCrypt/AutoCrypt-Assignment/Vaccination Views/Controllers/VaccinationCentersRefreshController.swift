@@ -20,7 +20,7 @@ final class VaccinationCentersRefreshController: NSObject {
         self.viewModel = viewModel
     }
     
-    var onLoad: (([VaccinationCenter]) -> Void)?
+    var onLoad: ((Paginated<VaccinationCenter>) -> Void)?
     
     private func binded(_ view: UIRefreshControl) -> UIRefreshControl {
         view.rx
@@ -36,8 +36,8 @@ final class VaccinationCentersRefreshController: NSObject {
                 case let .loading(isLoading):
                     isLoading ? view.beginRefreshing() : view.endRefreshing()
                     
-                case let .loaded(centers):
-                    self?.onLoad?(centers)
+                case let .loaded(paginated):
+                    self?.onLoad?(paginated)
                 }
             })
             .disposed(by: bag)

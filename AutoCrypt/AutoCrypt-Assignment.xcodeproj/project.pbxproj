@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		31158F4728FD411E004C8283 /* RxSwift+loadSingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31158F4628FD411E004C8283 /* RxSwift+loadSingle.swift */; };
-		31158F4928FD416B004C8283 /* PaginatedCenters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31158F4828FD416B004C8283 /* PaginatedCenters.swift */; };
+		31158F4928FD416B004C8283 /* Paginated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31158F4828FD416B004C8283 /* Paginated.swift */; };
 		3145BFC928FBA92200798FC0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145BFC828FBA92200798FC0 /* AppDelegate.swift */; };
 		3145BFCB28FBA92200798FC0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145BFCA28FBA92200798FC0 /* SceneDelegate.swift */; };
 		3145BFD228FBA92500798FC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3145BFD128FBA92500798FC0 /* Assets.xcassets */; };
@@ -54,7 +54,7 @@
 
 /* Begin PBXFileReference section */
 		31158F4628FD411E004C8283 /* RxSwift+loadSingle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxSwift+loadSingle.swift"; sourceTree = "<group>"; };
-		31158F4828FD416B004C8283 /* PaginatedCenters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaginatedCenters.swift; sourceTree = "<group>"; };
+		31158F4828FD416B004C8283 /* Paginated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paginated.swift; sourceTree = "<group>"; };
 		3145BFC528FBA92200798FC0 /* AutoCrypt-Assignment.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "AutoCrypt-Assignment.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3145BFC828FBA92200798FC0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3145BFCA28FBA92200798FC0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -171,7 +171,7 @@
 				3150816E28FBD4C900DA9EB7 /* HTTPClient.swift */,
 				3150817228FBD52800DA9EB7 /* VaccinationCenterMapper.swift */,
 				3150817428FBDC7800DA9EB7 /* URLSessionHTTPClient.swift */,
-				31158F4828FD416B004C8283 /* PaginatedCenters.swift */,
+				31158F4828FD416B004C8283 /* Paginated.swift */,
 			);
 			path = "Vaccination API";
 			sourceTree = "<group>";
@@ -379,7 +379,7 @@
 				31158F4728FD411E004C8283 /* RxSwift+loadSingle.swift in Sources */,
 				3150819D28FD060300DA9EB7 /* VaccinationCentersViewModel.swift in Sources */,
 				3150819328FC472800DA9EB7 /* VaccinationCenterCell.swift in Sources */,
-				31158F4928FD416B004C8283 /* PaginatedCenters.swift in Sources */,
+				31158F4928FD416B004C8283 /* Paginated.swift in Sources */,
 				3150819B28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift in Sources */,
 				3145BFC928FBA92200798FC0 /* AppDelegate.swift in Sources */,
 				3150819828FC4BD600DA9EB7 /* VaccinationCenterCellController.swift in Sources */,
