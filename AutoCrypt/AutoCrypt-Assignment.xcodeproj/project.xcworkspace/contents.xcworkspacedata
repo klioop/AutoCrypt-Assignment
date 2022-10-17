@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/iseong-yong/Dev/swift/Career-assignment/AutoCript/AutoCript-Assignment/AutoCript/AutoCrypt-Assignment.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

@@ -27,6 +27,10 @@
 		3150819628FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819528FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift */; };
 		3150819828FC4BD600DA9EB7 /* VaccinationCenterCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819728FC4BD600DA9EB7 /* VaccinationCenterCellController.swift */; };
 		3150819B28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */; };
+		3150819D28FD060300DA9EB7 /* VaccinationCentersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819C28FD060300DA9EB7 /* VaccinationCentersViewModel.swift */; };
+		315081A028FD062800DA9EB7 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3150819F28FD062800DA9EB7 /* RxCocoa */; };
+		315081A228FD062800DA9EB7 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 315081A128FD062800DA9EB7 /* RxRelay */; };
+		315081A428FD062800DA9EB7 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 315081A328FD062800DA9EB7 /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,6 +74,7 @@
 		3150819528FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersRefreshController.swift; sourceTree = "<group>"; };
 		3150819728FC4BD600DA9EB7 /* VaccinationCenterCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterCellController.swift; sourceTree = "<group>"; };
 		3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersUIComposer.swift; sourceTree = "<group>"; };
+		3150819C28FD060300DA9EB7 /* VaccinationCentersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +82,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				315081A428FD062800DA9EB7 /* RxSwift in Frameworks */,
+				315081A228FD062800DA9EB7 /* RxRelay in Frameworks */,
+				315081A028FD062800DA9EB7 /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -210,6 +218,7 @@
 		3150819428FC478900DA9EB7 /* Vaccination Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				3150819C28FD060300DA9EB7 /* VaccinationCentersViewModel.swift */,
 			);
 			path = "Vaccination Presentation";
 			sourceTree = "<group>";
@@ -238,6 +247,11 @@
 			dependencies = (
 			);
 			name = "AutoCrypt-Assignment";
+			packageProductDependencies = (
+				3150819F28FD062800DA9EB7 /* RxCocoa */,
+				315081A128FD062800DA9EB7 /* RxRelay */,
+				315081A328FD062800DA9EB7 /* RxSwift */,
+			);
 			productName = "AutoCript-Assignment";
 			productReference = 3145BFC528FBA92200798FC0 /* AutoCrypt-Assignment.app */;
 			productType = "com.apple.product-type.application";
@@ -310,6 +324,9 @@
 				Base,
 			);
 			mainGroup = 3145BFBC28FBA92200798FC0;
+			packageReferences = (
+				3150819E28FD062800DA9EB7 /* XCRemoteSwiftPackageReference "RxSwift" */,
+			);
 			productRefGroup = 3145BFC628FBA92200798FC0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -353,6 +370,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3150817528FBDC7800DA9EB7 /* URLSessionHTTPClient.swift in Sources */,
+				3150819D28FD060300DA9EB7 /* VaccinationCentersViewModel.swift in Sources */,
 				3150819328FC472800DA9EB7 /* VaccinationCenterCell.swift in Sources */,
 				3150819B28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift in Sources */,
 				3145BFC928FBA92200798FC0 /* AppDelegate.swift in Sources */,
@@ -702,6 +720,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3150819E28FD062800DA9EB7 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3150819F28FD062800DA9EB7 /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3150819E28FD062800DA9EB7 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
+		};
+		315081A128FD062800DA9EB7 /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3150819E28FD062800DA9EB7 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		315081A328FD062800DA9EB7 /* RxSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3150819E28FD062800DA9EB7 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3145BFBD28FBA92200798FC0 /* Project object */;
 }
