@@ -10,13 +10,15 @@ import RxSwift
 import RxRelay
 
 final class VaccinationCentersViewModel {
+    private let bag = DisposeBag()
+    
     private let loadingRelay = PublishRelay<Bool>()
     private let loadedRelay = PublishRelay<[VaccinationCenter]>()
     
-    private let load: (@escaping LoadCompletion) -> Void
+    private let loadSingle: () -> Single<[VaccinationCenter]>
     
-    init(load: @escaping (@escaping LoadCompletion) -> Void) {
-        self.load = load
+    init(loadSingle: @escaping () -> Single<[VaccinationCenter]>) {
+        self.loadSingle = loadSingle
     }
     
     enum State {
@@ -31,17 +33,17 @@ final class VaccinationCentersViewModel {
         ])
     }
     
-    func loadCenters() {
-        loadingRelay.accept(true)
-        
-        load { [weak self] result in
-            switch result {
-            case let .success(centers):
-                self?.loadedRelay.accept(centers)
-                
-            case .failure: break
-            }
-            self?.loadingRelay.accept(false)
-        }
+    func load() {
+        loadSingle()
+            .observe(on: MainScheduler.instance)
+            .do(onSubscribe: { [loadingRelay] in
+                loadingRelay.accept(true)
+            }, onDispose: { [loadingRelay] in
+                loadingRelay.accept(false)
+            })
+                .subscribe(onSuccess: { [loadedRelay] centers in
+                    loadedRelay.accept(centers)
+                })
+                .disposed(by: bag)
     }
 }

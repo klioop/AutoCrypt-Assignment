@@ -26,15 +26,15 @@ final class VaccinationCentersRefreshController: NSObject {
         view.rx
             .controlEvent(.valueChanged)
             .bind(onNext: { [weak self] in
-                self?.viewModel.loadCenters()
+                self?.viewModel.load()
             })
             .disposed(by: bag)
                     
         viewModel.state
-            .subscribe(onNext: { [weak self, weak view] state in
+            .subscribe(onNext: { [weak self] state in
                 switch state {
                 case let .loading(isLoading):
-                    isLoading ? view?.beginRefreshing() : view?.endRefreshing()
+                    isLoading ? view.beginRefreshing() : view.endRefreshing()
                     
                 case let .loaded(centers):
                     self?.onLoad?(centers)
@@ -46,6 +46,6 @@ final class VaccinationCentersRefreshController: NSObject {
     }
     
     func refresh() {
-        viewModel.loadCenters()
+        viewModel.load()
     }
 }

@@ -6,12 +6,11 @@
 //
 
 import Foundation
-
-public typealias LoadCompletion = (RemoteVaccinationCentersLoader.LoadResult) -> Void
+import RxSwift
 
 public final class VaccinationCentersUIComposer {
-    static public func vaccinationCenterListComposedWith(load: @escaping (@escaping LoadCompletion) -> Void) -> VaccinationCenterListViewController {
-        let viewModel = VaccinationCentersViewModel(load: load)
+    static public func vaccinationCenterListComposedWith(loadSingle: @escaping () -> Single<[VaccinationCenter]>) -> VaccinationCenterListViewController {
+        let viewModel = VaccinationCentersViewModel(loadSingle: loadSingle)
         let refreshController = VaccinationCentersRefreshController(viewModel: viewModel)
         let centerListController = VaccinationCenterListViewController(refreshController: refreshController)
         
@@ -19,5 +18,16 @@ public final class VaccinationCentersUIComposer {
             centerListController?.set(centers.map { VaccinationCenterCellController(model: $0) })
         }
         return centerListController
+    }
+}
+
+extension RemoteVaccinationCentersLoader {
+    func loadSingle() -> Single<[VaccinationCenter]> {
+        Single.create { [weak self] observer in
+            self?.load { result in
+                observer(result)
+            }
+            return Disposables.create()
+        }
     }
 }
