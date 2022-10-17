@@ -20,14 +20,3 @@ public final class VaccinationCentersUIComposer {
         return centerListController
     }
 }
-
-extension RemoteVaccinationCentersLoader {
-    func loadSingle() -> Single<[VaccinationCenter]> {
-        Single.create { [weak self] observer in
-            self?.load { result in
-                observer(result)
-            }
-            return Disposables.create()
-        }
-    }
-}
