@@ -7,6 +7,7 @@
 
 import XCTest
 import AutoCrypt_Assignment
+import RxSwift
 
 class VaccinationCentersUIIntegrationTests: XCTestCase {
     
@@ -31,13 +32,13 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         sut.loadViewIfNeeded()
         XCTAssertEqual(sut.isShowingLoadingIndicator, true, "뷰가 로드 되면 로딩 인디케이터를 보여준다")
         
-        loader.completeLoading(with: anyNSError())
+        loader.completeLoading(with: anyNSError(), at: 0)
         XCTAssertEqual(sut.isShowingLoadingIndicator, false, "센터 리스트 로드가 실패로 끝나면 로딩 인디케이터를 보여주지 않는다")
         
         sut.simulateUserInitiateReload()
         XCTAssertEqual(sut.isShowingLoadingIndicator, true, "유저가 리로드 하면 로딩 인디케이터를 보여준다")
         
-        loader.completeLoading(with: [uniqueCenter()])
+        loader.completeLoading(with: [uniqueCenter()], at: 1)
         XCTAssertEqual(sut.isShowingLoadingIndicator, false, "센터 리스트 리로드가 성공적으로 끝나면 로딩 인디케이터를 보여주지 않는다")
     }
     
@@ -56,7 +57,7 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: VaccinationCenterListViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = VaccinationCentersUIComposer.vaccinationCenterListComposedWith(load: loader.load)
+        let sut = VaccinationCentersUIComposer.vaccinationCenterListComposedWith(loadSingle: loader.loadSingle)
         trackMemoryLeak(loader, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
         return (sut, loader)
@@ -84,22 +85,26 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     }
     
     private class LoaderSpy {
-        private(set) var requestCompletions = [(RemoteVaccinationCentersLoader.LoadResult)-> Void]()
+        private(set) var requestCompletions = [PublishSubject<[VaccinationCenter]>]()
         
         var loadCallCount: Int {
             requestCompletions.count
         }
         
-        func load(completion: @escaping (RemoteVaccinationCentersLoader.LoadResult) -> Void) {
-            requestCompletions.append(completion)
+        func loadSingle() -> Single<[VaccinationCenter]> {
+            let subject = PublishSubject<[VaccinationCenter]>()
+            requestCompletions.append(subject)
+            return subject.asSingle()
         }
         
         func completeLoading(with error: Error, at index: Int = 0) {
-            requestCompletions[index](.failure(error))
+            requestCompletions[index].onError(error)
+            requestCompletions[index].onCompleted()
         }
         
         func completeLoading(with centers: [VaccinationCenter], at index: Int = 0) {
-            requestCompletions[index](.success(centers))
+            requestCompletions[index].onNext(centers)
+            requestCompletions[index].onCompleted()
         }
     }
 

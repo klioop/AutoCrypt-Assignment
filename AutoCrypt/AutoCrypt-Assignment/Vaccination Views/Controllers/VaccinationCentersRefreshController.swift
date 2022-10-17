@@ -6,32 +6,46 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
-final class VaccinationCentersRefreshController: NSObject {    
-    private(set) lazy var view: UIRefreshControl = {
-        let view = UIRefreshControl()
-        view.addTarget(self, action: #selector(refresh), for: .valueChanged)
-        return view
-    }()
+final class VaccinationCentersRefreshController: NSObject {
+    private let bag = DisposeBag()
     
-    private let load: (@escaping LoadCompletion) -> Void
+    private(set) lazy var view = binded(UIRefreshControl())
     
-    init(load: @escaping (@escaping LoadCompletion) -> Void) {
-        self.load = load
+    private let viewModel: VaccinationCentersViewModel
+    
+    init(viewModel: VaccinationCentersViewModel) {
+        self.viewModel = viewModel
     }
     
-    var onRefresh: (([VaccinationCenter]) -> Void)?
+    var onLoad: (([VaccinationCenter]) -> Void)?
     
-    @objc func refresh() {
-        view.beginRefreshing()
-        load { [weak self] result in
-            switch result {
-            case let .success(centers):
-                self?.onRefresh?(centers)
-                
-            case .failure: break
-            }
-            self?.view.endRefreshing()
-        }
+    private func binded(_ view: UIRefreshControl) -> UIRefreshControl {
+        view.rx
+            .controlEvent(.valueChanged)
+            .bind(onNext: { [weak self] in
+                self?.viewModel.load()
+            })
+            .disposed(by: bag)
+                    
+        viewModel.state
+            .subscribe(onNext: { [weak self] state in
+                switch state {
+                case let .loading(isLoading):
+                    isLoading ? view.beginRefreshing() : view.endRefreshing()
+                    
+                case let .loaded(centers):
+                    self?.onLoad?(centers)
+                }
+            })
+            .disposed(by: bag)
+        
+        return view
+    }
+    
+    func refresh() {
+        viewModel.load()
     }
 }
