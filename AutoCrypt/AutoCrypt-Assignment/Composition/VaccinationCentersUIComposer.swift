@@ -16,13 +16,13 @@ public final class VaccinationCentersUIComposer {
         let centerListController = VaccinationCenterListViewController(refreshController: refreshController)
         
         refreshController.onLoad = { [weak centerListController] paginated in
-            centerListController?.set(paginated.items.toCellController())
+            centerListController?.set(paginated.cellController)
             
             let pagingViewModel = PagingViewModel(loadMoreLoader: paginated.loadMoreSingle)
             let pagingController = PagingController(viewModel: pagingViewModel)
             
             pagingController.onLoadMore = { [weak centerListController] paginated in
-                centerListController?.add(paginated.items.toCellController())
+                centerListController?.add(paginated.cellController)
                 pagingViewModel.loadMoreLoader = paginated.loadMoreSingle
             }
             
@@ -33,8 +33,8 @@ public final class VaccinationCentersUIComposer {
     }
 }
 
-private extension Array where Element == VaccinationCenter {
-    func toCellController() -> [VaccinationCenterCellController] {
-        map { VaccinationCenterCellController(model: $0) }
+private extension Paginated where Item == VaccinationCenter {
+    var cellController: [VaccinationCenterCellController] {
+        items.map { VaccinationCenterCellController(model: $0) }
     }
 }
