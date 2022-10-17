@@ -29,6 +29,7 @@ final class PagingViewModel {
         guard !isLoading else { return }
         
         loadMoreLoader?()
+            .observe(on: MainScheduler.instance)
             .do(onSubscribe: { [weak self] in
                 self?.isLoading = true
             }, onDispose:{ [weak self] in

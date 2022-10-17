@@ -118,6 +118,20 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         }
         wait(for: [exp], timeout: 1.0)
     }
+    
+    func test_loadMoreCompletion_dispatchesFromBackgroundToMainThread() {
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+        loader.completeLoading(with: [])
+        sut.simulateLoadMoreAction()
+                
+        let exp = expectation(description: "wait for background queue")
+        DispatchQueue.global().async {
+            loader.completeLoadMore()
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
 
     // MARK: - Helpers
     
@@ -130,6 +144,8 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     }
     
     private func assertThat(_ sut: VaccinationCenterListViewController, isRendering models: [VaccinationCenter], file: StaticString = #filePath, line: UInt = #line) {
+        sut.tableView.layoutIfNeeded()
+        RunLoop.main.run(until: Date())
         guard sut.numberOfCentersRendered == models.count else {
             return XCTFail("\(sut.numberOfCentersRendered) 은 \(models.count) 와 같아야 한다", file: file, line: line)
         }
@@ -137,6 +153,7 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         models.enumerated().forEach { row, center in
             assertThat(sut, configuresFor: center, at: row, file: file, line: line)
         }
+        RunLoop.main.run(until: Date())
     }
     
     private func assertThat(_ sut: VaccinationCenterListViewController, configuresFor center: VaccinationCenter, at row: Int, file: StaticString = #filePath, line: UInt = #line) {
@@ -190,9 +207,7 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
             loadMoreRequests[index].onNext(Paginated(
                 items: centers,
                 loadMoreSingle: lastPage ? nil : { [weak self] in
-                    let subject = PublishSubject<Paginated<VaccinationCenter>>()
-                    self?.loadMoreRequests.append(subject)
-                    return subject.asSingle()
+                    self?.loadMoreSingle() ?? Observable.empty().asSingle()
             }))
             loadMoreRequests[index].onCompleted()
         }
