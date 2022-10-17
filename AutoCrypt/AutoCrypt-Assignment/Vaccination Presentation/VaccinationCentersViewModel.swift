@@ -15,9 +15,9 @@ final class VaccinationCentersViewModel {
     private let loadingRelay = PublishRelay<Bool>()
     private let loadedRelay = PublishRelay<[VaccinationCenter]>()
     
-    private let loadSingle: () -> Single<[VaccinationCenter]>
+    private let loadSingle: () -> Single<Paginated<VaccinationCenter>>
     
-    init(loadSingle: @escaping () -> Single<[VaccinationCenter]>) {
+    init(loadSingle: @escaping () -> Single<Paginated<VaccinationCenter>>) {
         self.loadSingle = loadSingle
     }
     
@@ -41,8 +41,8 @@ final class VaccinationCentersViewModel {
             }, onDispose: { [loadingRelay] in
                 loadingRelay.accept(false)
             })
-                .subscribe(onSuccess: { [loadedRelay] centers in
-                    loadedRelay.accept(centers)
+                .subscribe(onSuccess: { [loadedRelay] page in
+                    loadedRelay.accept(page.items)
                 })
                 .disposed(by: bag)
     }

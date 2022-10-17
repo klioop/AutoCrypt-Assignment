@@ -85,14 +85,14 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     }
     
     private class LoaderSpy {
-        private(set) var requestCompletions = [PublishSubject<[VaccinationCenter]>]()
+        private(set) var requestCompletions = [PublishSubject<Paginated<VaccinationCenter>>]()
         
         var loadCallCount: Int {
             requestCompletions.count
         }
         
-        func loadSingle() -> Single<[VaccinationCenter]> {
-            let subject = PublishSubject<[VaccinationCenter]>()
+        func loadSingle() -> Single<Paginated<VaccinationCenter>> {
+            let subject = PublishSubject<Paginated<VaccinationCenter>>()
             requestCompletions.append(subject)
             return subject.asSingle()
         }
@@ -103,7 +103,7 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         }
         
         func completeLoading(with centers: [VaccinationCenter], at index: Int = 0) {
-            requestCompletions[index].onNext(centers)
+            requestCompletions[index].onNext(Paginated(items: centers))
             requestCompletions[index].onCompleted()
         }
     }

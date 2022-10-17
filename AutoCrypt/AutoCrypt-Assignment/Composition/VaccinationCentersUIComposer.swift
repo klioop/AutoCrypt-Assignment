@@ -9,7 +9,7 @@ import Foundation
 import RxSwift
 
 public final class VaccinationCentersUIComposer {
-    static public func vaccinationCenterListComposedWith(loadSingle: @escaping () -> Single<[VaccinationCenter]>) -> VaccinationCenterListViewController {
+    static public func vaccinationCenterListComposedWith(loadSingle: @escaping () -> Single<Paginated<VaccinationCenter>>) -> VaccinationCenterListViewController {
         let viewModel = VaccinationCentersViewModel(loadSingle: loadSingle)
         let refreshController = VaccinationCentersRefreshController(viewModel: viewModel)
         let centerListController = VaccinationCenterListViewController(refreshController: refreshController)
