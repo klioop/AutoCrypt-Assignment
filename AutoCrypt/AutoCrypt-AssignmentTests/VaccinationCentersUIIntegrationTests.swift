@@ -72,11 +72,39 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         let (sut, loader) = makeSUT()
         let center0 = uniqueCenter(id: 1, name: "first center", facilityName: "first facility name", address: "first address", updatedAt: "2021-07-16 04:55:08")
         let center1 = uniqueCenter(id: 2, name: "second center", facilityName: "second facility name", address: "second address", updatedAt: "2021-07-17 04:55:08")
+        let center2 = uniqueCenter(id: 3, name: "third center", facilityName: "third facility name", address: "first address", updatedAt: "2021-07-16 04:55:08")
+        let center3 = uniqueCenter(id: 4, name: "fourth center", facilityName: "fourth facility name", address: "second address", updatedAt: "2021-07-17 04:55:08")
         
         sut.loadViewIfNeeded()
-        loader.completeLoading(with: [center0, center1])
+        assertThat(sut, isRendering: [])
         
+        loader.completeLoading(with: [center0, center1], at: 0)
         assertThat(sut, isRendering: [center0, center1])
+        
+        sut.simulateLoadMoreAction()
+        loader.completeLoadMore(with: [center2, center3], at: 0)
+        assertThat(sut, isRendering: [center0, center1, center2, center3])
+        
+        sut.simulateUserInitiateReload()
+        loader.completeLoading(with: [center0, center1], at: 1)
+        assertThat(sut, isRendering: [center0, center1])
+    }
+    
+    func test_loadCentersCompletion_doesNotAlterCurrentRenderingStateOnError() {
+        let center = uniqueCenter()
+        let (sut, loader) = makeSUT()
+        
+        sut.loadViewIfNeeded()
+        loader.completeLoading(with: [center], at: 0)
+        assertThat(sut, isRendering: [center])
+        
+        sut.simulateUserInitiateReload()
+        loader.completeLoading(with: anyNSError(), at: 1)
+        assertThat(sut, isRendering: [center])
+        
+        sut.simulateLoadMoreAction()
+        loader.completeLoadMoreWithError()
+        assertThat(sut, isRendering: [center])
     }
 
     // MARK: - Helpers
