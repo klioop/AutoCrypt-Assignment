@@ -128,7 +128,7 @@
 		3145BFC728FBA92200798FC0 /* AutoCrypt-Assignment */ = {
 			isa = PBXGroup;
 			children = (
-				3150819928FC4D0A00DA9EB7 /* Composers */,
+				3150819928FC4D0A00DA9EB7 /* Composition */,
 				3150819428FC478900DA9EB7 /* Vaccination Presentation */,
 				3150818D28FC42C900DA9EB7 /* Vaccination Views */,
 				3150816B28FBD40B00DA9EB7 /* Vaccination API */,
@@ -223,12 +223,12 @@
 			path = "Vaccination Presentation";
 			sourceTree = "<group>";
 		};
-		3150819928FC4D0A00DA9EB7 /* Composers */ = {
+		3150819928FC4D0A00DA9EB7 /* Composition */ = {
 			isa = PBXGroup;
 			children = (
 				3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */,
 			);
-			path = Composers;
+			path = Composition;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
