@@ -37,7 +37,7 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         XCTAssertEqual(loader.loadMoreCallCount, 1, "추가적인 로드가 요청되면 센터 리스트를 더 요청한다")
         
         sut.simulateLoadMoreAction()
-        XCTAssertEqual(loader.loadMoreCallCount, 2, "추가적인 로드가 한 번 더 요청되면 리스트를 다시 한번 더 요청한다")
+        XCTAssertEqual(loader.loadMoreCallCount, 1, "요청된 로드가 끝나지 않는 도중에 한 번 더 리스트가 요청되면 리스트를 요청하지 않는다")
     }
     
     func test_userInitiateRequestLoading_showsLoadingIndicator() {

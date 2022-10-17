@@ -16,7 +16,6 @@ final class VaccinationCentersViewModel {
     private let loadedRelay = PublishRelay<Paginated<VaccinationCenter>>()
     
     private let loadSingle: () -> Single<Paginated<VaccinationCenter>>
-    var loadMoreLoader: (((@escaping Paginated<VaccinationCenter>.LoadCompletion) -> Void))?
     
     init(loadSingle: @escaping () -> Single<Paginated<VaccinationCenter>>) {
         self.loadSingle = loadSingle
@@ -34,8 +33,6 @@ final class VaccinationCentersViewModel {
         ])
     }
     
-    var onLoadMore: ((Paginated<VaccinationCenter>) -> Void)?
-    
     func load() {
         loadSingle()
             .observe(on: MainScheduler.instance)
@@ -48,9 +45,5 @@ final class VaccinationCentersViewModel {
                     loadedRelay.accept(paginated)
                 })
                 .disposed(by: bag)
-    }
-    
-    func loadMore() {
-        loadMoreLoader? { _ in }
     }
 }

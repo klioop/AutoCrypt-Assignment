@@ -7,6 +7,7 @@
 
 import Foundation
 import RxSwift
+import RxRelay
 
 public final class VaccinationCentersUIComposer {
     static public func vaccinationCenterListComposedWith(loadSingle: @escaping () -> Single<Paginated<VaccinationCenter>>) -> VaccinationCenterListViewController {
@@ -16,15 +17,14 @@ public final class VaccinationCentersUIComposer {
         
         refreshController.onLoad = { [weak centerListController] paginated in
             centerListController?.set(paginated.items.map { VaccinationCenterCellController(model: $0) })
-            viewModel.loadMoreLoader = paginated.loadMore
-        }
-        
-        centerListController.callback = {
-            viewModel.loadMore()
-        }
-        
-        viewModel.onLoadMore = { [weak centerListController] in
-            centerListController?.add($0.items.map { VaccinationCenterCellController(model: $0) })
+            
+            guard let loadMoreSingle = paginated.loadMoreSingle else {
+                return
+            }
+            
+            let pagingViewModel = PagingViewModel(loadMoreLoader: loadMoreSingle)
+            let pagingController = PagingController(viewModel: pagingViewModel)
+            centerListController?.pagingController = pagingController
         }
         
         return centerListController

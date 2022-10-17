@@ -11,7 +11,7 @@ public final class VaccinationCenterListViewController: UITableViewController {
     private var tableModels = [VaccinationCenterCellController]()
     
     var refreshController: VaccinationCentersRefreshController?
-    var callback: (() -> Void)?
+    var pagingController: PagingController?
     
     convenience init(refreshController: VaccinationCentersRefreshController) {
         self.init()
@@ -48,7 +48,7 @@ public final class VaccinationCenterListViewController: UITableViewController {
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         if (offsetY > contentHeight - scrollView.frame.height) {
-            callback?()
+            pagingController?.loadMore()
         }
     }
 }
