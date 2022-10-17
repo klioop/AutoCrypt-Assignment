@@ -36,6 +36,7 @@
 		315081A028FD062800DA9EB7 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3150819F28FD062800DA9EB7 /* RxCocoa */; };
 		315081A228FD062800DA9EB7 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 315081A128FD062800DA9EB7 /* RxRelay */; };
 		315081A428FD062800DA9EB7 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 315081A328FD062800DA9EB7 /* RxSwift */; };
+		31DEF6CF28FDB83C0019F6E9 /* UIView+forceLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DEF6CE28FDB83C0019F6E9 /* UIView+forceLayout.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -85,6 +86,7 @@
 		3150819728FC4BD600DA9EB7 /* VaccinationCenterCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterCellController.swift; sourceTree = "<group>"; };
 		3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersUIComposer.swift; sourceTree = "<group>"; };
 		3150819C28FD060300DA9EB7 /* VaccinationCentersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersViewModel.swift; sourceTree = "<group>"; };
+		31DEF6CE28FDB83C0019F6E9 /* UIView+forceLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+forceLayout.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -195,6 +197,7 @@
 			children = (
 				3150818628FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift */,
 				3150818B28FC2B5800DA9EB7 /* TestHelpers.swift */,
+				31DEF6CE28FDB83C0019F6E9 /* UIView+forceLayout.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -411,6 +414,7 @@
 			files = (
 				3150818728FBE11A00DA9EB7 /* XCTestCase+trackMemoryLeak.swift in Sources */,
 				3150818A28FC0CC400DA9EB7 /* VaccinationCentersUIIntegrationTests.swift in Sources */,
+				31DEF6CF28FDB83C0019F6E9 /* UIView+forceLayout.swift in Sources */,
 				3145BFF928FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift in Sources */,
 				3150818C28FC2B5800DA9EB7 /* TestHelpers.swift in Sources */,
 			);
