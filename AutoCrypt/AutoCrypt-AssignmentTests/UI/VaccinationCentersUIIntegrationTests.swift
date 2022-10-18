@@ -121,7 +121,7 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         sut.view.forceLayout()
         
         guard sut.numberOfCentersRendered == models.count else {
-            return XCTFail("\(sut.numberOfCentersRendered) 은 \(models.count) 와 같아야 한다", file: file, line: line)
+            return XCTFail("렌더링 되는 뷰의 숫자 \(sut.numberOfCentersRendered) 은 모델의 갯수 \(models.count) 와 같아야 한다", file: file, line: line)
         }
         
         models.enumerated().forEach { row, center in
