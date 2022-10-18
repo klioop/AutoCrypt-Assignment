@@ -29,6 +29,7 @@ public final class VaccinationCentersUIComposer {
             centerListController?.callback = pagingController.loadMore
         }
         
+        centerListController.title = "예방접종센터 리스트"
         return centerListController
     }
 }
