@@ -9,7 +9,7 @@ import UIKit
 import RxSwift
 import RxCocoa
 
-final class VaccinationCentersRefreshController: NSObject {
+final class VaccinationCentersRefreshController {
     private let bag = DisposeBag()
     
     private(set) lazy var view = binded(UIRefreshControl())
