@@ -197,7 +197,19 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     }
 }
 
-private extension VaccinationCenterListViewController {
+private class NoAnimationTableView: UITableView {
+    override func insertRows(at indexPaths: [IndexPath], with animation: UITableView.RowAnimation) {
+        super.insertRows(at: indexPaths, with: .none)
+    }
+}
+
+extension VaccinationCenterListViewController {
+    public override func loadViewIfNeeded() {
+        super.loadViewIfNeeded()
+        
+        tableView = NoAnimationTableView()
+    }
+    
     var isShowingLoadingIndicator: Bool {
         refreshControl!.isRefreshing
     }
