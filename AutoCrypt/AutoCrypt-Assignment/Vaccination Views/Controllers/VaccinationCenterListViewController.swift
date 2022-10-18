@@ -45,6 +45,8 @@ public final class VaccinationCenterListViewController: UITableViewController {
     }
     
     public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.isDragging else { return }
+        
         let offsetY = scrollView.contentOffset.y
         let contentHeight = scrollView.contentSize.height
         if (offsetY > contentHeight - scrollView.frame.height) {
