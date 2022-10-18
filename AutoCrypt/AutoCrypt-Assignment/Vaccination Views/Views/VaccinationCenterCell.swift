@@ -12,6 +12,7 @@ public final class VaccinationCenterCell: UITableViewCell {
     private(set) lazy var indicatorLabelContainer: UIStackView = {
         let stack = UIStackView()
         stack.axis = .vertical
+        stack.spacing = 6
         let center = indicatorLabel(with: "센터명")
         let facility = indicatorLabel(with: "건물명")
         let address = indicatorLabel(with: "주소")
@@ -23,6 +24,7 @@ public final class VaccinationCenterCell: UITableViewCell {
     
     private(set) lazy var descriptionLabelContainer: UIStackView = {
         let stack = UIStackView()
+        stack.spacing = 6
         stack.axis = .vertical
         [nameLabel, facilityNameLabel, addressLabel, updatedAtLabel].forEach {
             stack.addArrangedSubview($0)
@@ -33,8 +35,11 @@ public final class VaccinationCenterCell: UITableViewCell {
     private(set) lazy var topContainerView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
+        stack.spacing = 15
+        stack.distribution = .fill
         stack.addArrangedSubview(indicatorLabelContainer)
         stack.addArrangedSubview(descriptionLabelContainer)
+        stack.addArrangedSubview(UIView())
         return stack
     }()
     
@@ -48,7 +53,7 @@ public final class VaccinationCenterCell: UITableViewCell {
         
         contentView.addSubview(topContainerView)
         topContainerView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalTo(contentView.layoutMarginsGuide)
         }
     }
     
@@ -60,7 +65,7 @@ public final class VaccinationCenterCell: UITableViewCell {
     
     private func indicatorLabel(with name: String) -> UILabel {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 11)
+        label.font = .systemFont(ofSize: 13)
         label.textColor = .systemGray
         label.text = name
         return label
@@ -68,7 +73,7 @@ public final class VaccinationCenterCell: UITableViewCell {
     
     private func descriptionLabel() -> UILabel {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 13)
+        label.font = .systemFont(ofSize: 15)
         return label
     }
 }
