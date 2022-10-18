@@ -25,10 +25,6 @@ public enum VaccinationCenterMapper {
         }
     }
     
-    public enum Error: Swift.Error {
-        case invalidData
-    }
-    
     private struct Item: Decodable {
         let id: Int
         let centerName, facilityName, address: String
@@ -38,6 +34,10 @@ public enum VaccinationCenterMapper {
     
     private static var is_OK: Int {
         200
+    }
+    
+    public enum Error: Swift.Error {
+        case invalidData
     }
     
     public static func map(_ data: Data, from response: HTTPURLResponse) throws -> [VaccinationCenter] {
