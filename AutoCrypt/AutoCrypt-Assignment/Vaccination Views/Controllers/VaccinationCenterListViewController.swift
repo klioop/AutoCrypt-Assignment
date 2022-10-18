@@ -23,7 +23,7 @@ public final class VaccinationCenterListViewController: UITableViewController {
         tableView.reloadData()
     }
     
-    func add(_ newControllers: [VaccinationCenterCellController]) {
+    func append(_ newControllers: [VaccinationCenterCellController]) {
         let startIndex = tableModels.count
         let endIndex = startIndex + newControllers.count
         tableModels += newControllers
