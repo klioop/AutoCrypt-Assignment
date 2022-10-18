@@ -22,7 +22,8 @@ class RemoteAPIEndToEndTests: XCTestCase {
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> RemoteVaccinationCentersLoader {
-        let url = URL(string: "https://api.odcloud.kr/api/15077586/v1/centers?serviceKey=G%2BNU43EDZdI5nseI67t2beD9Lgaecfc2DFnmHI6419KLzpekWjxDnzhvMajqKVv96rluIxoKv5KSjiZ5%2FICxaw%3D%3D")!
+        let baseURL = URL(string: "https://api.odcloud.kr/api")!
+        let url = VaccinationCenterListEndPoint.get.url(with: baseURL)
         let client = URLSessionHTTPClient()
         let sut = RemoteVaccinationCentersLoader(url: url, client: client)
         trackMemoryLeak(client, file: file, line: line)
