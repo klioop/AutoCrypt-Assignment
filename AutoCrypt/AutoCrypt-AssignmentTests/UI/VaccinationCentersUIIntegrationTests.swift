@@ -146,15 +146,13 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     }
     
     private class LoaderSpy {
+        
+        // MARK: - LoadSingle
+        
         private(set) var requestCompletions = [PublishSubject<Paginated<VaccinationCenter>>]()
-        private(set) var loadMoreRequests = [PublishSubject<Paginated<VaccinationCenter>>]()
         
         var loadCallCount: Int {
             requestCompletions.count
-        }
-        
-        var loadMoreCallCount: Int {
-            loadMoreRequests.count
         }
         
         func loadSingle() -> Single<Paginated<VaccinationCenter>> {
@@ -173,6 +171,14 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
                 self?.loadMoreSingle() ?? Observable.empty().asSingle()
             }))
             requestCompletions[index].onCompleted()
+        }
+        
+        // MARK: - LoadMoreSingle
+        
+        private(set) var loadMoreRequests = [PublishSubject<Paginated<VaccinationCenter>>]()
+        
+        var loadMoreCallCount: Int {
+            loadMoreRequests.count
         }
         
         func loadMoreSingle() -> Single<Paginated<VaccinationCenter>> {
