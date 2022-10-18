@@ -16,32 +16,32 @@ class RemoteAPIEndToEndTests: XCTestCase {
             XCTAssertEqual(centers.count, 10)
             
         default:
-            XCTFail("API 통신이 성공해야 하지만 실패함")
+            XCTFail("예방접종센터 리스트를 로드 하는 API 통신은 성공해야 한다")
         }
     }
     
     // MARK: - Helpers
     
-    private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> RemoteVaccinationCentersLoader {
+    private func getCenterResult() -> RemoteVaccinationCentersLoader.LoadResult {
         let baseURL = URL(string: "https://api.odcloud.kr/api")!
         let url = VaccinationCenterListEndPoint.get().url(with: baseURL)
         let client = URLSessionHTTPClient()
-        let sut = RemoteVaccinationCentersLoader(url: url, client: client)
-        trackMemoryLeak(client, file: file, line: line)
-        trackMemoryLeak(sut, file: file, line: line)
-        return sut
-    }
-    
-    private func getCenterResult() -> RemoteVaccinationCentersLoader.LoadResult {
-        let sut = makeSUT()
         let exp = expectation(description: "wait for load completion")
         
-        var result: RemoteVaccinationCentersLoader.LoadResult!
-        sut.load { receivedResult in
-            result = receivedResult
-            exp.fulfill()
-        }
+        var receivedResult: Result<[VaccinationCenter], Error>!
+        client
+            .get(from: url) { result in
+                receivedResult = result.flatMap { (data, response) in
+                    do {
+                        let centers = try VaccinationCenterMapper.map(data, from: response)
+                        return .success(centers)
+                    } catch {
+                        return .failure(error)
+                    }
+                }
+                exp.fulfill()
+            }
         wait(for: [exp], timeout: 10.0)
-        return result
+        return receivedResult
     }
 }
