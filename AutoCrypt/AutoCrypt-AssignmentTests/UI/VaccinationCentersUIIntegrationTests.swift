@@ -202,21 +202,3 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         }
     }
 }
-
-private extension VaccinationCenterCell {
-    var name: String? {
-        nameLabel.text
-    }
-    
-    var facilityName: String? {
-        facilityNameLabel.text
-    }
-    
-    var address: String? {
-        addressLabel.text
-    }
-    
-    var updatedAt: String? {
-        updatedAtLabel.text
-    }
-}
