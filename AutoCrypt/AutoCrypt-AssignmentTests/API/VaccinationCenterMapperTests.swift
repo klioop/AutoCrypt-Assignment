@@ -10,7 +10,7 @@ import AutoCrypt_Assignment
 
 class VaccinationCenterMapperTests: XCTestCase {
     
-    func test_map_deliversInvalidErrorOnNon200HTTPResponse() throws {
+    func test_map_throwsErrorOnNon200HTTPResponse() throws {
         let samples = [201, 250, 299, 300, 401, 500]
         
         try samples.enumerated().forEach { index, code in
@@ -18,5 +18,12 @@ class VaccinationCenterMapperTests: XCTestCase {
             let data = anyData()
             XCTAssertThrowsError(try VaccinationCenterMapper.map(data, from: response))
         }
+    }
+    
+    func test_map_throwsErrorOnInvalidDataOn200HTTPURLResponse() throws {
+        let invalidData = Data("invalid".utf8)
+        let response = httpURLResponse(with: 200)
+        
+        XCTAssertThrowsError(try VaccinationCenterMapper.map(invalidData, from: response))
     }
 }
