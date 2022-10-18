@@ -31,3 +31,7 @@ func uniqueCenter(id: Int = 0,
     let centerID = CenterID(id: id)
     return VaccinationCenter(id: centerID, name: name, facilityName: facilityName, address: address, lat: lat, lng: lng, updatedAt: updatedAt)
 }
+
+func httpURLResponse(with code: Int) -> HTTPURLResponse {
+    HTTPURLResponse(url: anyURL(), statusCode: code, httpVersion: nil, headerFields: nil)!
+}
