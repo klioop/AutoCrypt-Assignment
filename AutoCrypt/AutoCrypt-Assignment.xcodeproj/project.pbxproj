@@ -33,10 +33,10 @@
 		3150819828FC4BD600DA9EB7 /* VaccinationCenterCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819728FC4BD600DA9EB7 /* VaccinationCenterCellController.swift */; };
 		3150819B28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */; };
 		3150819D28FD060300DA9EB7 /* VaccinationCentersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819C28FD060300DA9EB7 /* VaccinationCentersViewModel.swift */; };
-		315081A028FD062800DA9EB7 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 3150819F28FD062800DA9EB7 /* RxCocoa */; };
-		315081A228FD062800DA9EB7 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 315081A128FD062800DA9EB7 /* RxRelay */; };
-		315081A428FD062800DA9EB7 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 315081A328FD062800DA9EB7 /* RxSwift */; };
 		31DEF6CF28FDB83C0019F6E9 /* UIView+forceLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DEF6CE28FDB83C0019F6E9 /* UIView+forceLayout.swift */; };
+		31DEF6D228FE55910019F6E9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D128FE55910019F6E9 /* RxCocoa */; };
+		31DEF6D428FE55910019F6E9 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D328FE55910019F6E9 /* RxRelay */; };
+		31DEF6D628FE55910019F6E9 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D528FE55910019F6E9 /* RxSwift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,9 +94,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				315081A428FD062800DA9EB7 /* RxSwift in Frameworks */,
-				315081A228FD062800DA9EB7 /* RxRelay in Frameworks */,
-				315081A028FD062800DA9EB7 /* RxCocoa in Frameworks */,
+				31DEF6D628FE55910019F6E9 /* RxSwift in Frameworks */,
+				31DEF6D428FE55910019F6E9 /* RxRelay in Frameworks */,
+				31DEF6D228FE55910019F6E9 /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -266,9 +266,9 @@
 			);
 			name = "AutoCrypt-Assignment";
 			packageProductDependencies = (
-				3150819F28FD062800DA9EB7 /* RxCocoa */,
-				315081A128FD062800DA9EB7 /* RxRelay */,
-				315081A328FD062800DA9EB7 /* RxSwift */,
+				31DEF6D128FE55910019F6E9 /* RxCocoa */,
+				31DEF6D328FE55910019F6E9 /* RxRelay */,
+				31DEF6D528FE55910019F6E9 /* RxSwift */,
 			);
 			productName = "AutoCript-Assignment";
 			productReference = 3145BFC528FBA92200798FC0 /* AutoCrypt-Assignment.app */;
@@ -343,7 +343,7 @@
 			);
 			mainGroup = 3145BFBC28FBA92200798FC0;
 			packageReferences = (
-				3150819E28FD062800DA9EB7 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				31DEF6D028FE55910019F6E9 /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = 3145BFC628FBA92200798FC0 /* Products */;
 			projectDirPath = "";
@@ -746,30 +746,30 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3150819E28FD062800DA9EB7 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
+		31DEF6D028FE55910019F6E9 /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
 			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 6.0.0;
+				kind = exactVersion;
+				version = 6.5.0;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		3150819F28FD062800DA9EB7 /* RxCocoa */ = {
+		31DEF6D128FE55910019F6E9 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3150819E28FD062800DA9EB7 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 31DEF6D028FE55910019F6E9 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxCocoa;
 		};
-		315081A128FD062800DA9EB7 /* RxRelay */ = {
+		31DEF6D328FE55910019F6E9 /* RxRelay */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3150819E28FD062800DA9EB7 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 31DEF6D028FE55910019F6E9 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxRelay;
 		};
-		315081A328FD062800DA9EB7 /* RxSwift */ = {
+		31DEF6D528FE55910019F6E9 /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = 3150819E28FD062800DA9EB7 /* XCRemoteSwiftPackageReference "RxSwift" */;
+			package = 31DEF6D028FE55910019F6E9 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
