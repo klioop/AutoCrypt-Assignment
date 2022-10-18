@@ -15,7 +15,8 @@ class RemoteAPIEndToEndTests: XCTestCase {
         case let .success(centers):
             XCTAssertEqual(centers.count, 10)
             
-        default: break
+        default:
+            XCTFail("API 통신이 성공해야 하지만 실패함")
         }
     }
     

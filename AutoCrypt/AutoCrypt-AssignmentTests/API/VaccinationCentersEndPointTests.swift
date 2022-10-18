@@ -18,6 +18,6 @@ class VaccinationCentersEndPointTests: XCTestCase {
         XCTAssertEqual(url.scheme, baseURL.scheme, "scheme")
         XCTAssertEqual(url.host, baseURL.host, "host")
         XCTAssertEqual(url.path, "/15077586/v1/centers")
-        XCTAssertEqual(url.query?.contains("serviceKey="+get.serviceKey.addingPercentEncoding(withAllowedCharacters: .alphanumerics)!), true, "service key query")
+        XCTAssertEqual(url.query?.contains("serviceKey=\(get.serviceKey)"), true, "service key query")
     }
 }

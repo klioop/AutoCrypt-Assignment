@@ -18,9 +18,10 @@ public enum VaccinationCenterListEndPoint {
             component.host = baseURL.host
             component.path = baseURL.path + "/15077586/v1/centers"
             component.queryItems = [
-                URLQueryItem(name: "serviceKey", value: serviceKey)
+                URLQueryItem(name: "page", value: "1")
             ].compactMap { $0 }
-            return component.url!
+            let urlString = component.url!.absoluteString + "&serviceKey=\(serviceKey)"
+            return URL(string: urlString)!
         }
     }
     
