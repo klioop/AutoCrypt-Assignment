@@ -27,7 +27,6 @@ final class PagingViewModel {
     
     func loadMore() {
         guard let loadMoreLoader = loadMoreLoader else { return }
-        guard !isLoading else { return }
         
         loadMoreLoader()
             .observe(on: MainScheduler.instance)

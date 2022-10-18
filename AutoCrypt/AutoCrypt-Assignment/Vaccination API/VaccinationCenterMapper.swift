@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum VaccinationCenterMapper {
+public enum VaccinationCenterMapper {
     private struct Root: Decodable {
         private let data: [Item]
         
@@ -25,10 +25,6 @@ enum VaccinationCenterMapper {
         }
     }
     
-    enum Error: Swift.Error {
-        case invalidData
-    }
-    
     private struct Item: Decodable {
         let id: Int
         let centerName, facilityName, address: String
@@ -36,11 +32,15 @@ enum VaccinationCenterMapper {
         let updatedAt: String
     }
     
-    static var is_OK: Int {
+    private static var is_OK: Int {
         200
     }
     
-    static func map(_ data: Data, from response: HTTPURLResponse) throws -> [VaccinationCenter] {
+    public enum Error: Swift.Error {
+        case invalidData
+    }
+    
+    public static func map(_ data: Data, from response: HTTPURLResponse) throws -> [VaccinationCenter] {
         guard
             response.statusCode == is_OK,
             let root = try? JSONDecoder().decode(Root.self, from: data)

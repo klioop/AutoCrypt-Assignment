@@ -121,7 +121,7 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         sut.view.forceLayout()
         
         guard sut.numberOfCentersRendered == models.count else {
-            return XCTFail("\(sut.numberOfCentersRendered) 은 \(models.count) 와 같아야 한다", file: file, line: line)
+            return XCTFail("렌더링 되는 뷰의 숫자 \(sut.numberOfCentersRendered) 은 모델의 갯수 \(models.count) 와 같아야 한다", file: file, line: line)
         }
         
         models.enumerated().forEach { row, center in
@@ -146,15 +146,13 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     }
     
     private class LoaderSpy {
+        
+        // MARK: - LoadSingle
+        
         private(set) var requestCompletions = [PublishSubject<Paginated<VaccinationCenter>>]()
-        private(set) var loadMoreRequests = [PublishSubject<Paginated<VaccinationCenter>>]()
         
         var loadCallCount: Int {
             requestCompletions.count
-        }
-        
-        var loadMoreCallCount: Int {
-            loadMoreRequests.count
         }
         
         func loadSingle() -> Single<Paginated<VaccinationCenter>> {
@@ -173,6 +171,14 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
                 self?.loadMoreSingle() ?? Observable.empty().asSingle()
             }))
             requestCompletions[index].onCompleted()
+        }
+        
+        // MARK: - LoadMoreSingle
+        
+        private(set) var loadMoreRequests = [PublishSubject<Paginated<VaccinationCenter>>]()
+        
+        var loadMoreCallCount: Int {
+            loadMoreRequests.count
         }
         
         func loadMoreSingle() -> Single<Paginated<VaccinationCenter>> {
@@ -194,57 +200,5 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
             loadMoreRequests[index].onError(anyNSError())
             loadMoreRequests[index].onCompleted()
         }
-    }
-}
-
-private extension VaccinationCenterListViewController {
-    var isShowingLoadingIndicator: Bool {
-        refreshControl!.isRefreshing
-    }
-    
-    var numberOfCentersRendered: Int {
-        tableView.numberOfRows(inSection: 0)
-    }
-    
-    func centerView(at row: Int) -> UITableViewCell? {
-        let dataSource = tableView.dataSource
-        let indexPath = IndexPath(row: row, section: listSection)
-        return dataSource?.tableView(tableView, cellForRowAt: indexPath)
-    }
-    
-    func simulateUserInitiateReload() {
-        refreshControl?.sendActions(for: .valueChanged)
-    }
-    
-    func simulateLoadMoreAction() {
-        let scrollView = DraggingScrollView()
-        scrollView.contentOffset.y = 1000
-        scrollViewDidScroll(scrollView)
-    }
-    
-    private var listSection: Int { 0 }
-}
-
-private class DraggingScrollView: UIScrollView {
-    override var isDragging: Bool {
-        true
-    }
-}
-
-private extension VaccinationCenterCell {
-    var name: String? {
-        nameLabel.text
-    }
-    
-    var facilityName: String? {
-        facilityNameLabel.text
-    }
-    
-    var address: String? {
-        addressLabel.text
-    }
-    
-    var updatedAt: String? {
-        updatedAtLabel.text
     }
 }
