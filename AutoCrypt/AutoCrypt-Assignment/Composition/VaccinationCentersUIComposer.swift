@@ -26,7 +26,7 @@ public final class VaccinationCentersUIComposer {
                 pagingController.viewModel = PagingViewModel(loadMoreLoader: paginated.loadMoreSingle)
             }
             
-            centerListController?.pagingController = pagingController
+            centerListController?.callback = pagingController.loadMore
         }
         
         return centerListController
