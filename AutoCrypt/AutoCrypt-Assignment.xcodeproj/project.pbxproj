@@ -37,6 +37,7 @@
 		31DEF6D228FE55910019F6E9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D128FE55910019F6E9 /* RxCocoa */; };
 		31DEF6D428FE55910019F6E9 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D328FE55910019F6E9 /* RxRelay */; };
 		31DEF6D628FE55910019F6E9 /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D528FE55910019F6E9 /* RxSwift */; };
+		31DEF6D928FE561F0019F6E9 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D828FE561F0019F6E9 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +96,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				31DEF6D628FE55910019F6E9 /* RxSwift in Frameworks */,
+				31DEF6D928FE561F0019F6E9 /* SnapKit in Frameworks */,
 				31DEF6D428FE55910019F6E9 /* RxRelay in Frameworks */,
 				31DEF6D228FE55910019F6E9 /* RxCocoa in Frameworks */,
 			);
@@ -269,6 +271,7 @@
 				31DEF6D128FE55910019F6E9 /* RxCocoa */,
 				31DEF6D328FE55910019F6E9 /* RxRelay */,
 				31DEF6D528FE55910019F6E9 /* RxSwift */,
+				31DEF6D828FE561F0019F6E9 /* SnapKit */,
 			);
 			productName = "AutoCript-Assignment";
 			productReference = 3145BFC528FBA92200798FC0 /* AutoCrypt-Assignment.app */;
@@ -344,6 +347,7 @@
 			mainGroup = 3145BFBC28FBA92200798FC0;
 			packageReferences = (
 				31DEF6D028FE55910019F6E9 /* XCRemoteSwiftPackageReference "RxSwift" */,
+				31DEF6D728FE561F0019F6E9 /* XCRemoteSwiftPackageReference "SnapKit" */,
 			);
 			productRefGroup = 3145BFC628FBA92200798FC0 /* Products */;
 			projectDirPath = "";
@@ -754,6 +758,14 @@
 				version = 6.5.0;
 			};
 		};
+		31DEF6D728FE561F0019F6E9 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit.git";
+			requirement = {
+				kind = exactVersion;
+				version = 5.6.0;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -771,6 +783,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 31DEF6D028FE55910019F6E9 /* XCRemoteSwiftPackageReference "RxSwift" */;
 			productName = RxSwift;
+		};
+		31DEF6D828FE561F0019F6E9 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 31DEF6D728FE561F0019F6E9 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
