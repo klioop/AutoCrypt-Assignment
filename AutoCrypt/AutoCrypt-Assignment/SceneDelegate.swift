@@ -35,9 +35,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         return httpClient
             .getSingle(from: VaccinationCenterListEndPoint.get().url(with: baseURL))
             .map(VaccinationCenterMapper.map)
-            .map { items in
-                Paginated(items: items)
+            .map { [weak self] items in
+                Paginated(items: items, loadMoreSingle: self?.loadMoreCenterListLoader(lastPage: 1))
             }
+    }
+    
+    private func loadMoreCenterListLoader(lastPage: Int) -> (() -> Single<Paginated<VaccinationCenter>>)? {
+        let baseURL = baseURL
+        
+        return { [weak self, httpClient] in
+            httpClient
+                .getSingle(from: VaccinationCenterListEndPoint.get(lastPage + 1).url(with: baseURL))
+                .map(VaccinationCenterMapper.map)
+                .map { newItems in
+                    Paginated(items: newItems, loadMoreSingle: newItems.isEmpty ? nil : self?.loadMoreCenterListLoader(lastPage: lastPage + 1))
+                }
+        }
     }
 }
 
