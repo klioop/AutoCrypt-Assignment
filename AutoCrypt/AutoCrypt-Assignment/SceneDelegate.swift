@@ -18,7 +18,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private lazy var remoteCenterListLoader = {
         let baseURL = URL(string: "https://api.odcloud.kr/api")!
-        let url = VaccinationCenterListEndPoint.get.url(with: baseURL)
+        let url = VaccinationCenterListEndPoint.get().url(with: baseURL)
         return RemoteVaccinationCentersLoader(url: url,
                                               client: httpClient)
     }()

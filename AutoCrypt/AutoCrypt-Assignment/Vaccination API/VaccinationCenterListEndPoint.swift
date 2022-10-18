@@ -8,17 +8,17 @@
 import Foundation
 
 public enum VaccinationCenterListEndPoint {
-    case get
+    case get(Int = 1)
     
     public func url(with baseURL: URL) -> URL {
         switch self {
-        case .get:
+        case let .get(page):
             var component = URLComponents()
             component.scheme = baseURL.scheme
             component.host = baseURL.host
             component.path = baseURL.path + "/15077586/v1/centers"
             component.queryItems = [
-                URLQueryItem(name: "page", value: "1")
+                URLQueryItem(name: "page", value: "\(page)")
             ].compactMap { $0 }
             let urlString = component.url!.absoluteString + "&serviceKey=\(serviceKey)"
             return URL(string: urlString)!
