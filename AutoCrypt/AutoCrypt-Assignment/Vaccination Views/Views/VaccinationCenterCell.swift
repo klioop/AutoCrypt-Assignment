@@ -65,7 +65,7 @@ public final class VaccinationCenterCell: UITableViewCell {
     
     private func indicatorLabel(with name: String) -> UILabel {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 13)
+        label.font = .systemFont(ofSize: 12)
         label.textColor = .systemGray
         label.text = name
         return label
@@ -73,7 +73,7 @@ public final class VaccinationCenterCell: UITableViewCell {
     
     private func descriptionLabel() -> UILabel {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15)
+        label.font = .systemFont(ofSize: 13)
         return label
     }
 }
