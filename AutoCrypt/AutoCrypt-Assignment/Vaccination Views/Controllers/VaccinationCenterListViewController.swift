@@ -28,7 +28,7 @@ public final class VaccinationCenterListViewController: UITableViewController {
         let endIndex = startIndex + newControllers.count
         tableModels += newControllers
         
-        tableView.insertRows(at: (startIndex..<endIndex).map { row in IndexPath(row: row, section: 0) }, with: .none)
+        tableView.insertRows(at: (startIndex..<endIndex).map { row in IndexPath(row: row, section: 0) }, with: .automatic)
     }
     
     public override func viewDidLoad() {
