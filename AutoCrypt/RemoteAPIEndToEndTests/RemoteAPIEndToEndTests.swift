@@ -22,7 +22,7 @@ class RemoteAPIEndToEndTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func getCenterResult() -> RemoteVaccinationCentersLoader.LoadResult {
+    private func getCenterResult() -> Result<[VaccinationCenter], Error> {
         let baseURL = URL(string: "https://api.odcloud.kr/api")!
         let url = VaccinationCenterListEndPoint.get().url(with: baseURL)
         let client = URLSessionHTTPClient()

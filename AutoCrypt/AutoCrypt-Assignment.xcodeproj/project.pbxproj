@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		31158F4728FD411E004C8283 /* RxSwift+loadSingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31158F4628FD411E004C8283 /* RxSwift+loadSingle.swift */; };
+		31158F4728FD411E004C8283 /* RxSwift+getSingle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31158F4628FD411E004C8283 /* RxSwift+getSingle.swift */; };
 		31158F4928FD416B004C8283 /* Paginated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31158F4828FD416B004C8283 /* Paginated.swift */; };
 		31158F4B28FD7693004C8283 /* RxSwift+paginated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31158F4A28FD7693004C8283 /* RxSwift+paginated.swift */; };
 		31158F4D28FD76B8004C8283 /* PagingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31158F4C28FD76B8004C8283 /* PagingController.swift */; };
@@ -16,8 +16,6 @@
 		3145BFCB28FBA92200798FC0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145BFCA28FBA92200798FC0 /* SceneDelegate.swift */; };
 		3145BFD228FBA92500798FC0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3145BFD128FBA92500798FC0 /* Assets.xcassets */; };
 		3145BFD528FBA92500798FC0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3145BFD328FBA92500798FC0 /* LaunchScreen.storyboard */; };
-		3145BFF928FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3145BFF828FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift */; };
-		3150816D28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150816C28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift */; };
 		3150816F28FBD4C900DA9EB7 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150816E28FBD4C900DA9EB7 /* HTTPClient.swift */; };
 		3150817128FBD4F100DA9EB7 /* VaccinationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150817028FBD4F100DA9EB7 /* VaccinationCenter.swift */; };
 		3150817328FBD52800DA9EB7 /* VaccinationCenterMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150817228FBD52800DA9EB7 /* VaccinationCenterMapper.swift */; };
@@ -61,7 +59,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		31158F4628FD411E004C8283 /* RxSwift+loadSingle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxSwift+loadSingle.swift"; sourceTree = "<group>"; };
+		31158F4628FD411E004C8283 /* RxSwift+getSingle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxSwift+getSingle.swift"; sourceTree = "<group>"; };
 		31158F4828FD416B004C8283 /* Paginated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Paginated.swift; sourceTree = "<group>"; };
 		31158F4A28FD7693004C8283 /* RxSwift+paginated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxSwift+paginated.swift"; sourceTree = "<group>"; };
 		31158F4C28FD76B8004C8283 /* PagingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PagingController.swift; sourceTree = "<group>"; };
@@ -73,8 +71,6 @@
 		3145BFD428FBA92500798FC0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3145BFD628FBA92500798FC0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3145BFDB28FBA92500798FC0 /* AutoCrypt-AssignmentTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "AutoCrypt-AssignmentTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3145BFF828FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadVaccinationCentersFromRemoteUseCasesTests.swift; sourceTree = "<group>"; };
-		3150816C28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteVaccinationCentersLoader.swift; sourceTree = "<group>"; };
 		3150816E28FBD4C900DA9EB7 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		3150817028FBD4F100DA9EB7 /* VaccinationCenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenter.swift; sourceTree = "<group>"; };
 		3150817228FBD52800DA9EB7 /* VaccinationCenterMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterMapper.swift; sourceTree = "<group>"; };
@@ -183,7 +179,6 @@
 		3150816B28FBD40B00DA9EB7 /* Vaccination API */ = {
 			isa = PBXGroup;
 			children = (
-				3150816C28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift */,
 				3150816E28FBD4C900DA9EB7 /* HTTPClient.swift */,
 				3150817228FBD52800DA9EB7 /* VaccinationCenterMapper.swift */,
 				3150817428FBDC7800DA9EB7 /* URLSessionHTTPClient.swift */,
@@ -252,7 +247,7 @@
 			isa = PBXGroup;
 			children = (
 				3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */,
-				31158F4628FD411E004C8283 /* RxSwift+loadSingle.swift */,
+				31158F4628FD411E004C8283 /* RxSwift+getSingle.swift */,
 				31158F4A28FD7693004C8283 /* RxSwift+paginated.swift */,
 			);
 			path = Composition;
@@ -261,7 +256,6 @@
 		31DEF6DA28FE73DA0019F6E9 /* API */ = {
 			isa = PBXGroup;
 			children = (
-				3145BFF828FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift */,
 				31DEF6DC28FE74070019F6E9 /* VaccinationCentersEndPointTests.swift */,
 				31A8BBC528FEA714009459F0 /* VaccinationCenterMapperTests.swift */,
 			);
@@ -418,7 +412,7 @@
 			files = (
 				3150817528FBDC7800DA9EB7 /* URLSessionHTTPClient.swift in Sources */,
 				31158F4B28FD7693004C8283 /* RxSwift+paginated.swift in Sources */,
-				31158F4728FD411E004C8283 /* RxSwift+loadSingle.swift in Sources */,
+				31158F4728FD411E004C8283 /* RxSwift+getSingle.swift in Sources */,
 				3150819D28FD060300DA9EB7 /* VaccinationCentersViewModel.swift in Sources */,
 				3150819328FC472800DA9EB7 /* VaccinationCenterCell.swift in Sources */,
 				31158F4928FD416B004C8283 /* Paginated.swift in Sources */,
@@ -427,7 +421,6 @@
 				31158F4F28FD76CD004C8283 /* PagingViewModel.swift in Sources */,
 				3145BFC928FBA92200798FC0 /* AppDelegate.swift in Sources */,
 				3150819828FC4BD600DA9EB7 /* VaccinationCenterCellController.swift in Sources */,
-				3150816D28FBD42A00DA9EB7 /* RemoteVaccinationCentersLoader.swift in Sources */,
 				3150816F28FBD4C900DA9EB7 /* HTTPClient.swift in Sources */,
 				3145BFCB28FBA92200798FC0 /* SceneDelegate.swift in Sources */,
 				31DEF6DF28FE7AB90019F6E9 /* VaccinationCenterListEndPoint.swift in Sources */,
@@ -446,7 +439,6 @@
 				31DEF6DD28FE74070019F6E9 /* VaccinationCentersEndPointTests.swift in Sources */,
 				3150818A28FC0CC400DA9EB7 /* VaccinationCentersUIIntegrationTests.swift in Sources */,
 				31DEF6CF28FDB83C0019F6E9 /* UIView+forceLayout.swift in Sources */,
-				3145BFF928FBB2EB00798FC0 /* LoadVaccinationCentersFromRemoteUseCasesTests.swift in Sources */,
 				3150818C28FC2B5800DA9EB7 /* TestHelpers.swift in Sources */,
 				31A8BBC628FEA714009459F0 /* VaccinationCenterMapperTests.swift in Sources */,
 			);

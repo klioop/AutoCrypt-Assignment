@@ -17,12 +17,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private lazy var httpClient: HTTPClient = {
         URLSessionHTTPClient(session: .shared)
     }()
-    
-    private lazy var remoteCenterListLoader = {
-        let url = VaccinationCenterListEndPoint.get().url(with: baseURL)
-        return RemoteVaccinationCentersLoader(url: url,
-                                              client: httpClient)
-    }()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene) else { return }
@@ -38,19 +32,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func makeRemoteCenterListLoader() -> Single<Paginated<VaccinationCenter>> {
         let baseURL = baseURL
         
-        return remoteCenterListLoader
-            .loadSingle()
-            .map { [remoteCenterListLoader] items in
-                Paginated(items: items, loadMoreSingle: {
-                    let url = VaccinationCenterListEndPoint.get(2).url(with: baseURL)
-                    return remoteCenterListLoader
-                        .loadSingle()
-                        .map { newItems in
-                            Paginated(items: newItems, loadMoreSingle: {
-                                Observable.empty().asSingle()
-                            })
-                        }
-                })
+        return httpClient
+            .getSingle(from: VaccinationCenterListEndPoint.get().url(with: baseURL))
+            .map(VaccinationCenterMapper.map)
+            .map { items in
+                Paginated(items: items)
             }
     }
 }
