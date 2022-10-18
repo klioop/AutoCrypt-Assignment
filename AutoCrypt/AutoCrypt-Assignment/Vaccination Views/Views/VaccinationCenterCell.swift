@@ -35,7 +35,7 @@ public final class VaccinationCenterCell: UITableViewCell {
     private(set) lazy var topContainerView: UIStackView = {
         let stack = UIStackView()
         stack.axis = .horizontal
-        stack.spacing = 15
+        stack.spacing = 20
         stack.distribution = .fill
         stack.addArrangedSubview(indicatorLabelContainer)
         stack.addArrangedSubview(descriptionLabelContainer)
