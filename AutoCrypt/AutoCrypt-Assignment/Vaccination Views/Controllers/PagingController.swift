@@ -8,10 +8,10 @@
 import Foundation
 import RxSwift
 
-class PagingController {
+final class PagingController {
     private let bag = DisposeBag()
     
-    var viewModel: PagingViewModel
+    private let viewModel: PagingViewModel
     
     init(viewModel: PagingViewModel) {
         self.viewModel = viewModel
