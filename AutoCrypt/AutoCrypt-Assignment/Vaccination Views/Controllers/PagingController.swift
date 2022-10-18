@@ -15,6 +15,7 @@ class PagingController {
     
     init(viewModel: PagingViewModel) {
         self.viewModel = viewModel
+        binded()
     }
     
     var onLoadMore: ((Paginated<VaccinationCenter>) -> Void)?
@@ -29,8 +30,8 @@ class PagingController {
     }
     
     func loadMore() {
-        viewModel.loadMore()
+        guard !viewModel.isLoading else { return }
         
-        binded()
+        viewModel.loadMore()
     }
 }

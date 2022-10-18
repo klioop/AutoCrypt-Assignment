@@ -11,13 +11,14 @@ import RxSwift
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
+    
+    private lazy var baseURL = URL(string: "https://api.odcloud.kr/api")!
         
     private lazy var httpClient: HTTPClient = {
         URLSessionHTTPClient(session: .shared)
     }()
     
     private lazy var remoteCenterListLoader = {
-        let baseURL = URL(string: "https://api.odcloud.kr/api")!
         let url = VaccinationCenterListEndPoint.get().url(with: baseURL)
         return RemoteVaccinationCentersLoader(url: url,
                                               client: httpClient)
@@ -35,10 +36,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func makeRemoteCenterListLoader() -> Single<Paginated<VaccinationCenter>> {
-            remoteCenterListLoader
+        let baseURL = baseURL
+        
+        return remoteCenterListLoader
             .loadSingle()
-            .map { items in
-                Paginated(items: items)
+            .map { [remoteCenterListLoader] items in
+                Paginated(items: items, loadMoreSingle: {
+                    let url = VaccinationCenterListEndPoint.get(2).url(with: baseURL)
+                    return remoteCenterListLoader
+                        .loadSingle()
+                        .map { newItems in
+                            Paginated(items: newItems, loadMoreSingle: {
+                                Observable.empty().asSingle()
+                            })
+                        }
+                })
             }
     }
 }
