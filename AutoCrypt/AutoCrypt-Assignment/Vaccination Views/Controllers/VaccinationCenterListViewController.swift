@@ -11,6 +11,7 @@ public final class VaccinationCenterListViewController: UITableViewController {
     private var tableModels = [VaccinationCenterCellController]()
     
     var refreshController: VaccinationCentersRefreshController?
+    var pagingController: PagingController?
     
     convenience init(refreshController: VaccinationCentersRefreshController) {
         self.init()
@@ -20,6 +21,14 @@ public final class VaccinationCenterListViewController: UITableViewController {
     func set(_ controllers: [VaccinationCenterCellController]) {
         tableModels = controllers
         tableView.reloadData()
+    }
+    
+    func add(_ newControllers: [VaccinationCenterCellController]) {
+        let startIndex = tableModels.count
+        let endIndex = startIndex + newControllers.count
+        tableModels += newControllers
+        
+        tableView.insertRows(at: (startIndex..<endIndex).map { row in IndexPath(row: row, section: 0) }, with: .automatic)
     }
     
     public override func viewDidLoad() {
@@ -33,5 +42,13 @@ public final class VaccinationCenterListViewController: UITableViewController {
     
     public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         tableModels[indexPath.row].view()
+    }
+    
+    public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        if (offsetY > contentHeight - scrollView.frame.height) {
+            pagingController?.loadMore()
+        }
     }
 }

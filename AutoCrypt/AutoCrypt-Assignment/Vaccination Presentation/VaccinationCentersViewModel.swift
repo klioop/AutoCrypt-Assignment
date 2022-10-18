@@ -13,17 +13,17 @@ final class VaccinationCentersViewModel {
     private let bag = DisposeBag()
     
     private let loadingRelay = PublishRelay<Bool>()
-    private let loadedRelay = PublishRelay<[VaccinationCenter]>()
+    private let loadedRelay = PublishRelay<Paginated<VaccinationCenter>>()
     
-    private let loadSingle: () -> Single<[VaccinationCenter]>
+    private let loadSingle: () -> Single<Paginated<VaccinationCenter>>
     
-    init(loadSingle: @escaping () -> Single<[VaccinationCenter]>) {
+    init(loadSingle: @escaping () -> Single<Paginated<VaccinationCenter>>) {
         self.loadSingle = loadSingle
     }
     
     enum State {
         case loading(Bool)
-        case loaded([VaccinationCenter])
+        case loaded(Paginated<VaccinationCenter>)
     }
     
     var state: Observable<State> {
@@ -41,8 +41,8 @@ final class VaccinationCentersViewModel {
             }, onDispose: { [loadingRelay] in
                 loadingRelay.accept(false)
             })
-                .subscribe(onSuccess: { [loadedRelay] centers in
-                    loadedRelay.accept(centers)
+                .subscribe(onSuccess: { [loadedRelay] paginated in
+                    loadedRelay.accept(paginated)
                 })
                 .disposed(by: bag)
     }
