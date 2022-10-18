@@ -23,7 +23,7 @@ public final class VaccinationCentersUIComposer {
             
             pagingController.onLoadMore = { [weak centerListController] paginated in
                 centerListController?.add(paginated.cellController)
-                pagingViewModel.loadMoreLoader = paginated.loadMoreSingle
+                pagingController.viewModel = PagingViewModel(loadMoreLoader: paginated.loadMoreSingle)
             }
             
             centerListController?.pagingController = pagingController
