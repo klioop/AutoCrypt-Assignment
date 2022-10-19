@@ -31,9 +31,8 @@ final class VaccinationCentersViewModel {
                 .flatMap { [loadSingle, loadingRelay] in
                     return loadSingle()
                         .observe(on: MainScheduler.instance)
-                        .do(afterSuccess: { _ in
-                            loadingRelay.accept(false)
-                        })
+                        .do(afterSuccess: { _ in loadingRelay.accept(false) },
+                            onError: { _ in loadingRelay.accept(false) })
                         .asObservable()
                 }                
                 .map { .loaded($0) }

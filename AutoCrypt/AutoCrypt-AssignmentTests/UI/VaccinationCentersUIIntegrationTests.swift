@@ -53,10 +53,13 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     }
     
     func test_requestLoadAction_showsLoadingIndicator() {
-        let (sut, _) = makeSUT()
+        let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
         XCTAssertEqual(sut.isShowingLoadingIndicator, true, "뷰가 로드 되면 로딩 인디케이터를 보여준다")
+        
+        loader.completeLoading(with: anyNSError(), at: 0)
+        XCTAssertEqual(sut.isShowingLoadingIndicator, false, "뷰가 로드 되면 로딩 인디케이터를 보여준다")
     }
     
     func test_successfulLoadCompletion_rendersCentersLoaded() {
