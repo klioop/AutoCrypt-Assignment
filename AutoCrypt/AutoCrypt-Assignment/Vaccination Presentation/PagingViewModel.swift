@@ -13,9 +13,9 @@ final class PagingViewModel {
     private let bag = DisposeBag()
     private let paginatedRelay = PublishRelay<Paginated<VaccinationCenter>>()
     
-    var loadMoreLoader: (() -> Single<Paginated<VaccinationCenter>>)?
-    
     private(set) var isLoading = false
+    
+    var loadMoreLoader: (() -> Single<Paginated<VaccinationCenter>>)?
     
     init(loadMoreLoader: (() -> Single<Paginated<VaccinationCenter>>)?) {
         self.loadMoreLoader = loadMoreLoader
