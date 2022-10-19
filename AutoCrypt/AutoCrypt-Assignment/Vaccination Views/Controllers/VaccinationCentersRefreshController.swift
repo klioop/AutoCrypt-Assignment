@@ -25,11 +25,12 @@ final class VaccinationCentersRefreshController {
     private func binded(_ view: UIRefreshControl) -> UIRefreshControl {
         view.rx
             .controlEvent(.valueChanged)
-            .bind(onNext: { [weak self] in
-                self?.viewModel.load()
+            .bind(onNext: { [viewModel] in
+                viewModel.loadingRelay.accept(true)
+                viewModel.loadTrigger.accept(())
             })
             .disposed(by: bag)
-                    
+        
         viewModel.state
             .subscribe(onNext: { [weak self] state in
                 switch state {
@@ -46,6 +47,6 @@ final class VaccinationCentersRefreshController {
     }
     
     func refresh() {
-        viewModel.load()
+        view.sendActions(for: .valueChanged)
     }
 }

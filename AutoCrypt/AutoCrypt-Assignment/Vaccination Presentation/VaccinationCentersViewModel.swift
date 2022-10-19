@@ -10,10 +10,8 @@ import RxSwift
 import RxRelay
 
 final class VaccinationCentersViewModel {
-    private let bag = DisposeBag()
-    
-    private let loadingRelay = PublishRelay<Bool>()
-    private let loadedRelay = PublishRelay<Paginated<VaccinationCenter>>()
+    let loadingRelay = PublishRelay<Bool>()
+    let loadTrigger = PublishRelay<Void>()
     
     private let loadSingle: () -> Single<Paginated<VaccinationCenter>>
     
@@ -29,21 +27,16 @@ final class VaccinationCentersViewModel {
     var state: Observable<State> {
         Observable.merge([
             loadingRelay.map { .loading($0) },
-            loadedRelay.map { .loaded($0) }
+            loadTrigger
+                .flatMap { [loadSingle, loadingRelay] in
+                    return loadSingle()
+                        .observe(on: MainScheduler.instance)
+                        .do(afterSuccess: { _ in
+                            loadingRelay.accept(false)
+                        })
+                        .asObservable()
+                }                
+                .map { .loaded($0) }
         ])
-    }
-    
-    func load() {
-        loadSingle()
-            .observe(on: MainScheduler.instance)
-            .do(onSubscribe: { [loadingRelay] in
-                loadingRelay.accept(true)
-            }, onDispose: { [loadingRelay] in
-                loadingRelay.accept(false)
-            })
-                .subscribe(onSuccess: { [loadedRelay] paginated in
-                    loadedRelay.accept(paginated)
-                })
-                .disposed(by: bag)
     }
 }
