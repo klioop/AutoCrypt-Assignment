@@ -13,7 +13,7 @@ class RemoteAPIEndToEndTests: XCTestCase {
     func test_EndToEndServerTest_matchesItemsCountLoadedFromTheSever() {
         switch getCenterResult() {
         case let .success(centers):
-            XCTAssertEqual(centers.count, 10)
+            XCTAssertEqual(centers.count, 10, "첫 페이지 센터 리스트 요청이 성공하면 예방접종센터 데이터 10개가 로드 되어야 한다")
             
         default:
             XCTFail("예방접종센터 리스트를 로드 하는 API 통신은 성공해야 한다")
