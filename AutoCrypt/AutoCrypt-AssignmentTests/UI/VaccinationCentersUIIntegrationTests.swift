@@ -52,7 +52,7 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         XCTAssertEqual(loader.loadMoreCallCount, 3, "추가적으로 요청된 로드가 성공적으로 끝나고, 마지막 페이지면 추가로 더 리스트를 요청해도 리스트는 요청되지 않는다")
     }
     
-    func test_userInitiateRequestLoading_showsLoadingIndicator() {
+    func test_requestLoadAction_showsLoadingIndicator() {
         let (sut, loader) = makeSUT()
         
         sut.loadViewIfNeeded()
