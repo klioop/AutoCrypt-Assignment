@@ -11,11 +11,11 @@ import RxSwift
 final class PagingController {
     private let bag = DisposeBag()
     
-    private let viewModel: PagingViewModel
+    var isLastPage = false
+    var viewModel: PagingViewModel
     
     init(viewModel: PagingViewModel) {
         self.viewModel = viewModel
-        binded()
     }
     
     var onLoadMore: ((Paginated<VaccinationCenter>) -> Void)?
@@ -30,8 +30,9 @@ final class PagingController {
     }
     
     func loadMore() {
-        guard !viewModel.isLoading else { return }
+        guard !viewModel.isLoading, !isLastPage else { return }
         
-        viewModel.loadMore()
+        binded()
+        viewModel.loadMoreTrigger.accept(())
     }
 }
