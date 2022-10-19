@@ -15,7 +15,7 @@ final class PagingViewModel {
     
     var loadMoreLoader: (() -> Single<Paginated<VaccinationCenter>>)?
     
-    var isLoading = false
+    private(set) var isLoading = false
     
     init(loadMoreLoader: (() -> Single<Paginated<VaccinationCenter>>)?) {
         self.loadMoreLoader = loadMoreLoader
