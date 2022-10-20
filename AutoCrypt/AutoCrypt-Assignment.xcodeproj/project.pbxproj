@@ -150,7 +150,7 @@
 			children = (
 				3150819928FC4D0A00DA9EB7 /* Composition */,
 				3150819428FC478900DA9EB7 /* Vaccination Presentation */,
-				3150818D28FC42C900DA9EB7 /* Vaccination Views */,
+				3150818D28FC42C900DA9EB7 /* Vaccination UI */,
 				3150816B28FBD40B00DA9EB7 /* Vaccination API */,
 				3150816A28FBD3F000DA9EB7 /* Vaccination Feature */,
 				3145BFC828FBA92200798FC0 /* AppDelegate.swift */,
@@ -210,13 +210,13 @@
 			path = Helpers;
 			sourceTree = "<group>";
 		};
-		3150818D28FC42C900DA9EB7 /* Vaccination Views */ = {
+		3150818D28FC42C900DA9EB7 /* Vaccination UI */ = {
 			isa = PBXGroup;
 			children = (
 				3150818E28FC46A700DA9EB7 /* Controllers */,
 				3150818F28FC46AB00DA9EB7 /* Views */,
 			);
-			path = "Vaccination Views";
+			path = "Vaccination UI";
 			sourceTree = "<group>";
 		};
 		3150818E28FC46A700DA9EB7 /* Controllers */ = {
