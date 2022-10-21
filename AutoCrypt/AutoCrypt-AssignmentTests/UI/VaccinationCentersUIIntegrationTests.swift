@@ -100,6 +100,20 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         loader.completeLoadMoreWithError()
         assertThat(sut, isRendering: [center])
     }
+    
+    func test_loadCentersCompletion_dispatchesFromBackgroundToMainQueue() {
+        let (sut, loader) = makeSUT()
+        sut.loadViewIfNeeded()
+        
+        let exp = expectation(description: "wait for background queue")
+        DispatchQueue.global().async {
+            loader.completeLoading(with: [], at: 0)
+            DispatchQueue.main.async {
+                exp.fulfill()
+            }
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
 
     // MARK: - Helpers
     
