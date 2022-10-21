@@ -59,7 +59,7 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         XCTAssertEqual(sut.isShowingLoadingIndicator, true, "뷰가 로드 되면 로딩 인디케이터를 보여준다")
         
         loader.completeLoading(with: anyNSError(), at: 0)
-        XCTAssertEqual(sut.isShowingLoadingIndicator, false, "뷰가 로드 되면 로딩 인디케이터를 보여준다")
+        XCTAssertEqual(sut.isShowingLoadingIndicator, false, "센터 리스트 로드가 끝나면 로딩인디케이터를 보여주지 않는다")
     }
     
     func test_successfulLoadCompletion_rendersCentersLoaded() {
