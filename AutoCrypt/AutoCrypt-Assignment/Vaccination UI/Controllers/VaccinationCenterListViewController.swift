@@ -8,40 +8,37 @@
 import UIKit
 
 public final class VaccinationCenterListViewController: UITableViewController {
-    private var tableModels = [VaccinationCenterCellController]()
     
-    var refreshController: VaccinationCentersRefreshController?
     var callback: (() -> Void)?
+    var refreshController: VaccinationCentersRefreshController?
     
     convenience init(refreshController: VaccinationCentersRefreshController) {
         self.init()
         self.refreshController = refreshController
     }
     
+    private(set) lazy var dataSource = UITableViewDiffableDataSource<Int, VaccinationCenterCellController>(tableView: tableView) { tableView, indexPath, controller in
+        controller.view()
+    }
+    
     func set(_ controllers: [VaccinationCenterCellController]) {
-        tableModels = controllers
-        tableView.reloadData()
+        var snapshot = NSDiffableDataSourceSnapshot<Int, VaccinationCenterCellController>()
+        snapshot.appendSections([0])
+        snapshot.appendItems(controllers, toSection: 0)
+        dataSource.applySnapshotUsingReloadData(snapshot)
     }
     
     func append(_ newControllers: [VaccinationCenterCellController]) {
-        let startIndex = tableModels.count
-        let endIndex = startIndex + newControllers.count
-        tableModels += newControllers
-        
-        tableView.insertRows(at: (startIndex..<endIndex).map { row in IndexPath(row: row, section: 0) }, with: .automatic)
+        var snapshot = dataSource.snapshot()
+        snapshot.appendItems(newControllers, toSection: 0)
+        dataSource.apply(snapshot, animatingDifferences: true)
     }
     
     public override func viewDidLoad() {
+        tableView.dataSource = dataSource
+        
         refreshControl = refreshController?.view
         refreshController?.refresh()
-    }
-    
-    public override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        tableModels.count
-    }
-    
-    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        tableModels[indexPath.row].view()
     }
     
     public override func scrollViewDidScroll(_ scrollView: UIScrollView) {

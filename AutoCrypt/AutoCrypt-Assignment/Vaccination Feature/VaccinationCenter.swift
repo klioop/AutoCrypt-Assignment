@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct VaccinationCenter: Equatable {
+public struct VaccinationCenter: Hashable {
     public let id: CenterID
     public let name: String
     public let facilityName: String
@@ -27,7 +27,7 @@ public struct VaccinationCenter: Equatable {
     }
 }
 
-public struct CenterID: Equatable {
+public struct CenterID: Hashable {
     public let id: Int
     
     public init(id: Int) {

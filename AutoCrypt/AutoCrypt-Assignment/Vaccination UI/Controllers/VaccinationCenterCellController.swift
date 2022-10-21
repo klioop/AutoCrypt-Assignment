@@ -24,3 +24,15 @@ final class VaccinationCenterCellController {
         return cell
     }
 }
+
+extension VaccinationCenterCellController: Equatable {
+    static func ==(lhs: VaccinationCenterCellController, rhs: VaccinationCenterCellController) -> Bool {
+        lhs.model == rhs.model
+    }
+}
+
+extension VaccinationCenterCellController: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(model)
+    }
+}

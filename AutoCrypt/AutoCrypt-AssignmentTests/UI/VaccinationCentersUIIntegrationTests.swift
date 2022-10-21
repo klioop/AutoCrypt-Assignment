@@ -144,8 +144,8 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     private func assertThat(_ sut: VaccinationCenterListViewController, isRendering models: [VaccinationCenter], file: StaticString = #filePath, line: UInt = #line) {
         sut.view.forceLayout()
         
-        guard sut.numberOfCentersRendered == models.count else {
-            return XCTFail("렌더링 되는 뷰의 숫자 \(sut.numberOfCentersRendered) 은 모델의 갯수 \(models.count) 와 같아야 한다", file: file, line: line)
+        guard sut.numberOfCentersRendered(in: 0) == models.count else {
+            return XCTFail("렌더링 되는 뷰의 숫자 \(sut.numberOfCentersRendered(in: 0)) 은 모델의 갯수 \(models.count) 와 같아야 한다", file: file, line: line)
         }
         
         models.enumerated().forEach { row, center in
@@ -159,7 +159,9 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     }
     
     private func assertThat(_ sut: VaccinationCenterListViewController, configuresFor center: VaccinationCenter, at row: Int, file: StaticString = #filePath, line: UInt = #line) {
-        guard let centerView = sut.centerView(at: row) as? VaccinationCenterCell else {
+        let view = sut.centerView(at: row)
+        
+        guard let centerView = view as? VaccinationCenterCell else {
             return XCTFail("\(row) 의 예방접종센터 셀은 존재해야 한다", file: file, line: line)
         }
         
@@ -173,28 +175,33 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         
         // MARK: - LoadSingle
         
-        private(set) var requestCompletions = [PublishSubject<Paginated<VaccinationCenter>>]()
+        private(set) var requests = [PublishSubject<Paginated<VaccinationCenter>>]()
+        
+        func reset() {
+            requests = []
+            loadMoreRequests = []
+        }
         
         var loadCallCount: Int {
-            requestCompletions.count
+            requests.count
         }
         
         func loadSingle() -> Single<Paginated<VaccinationCenter>> {
             let subject = PublishSubject<Paginated<VaccinationCenter>>()
-            requestCompletions.append(subject)
+            requests.append(subject)
             return subject.asSingle()
         }
         
         func completeLoading(with error: Error, at index: Int = 0) {
-            requestCompletions[index].onError(error)
-            requestCompletions[index].onCompleted()
+            requests[index].onError(error)
+            requests[index].onCompleted()
         }
         
         func completeLoading(with centers: [VaccinationCenter], at index: Int = 0) {
-            requestCompletions[index].onNext(Paginated(items: centers, loadMoreSingle: { [weak self] in
+            requests[index].onNext(Paginated(items: centers, loadMoreSingle: { [weak self] in
                 self?.loadMoreSingle() ?? Observable.empty().asSingle()
             }))
-            requestCompletions[index].onCompleted()
+            requests[index].onCompleted()
         }
         
         // MARK: - LoadMoreSingle
