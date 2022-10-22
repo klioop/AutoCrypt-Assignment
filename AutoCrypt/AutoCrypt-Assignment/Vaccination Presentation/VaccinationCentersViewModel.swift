@@ -10,7 +10,7 @@ import RxSwift
 import RxRelay
 
 public final class VaccinationCentersViewModel {
-    let loadingRelay = PublishRelay<Bool>()
+    private let loadingRelay = PublishRelay<Bool>()
     public let loadTrigger = PublishRelay<Void>()
     
     private let loadSingle: () -> Single<Paginated<VaccinationCenter>>

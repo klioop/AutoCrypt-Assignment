@@ -13,9 +13,7 @@ class VaccinationCentersViewModelTests: XCTestCase {
     
     func test_successfulLoadedState_createsLoadedStateStreamWithLoadingStates() {
         let page = makePage(with: [uniqueCenter()])
-        let loader = LoaderStub(stub: .init(item: makePage(with: [uniqueCenter()]), error: nil))
-        let sut = VaccinationCentersViewModel(loadSingle: loader.loadSingle)
-        let state = StateSpy(sut.state)
+        let (sut, state) = makeSUT(stub: .init(item: page, error: nil))
         
         sut.loadTrigger.accept(())
         
@@ -23,6 +21,16 @@ class VaccinationCentersViewModelTests: XCTestCase {
     }
     
     // MARK: - Helpers
+    
+    private func makeSUT(stub: LoaderStub.Stub, file: StaticString = #filePath, line: UInt = #line) -> (sut: VaccinationCentersViewModel, state: StateSpy) {
+        let loader = LoaderStub(stub: stub)
+        let sut = VaccinationCentersViewModel(loadSingle: loader.loadSingle)
+        let state = StateSpy(sut.state)
+        trackMemoryLeak(loader, file: file, line: line)
+        trackMemoryLeak(sut, file: file, line: line)
+        trackMemoryLeak(state, file: file, line: line)
+        return (sut, state)
+    }
     
     private func makePage(with items: [VaccinationCenter]) -> Paginated<VaccinationCenter> {
         Paginated(items: items)
