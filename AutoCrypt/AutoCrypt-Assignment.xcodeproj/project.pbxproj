@@ -31,6 +31,8 @@
 		3150819828FC4BD600DA9EB7 /* VaccinationCenterCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819728FC4BD600DA9EB7 /* VaccinationCenterCellController.swift */; };
 		3150819B28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */; };
 		3150819D28FD060300DA9EB7 /* VaccinationCentersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819C28FD060300DA9EB7 /* VaccinationCentersViewModel.swift */; };
+		3199755E2903DA0A005A44AD /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 3199755D2903DA0A005A44AD /* Differentiator */; };
+		319975602903DA0A005A44AD /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 3199755F2903DA0A005A44AD /* RxDataSources */; };
 		31A8BBC628FEA714009459F0 /* VaccinationCenterMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A8BBC528FEA714009459F0 /* VaccinationCenterMapperTests.swift */; };
 		31A8BBC828FECEBF009459F0 /* VaccinationCenterListViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A8BBC728FECEBF009459F0 /* VaccinationCenterListViewController+TestHelpers.swift */; };
 		31A8BBCB28FECF4F009459F0 /* VaccinationCenterCell+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A8BBCA28FECF4F009459F0 /* VaccinationCenterCell+TestHelpers.swift */; };
@@ -102,7 +104,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				31DEF6D628FE55910019F6E9 /* RxSwift in Frameworks */,
+				3199755E2903DA0A005A44AD /* Differentiator in Frameworks */,
 				31DEF6D928FE561F0019F6E9 /* SnapKit in Frameworks */,
+				319975602903DA0A005A44AD /* RxDataSources in Frameworks */,
 				31DEF6D428FE55910019F6E9 /* RxRelay in Frameworks */,
 				31DEF6D228FE55910019F6E9 /* RxCocoa in Frameworks */,
 			);
@@ -305,6 +309,8 @@
 				31DEF6D328FE55910019F6E9 /* RxRelay */,
 				31DEF6D528FE55910019F6E9 /* RxSwift */,
 				31DEF6D828FE561F0019F6E9 /* SnapKit */,
+				3199755D2903DA0A005A44AD /* Differentiator */,
+				3199755F2903DA0A005A44AD /* RxDataSources */,
 			);
 			productName = "AutoCript-Assignment";
 			productReference = 3145BFC528FBA92200798FC0 /* AutoCrypt-Assignment.app */;
@@ -381,7 +387,7 @@
 			packageReferences = (
 				31DEF6D028FE55910019F6E9 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				31DEF6D728FE561F0019F6E9 /* XCRemoteSwiftPackageReference "SnapKit" */,
-				3199755B2903D83E005A44AD /* XCRemoteSwiftPackageReference "RxDataSources" */,
+				3199755C2903DA0A005A44AD /* XCRemoteSwiftPackageReference "RxDataSources" */,
 			);
 			productRefGroup = 3145BFC628FBA92200798FC0 /* Products */;
 			projectDirPath = "";
@@ -787,7 +793,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		3199755B2903D83E005A44AD /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
+		3199755C2903DA0A005A44AD /* XCRemoteSwiftPackageReference "RxDataSources" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/RxSwiftCommunity/RxDataSources.git";
 			requirement = {
@@ -814,6 +820,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3199755D2903DA0A005A44AD /* Differentiator */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3199755C2903DA0A005A44AD /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = Differentiator;
+		};
+		3199755F2903DA0A005A44AD /* RxDataSources */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3199755C2903DA0A005A44AD /* XCRemoteSwiftPackageReference "RxDataSources" */;
+			productName = RxDataSources;
+		};
 		31DEF6D128FE55910019F6E9 /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 31DEF6D028FE55910019F6E9 /* XCRemoteSwiftPackageReference "RxSwift" */;

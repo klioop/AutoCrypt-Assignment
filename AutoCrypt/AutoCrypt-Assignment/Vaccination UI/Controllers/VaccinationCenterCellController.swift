@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxDataSources
 
 final class VaccinationCenterCellController {
     private let model: VaccinationCenter
@@ -34,5 +35,11 @@ extension VaccinationCenterCellController: Equatable {
 extension VaccinationCenterCellController: Hashable {
     func hash(into hasher: inout Hasher) {
         hasher.combine(model)
+    }
+}
+
+extension VaccinationCenterCellController: IdentifiableType {
+    var identity: some Hashable {
+        model
     }
 }
