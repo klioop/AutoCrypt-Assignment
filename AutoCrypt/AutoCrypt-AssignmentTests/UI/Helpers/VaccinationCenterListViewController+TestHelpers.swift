@@ -17,6 +17,7 @@ private class NoAnimationTableView: UITableView {
 extension VaccinationCenterListViewController {
     public override func loadViewIfNeeded() {
         super.loadViewIfNeeded()
+        tableView.frame = CGRect(x: 0, y: 0, width: 1, height: 1)
         
         tableView = NoAnimationTableView()
     }
@@ -25,11 +26,13 @@ extension VaccinationCenterListViewController {
         refreshControl!.isRefreshing
     }
     
-    var numberOfCentersRendered: Int {
-        tableView.numberOfRows(inSection: 0)
+    func numberOfCentersRendered(in section: Int) -> Int {
+        tableView.numberOfRows(inSection: section)
     }
     
     func centerView(at row: Int) -> UITableViewCell? {
+        guard numberOfCentersRendered(in: listSection) > row else { return nil }
+        
         let dataSource = tableView.dataSource
         let indexPath = IndexPath(row: row, section: listSection)
         return dataSource?.tableView(tableView, cellForRowAt: indexPath)

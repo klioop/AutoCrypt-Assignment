@@ -7,7 +7,6 @@
 
 import Foundation
 import RxSwift
-import RxRelay
 
 public final class VaccinationCentersUIComposer {
     static public func vaccinationCenterListComposedWith(loadSingle: @escaping () -> Single<Paginated<VaccinationCenter>>) -> VaccinationCenterListViewController {

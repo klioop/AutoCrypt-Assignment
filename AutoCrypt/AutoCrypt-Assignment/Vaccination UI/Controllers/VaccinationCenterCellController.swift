@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RxDataSources
 
 final class VaccinationCenterCellController {
     private let model: VaccinationCenter
@@ -22,5 +23,23 @@ final class VaccinationCenterCellController {
         cell.addressLabel.text = model.address
         cell.updatedAtLabel.text = model.updatedAt
         return cell
+    }
+}
+
+extension VaccinationCenterCellController: Equatable {
+    static func ==(lhs: VaccinationCenterCellController, rhs: VaccinationCenterCellController) -> Bool {
+        lhs.model == rhs.model
+    }
+}
+
+extension VaccinationCenterCellController: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(model)
+    }
+}
+
+extension VaccinationCenterCellController: IdentifiableType {
+    var identity: some Hashable {
+        model
     }
 }
