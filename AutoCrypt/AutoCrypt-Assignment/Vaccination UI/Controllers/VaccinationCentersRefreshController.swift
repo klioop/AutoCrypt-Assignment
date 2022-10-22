@@ -26,7 +26,6 @@ final class VaccinationCentersRefreshController {
         view.rx
             .controlEvent(.valueChanged)
             .bind(onNext: { [viewModel] in
-                viewModel.loadingRelay.accept(true)
                 viewModel.loadTrigger.accept(())
             })
             .disposed(by: bag)

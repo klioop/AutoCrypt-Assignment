@@ -52,55 +52,6 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         XCTAssertEqual(loader.loadMoreCallCount, 3, "추가적으로 요청된 로드가 성공적으로 끝나고, 마지막 페이지면 추가로 더 리스트를 요청해도 리스트는 요청되지 않는다")
     }
     
-    func test_requestLoadAction_showsLoadingIndicator() {
-        let (sut, loader) = makeSUT()
-        
-        sut.loadViewIfNeeded()
-        XCTAssertEqual(sut.isShowingLoadingIndicator, true, "뷰가 로드 되면 로딩 인디케이터를 보여준다")
-        
-        loader.completeLoading(with: anyNSError(), at: 0)
-        XCTAssertEqual(sut.isShowingLoadingIndicator, false, "센터 리스트 로드가 끝나면 로딩인디케이터를 보여주지 않는다")
-    }
-    
-    func test_successfulLoadCompletion_rendersCentersLoaded() {
-        let (sut, loader) = makeSUT()
-        let center0 = uniqueCenter(id: 1, name: "first center", facilityName: "first facility name", address: "first address", updatedAt: "2021-07-16 04:55:08")
-        let center1 = uniqueCenter(id: 2, name: "second center", facilityName: "second facility name", address: "second address", updatedAt: "2021-07-17 04:55:08")
-        let center2 = uniqueCenter(id: 3, name: "third center", facilityName: "third facility name", address: "first address", updatedAt: "2021-07-16 04:55:08")
-        let center3 = uniqueCenter(id: 4, name: "fourth center", facilityName: "fourth facility name", address: "second address", updatedAt: "2021-07-17 04:55:08")
-        
-        sut.loadViewIfNeeded()
-        assertThat(sut, isRendering: [])
-        
-        loader.completeLoading(with: [center0, center1], at: 0)
-        assertThat(sut, isRendering: [center0, center1])
-        
-        sut.simulateLoadMoreAction()
-        loader.completeLoadMore(with: [center2, center3], at: 0)
-        assertThat(sut, isRendering: [center0, center1, center2, center3])
-        
-        sut.simulateUserInitiateReload()
-        loader.completeLoading(with: [center0, center1], at: 1)
-        assertThat(sut, isRendering: [center0, center1])
-    }
-    
-    func test_loadCentersCompletion_doesNotAlterCurrentRenderingStateOnError() {
-        let center = uniqueCenter()
-        let (sut, loader) = makeSUT()
-        
-        sut.loadViewIfNeeded()
-        loader.completeLoading(with: [center], at: 0)
-        assertThat(sut, isRendering: [center])
-        
-        sut.simulateUserInitiateReload()
-        loader.completeLoading(with: anyNSError(), at: 1)
-        assertThat(sut, isRendering: [center])
-        
-        sut.simulateLoadMoreAction()
-        loader.completeLoadMoreWithError()
-        assertThat(sut, isRendering: [center])
-    }
-    
     func test_loadCentersCompletion_dispatchesFromBackgroundToMainQueue() {
         let (sut, loader) = makeSUT()
         sut.loadViewIfNeeded()
@@ -176,11 +127,6 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
         // MARK: - LoadSingle
         
         private(set) var requests = [PublishSubject<Paginated<VaccinationCenter>>]()
-        
-        func reset() {
-            requests = []
-            loadMoreRequests = []
-        }
         
         var loadCallCount: Int {
             requests.count

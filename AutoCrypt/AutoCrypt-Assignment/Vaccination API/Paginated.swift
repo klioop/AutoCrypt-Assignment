@@ -18,3 +18,9 @@ public struct Paginated<Item> {
         self.loadMore = loadMore
     }
 }
+
+extension Paginated: Equatable where Item: Equatable {
+    public static func ==(lhs: Paginated, rhs: Paginated) -> Bool {
+        lhs.items == rhs.items
+    }
+}

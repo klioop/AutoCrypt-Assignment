@@ -33,6 +33,7 @@
 		3150819D28FD060300DA9EB7 /* VaccinationCentersViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3150819C28FD060300DA9EB7 /* VaccinationCentersViewModel.swift */; };
 		3199755E2903DA0A005A44AD /* Differentiator in Frameworks */ = {isa = PBXBuildFile; productRef = 3199755D2903DA0A005A44AD /* Differentiator */; };
 		319975602903DA0A005A44AD /* RxDataSources in Frameworks */ = {isa = PBXBuildFile; productRef = 3199755F2903DA0A005A44AD /* RxDataSources */; };
+		319975632903F5A1005A44AD /* VaccinationCentersViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319975622903F5A1005A44AD /* VaccinationCentersViewModelTests.swift */; };
 		31A8BBC628FEA714009459F0 /* VaccinationCenterMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A8BBC528FEA714009459F0 /* VaccinationCenterMapperTests.swift */; };
 		31A8BBC828FECEBF009459F0 /* VaccinationCenterListViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A8BBC728FECEBF009459F0 /* VaccinationCenterListViewController+TestHelpers.swift */; };
 		31A8BBCB28FECF4F009459F0 /* VaccinationCenterCell+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A8BBCA28FECF4F009459F0 /* VaccinationCenterCell+TestHelpers.swift */; };
@@ -90,6 +91,7 @@
 		3150819728FC4BD600DA9EB7 /* VaccinationCenterCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterCellController.swift; sourceTree = "<group>"; };
 		3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersUIComposer.swift; sourceTree = "<group>"; };
 		3150819C28FD060300DA9EB7 /* VaccinationCentersViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersViewModel.swift; sourceTree = "<group>"; };
+		319975622903F5A1005A44AD /* VaccinationCentersViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersViewModelTests.swift; sourceTree = "<group>"; };
 		31A8BBC528FEA714009459F0 /* VaccinationCenterMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterMapperTests.swift; sourceTree = "<group>"; };
 		31A8BBC728FECEBF009459F0 /* VaccinationCenterListViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VaccinationCenterListViewController+TestHelpers.swift"; sourceTree = "<group>"; };
 		31A8BBCA28FECF4F009459F0 /* VaccinationCenterCell+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VaccinationCenterCell+TestHelpers.swift"; sourceTree = "<group>"; };
@@ -169,6 +171,7 @@
 		3145BFDE28FBA92600798FC0 /* AutoCrypt-AssignmentTests */ = {
 			isa = PBXGroup;
 			children = (
+				319975612903F58D005A44AD /* Vaccination Presentation */,
 				3150818528FBE10C00DA9EB7 /* Helpers */,
 				31DEF6DA28FE73DA0019F6E9 /* API */,
 				31DEF6DB28FE73EB0019F6E9 /* UI */,
@@ -259,6 +262,14 @@
 				31158F4A28FD7693004C8283 /* RxSwift+paginated.swift */,
 			);
 			path = Composition;
+			sourceTree = "<group>";
+		};
+		319975612903F58D005A44AD /* Vaccination Presentation */ = {
+			isa = PBXGroup;
+			children = (
+				319975622903F5A1005A44AD /* VaccinationCentersViewModelTests.swift */,
+			);
+			path = "Vaccination Presentation";
 			sourceTree = "<group>";
 		};
 		31A8BBC928FECF0F009459F0 /* Helpers */ = {
@@ -464,6 +475,7 @@
 				31DEF6CF28FDB83C0019F6E9 /* UIView+forceLayout.swift in Sources */,
 				3150818C28FC2B5800DA9EB7 /* TestHelpers.swift in Sources */,
 				31A8BBC628FEA714009459F0 /* VaccinationCenterMapperTests.swift in Sources */,
+				319975632903F5A1005A44AD /* VaccinationCentersViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

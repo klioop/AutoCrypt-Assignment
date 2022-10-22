@@ -9,25 +9,28 @@ import Foundation
 import RxSwift
 import RxRelay
 
-final class VaccinationCentersViewModel {
+public final class VaccinationCentersViewModel {
     let loadingRelay = PublishRelay<Bool>()
-    let loadTrigger = PublishRelay<Void>()
+    public let loadTrigger = PublishRelay<Void>()
     
     private let loadSingle: () -> Single<Paginated<VaccinationCenter>>
     
-    init(loadSingle: @escaping () -> Single<Paginated<VaccinationCenter>>) {
+    public init(loadSingle: @escaping () -> Single<Paginated<VaccinationCenter>>) {
         self.loadSingle = loadSingle
     }
     
-    enum State {
+    public enum State: Equatable {
         case loading(Bool)
         case loaded(Paginated<VaccinationCenter>)
     }
     
-    var state: Observable<State> {
+    public var state: Observable<State> {
         Observable.merge([
             loadingRelay.map { .loading($0) },
             loadTrigger
+                .do(onNext: { [loadingRelay] _ in
+                    loadingRelay.accept(true)
+                })
                 .flatMap { [loadSingle, loadingRelay] in
                     return loadSingle()
                         .observe(on: MainScheduler.instance)
