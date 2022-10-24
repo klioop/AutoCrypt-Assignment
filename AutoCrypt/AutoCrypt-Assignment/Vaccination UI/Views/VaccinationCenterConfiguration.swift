@@ -8,6 +8,9 @@
 import UIKit
 
 struct VaccinationCenterConfiguration: UIContentConfiguration {
+    var image: UIImage?
+    var title: String?
+    var description: String?
     
     func makeContentView() -> UIView & UIContentView {
         VaccinationCenterDetailView(configuration: self)
