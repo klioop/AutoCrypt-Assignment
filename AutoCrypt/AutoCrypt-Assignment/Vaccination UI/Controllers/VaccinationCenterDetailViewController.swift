@@ -9,8 +9,18 @@ import UIKit
 
 final class VaccinationCenterDetailViewController: UICollectionViewController {
     
+    private var collectionModels = [VaccinationCenterDetailCellController]()
+    
     override func viewDidLoad() {
         collectionView.collectionViewLayout = createLayout()
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        section == 0 ? 4 : 1
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        collectionModels[indexPath.row].view(in: collectionView, for: indexPath)
     }
     
     private func createLayout() -> UICollectionViewLayout {
