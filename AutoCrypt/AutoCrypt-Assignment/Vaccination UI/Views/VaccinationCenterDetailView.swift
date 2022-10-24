@@ -35,6 +35,7 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
     private(set) lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.numberOfLines = 2
         return label
     }()
     
