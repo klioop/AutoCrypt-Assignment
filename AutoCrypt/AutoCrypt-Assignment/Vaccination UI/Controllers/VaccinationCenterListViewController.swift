@@ -56,6 +56,10 @@ public final class VaccinationCenterListViewController: UITableViewController {
         refreshController?.refresh()
     }
     
+    public override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        centerListRelay.value[0].items[indexPath.row].select()
+    }
+    
     public override func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView.isDragging else { return }
         

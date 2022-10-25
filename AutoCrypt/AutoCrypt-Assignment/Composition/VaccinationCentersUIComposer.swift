@@ -9,20 +9,22 @@ import Foundation
 import RxSwift
 
 public final class VaccinationCentersUIComposer {
-    static public func vaccinationCenterListComposedWith(loadSingle: @escaping () -> Single<Paginated<VaccinationCenter>>) -> VaccinationCenterListViewController {
+    static public func vaccinationCenterListComposedWith(loadSingle: @escaping () -> Single<Paginated<VaccinationCenter>>,
+                                                         selection: @escaping (VaccinationCenter) -> Void)
+    -> VaccinationCenterListViewController {
         let viewModel = VaccinationCentersViewModel(loadSingle: loadSingle)
         let refreshController = VaccinationCentersRefreshController(viewModel: viewModel)
         let centerListController = VaccinationCenterListViewController(refreshController: refreshController)
         
         refreshController.onLoad = { [weak centerListController] paginated in
-            centerListController?.set(paginated.cellControllers)
+            centerListController?.set(paginated.cellControllers(selection: selection))
             guard let loadMore = paginated.loadMoreSingle else { return }
             
             let pagingViewModel = PagingViewModel(loadMoreLoader: loadMore)
             let pagingController = PagingController(viewModel: pagingViewModel)
             
             pagingController.onLoadMore = { [weak centerListController] paginated in
-                centerListController?.append(paginated.cellControllers)
+                centerListController?.append(paginated.cellControllers(selection: selection))
                 
                 guard let loadMore = paginated.loadMoreSingle else {
                     pagingController.isLastPage = true
@@ -41,7 +43,9 @@ public final class VaccinationCentersUIComposer {
 }
 
 private extension Paginated where Item == VaccinationCenter {
-    var cellControllers: [VaccinationCenterCellController] {
-        items.map { VaccinationCenterCellController(model: $0) }
+    func cellControllers(selection: @escaping (VaccinationCenter) -> Void) -> [VaccinationCenterCellController] {
+        items.map { center in
+            VaccinationCenterCellController(model: center, selection: { selection(center) })
+        }
     }
 }
