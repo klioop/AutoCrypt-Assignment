@@ -21,6 +21,7 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
         imageViewContainer.addSubview(view)
         view.snp.makeConstraints {
             $0.edges.equalToSuperview()
+            $0.width.height.equalTo(75)
         }
         
         return view
@@ -29,31 +30,51 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
     private(set) lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.font = .systemFont(ofSize: 12, weight: .bold)
+        
         return label
     }()
     
     private(set) lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.font = .systemFont(ofSize: 12)
         label.numberOfLines = 2
         return label
     }()
     
-    private(set) lazy var container: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.alignment = .center
+    private(set) lazy var container: UIView = {
+        let view = UIView()
         
         [imageViewContainer, titleLabel, descriptionLabel].forEach {
-            stack.addArrangedSubview($0)
+            addSubview($0)
         }
         
-        return stack
+        imageViewContainer.snp.makeConstraints {
+            $0.top.equalToSuperview()
+            $0.centerX.equalToSuperview()
+        }
+        
+        titleLabel.snp.makeConstraints {
+            $0.top.equalTo(imageViewContainer.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+        }
+        
+        descriptionLabel.snp.makeConstraints {
+            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
+            $0.centerX.equalToSuperview()
+        }
+        
+        return view
     }()
     
     var configuration: UIContentConfiguration {
         get { customConfiguration }
-        set { }
+        set {
+            if let newConfig = newValue as? VaccinationCenterConfiguration {
+                apply(newConfig)
+            }
+        }
     }
     
     private let customConfiguration: VaccinationCenterConfiguration
@@ -64,11 +85,19 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
         
         addSubview(container)
         container.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.leading.trailing.equalTo(layoutMarginsGuide)
+            $0.top.bottom.equalTo(layoutMarginsGuide)
         }
+        apply(configuration)
     }
     
     required init?(coder: NSCoder) {
         nil
+    }
+    
+    private func apply(_ config: VaccinationCenterConfiguration) {
+        imageView.image = config.image
+        titleLabel.text = config.title
+        descriptionLabel.text = config.description
     }
 }
