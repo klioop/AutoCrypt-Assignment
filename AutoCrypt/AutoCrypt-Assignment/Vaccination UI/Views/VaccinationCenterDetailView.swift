@@ -82,6 +82,7 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
     init(configuration: VaccinationCenterConfiguration) {
         self.customConfiguration = configuration
         super.init(frame: .zero)
+        backgroundColor = .systemBackground
         
         addSubview(container)
         container.snp.makeConstraints {
