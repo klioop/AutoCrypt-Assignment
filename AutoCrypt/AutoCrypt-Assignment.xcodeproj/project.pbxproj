@@ -235,8 +235,8 @@
 		3150818D28FC42C900DA9EB7 /* Vaccination UI */ = {
 			isa = PBXGroup;
 			children = (
-				3150818E28FC46A700DA9EB7 /* Controllers */,
-				3150818F28FC46AB00DA9EB7 /* Views */,
+				319975752908156D005A44AD /* Detail */,
+				3199757429081567005A44AD /* List */,
 			);
 			path = "Vaccination UI";
 			sourceTree = "<group>";
@@ -248,8 +248,6 @@
 				3150819528FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift */,
 				3150819728FC4BD600DA9EB7 /* VaccinationCenterCellController.swift */,
 				31158F4C28FD76B8004C8283 /* PagingController.swift */,
-				3199756A29068E6A005A44AD /* VaccinationCenterDetailViewController.swift */,
-				3199756C29069A0B005A44AD /* VaccinationCenterDetailCellController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -258,9 +256,6 @@
 			isa = PBXGroup;
 			children = (
 				3150819228FC472800DA9EB7 /* VaccinationCenterCell.swift */,
-				3199756429054D8C005A44AD /* VaccinationCenterDetailView.swift */,
-				3199756629055851005A44AD /* VaccinationCenterConfiguration.swift */,
-				3199756E29069A9A005A44AD /* VaccinationCenterDetailCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -291,6 +286,43 @@
 				319975622903F5A1005A44AD /* VaccinationCentersViewModelTests.swift */,
 			);
 			path = "Vaccination Presentation";
+			sourceTree = "<group>";
+		};
+		3199757429081567005A44AD /* List */ = {
+			isa = PBXGroup;
+			children = (
+				3150818E28FC46A700DA9EB7 /* Controllers */,
+				3150818F28FC46AB00DA9EB7 /* Views */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		319975752908156D005A44AD /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				319975762908157E005A44AD /* Controllers */,
+				3199757729081582005A44AD /* Views */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		319975762908157E005A44AD /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				3199756A29068E6A005A44AD /* VaccinationCenterDetailViewController.swift */,
+				3199756C29069A0B005A44AD /* VaccinationCenterDetailCellController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		3199757729081582005A44AD /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				3199756429054D8C005A44AD /* VaccinationCenterDetailView.swift */,
+				3199756629055851005A44AD /* VaccinationCenterConfiguration.swift */,
+				3199756E29069A9A005A44AD /* VaccinationCenterDetailCell.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		31A8BBC928FECF0F009459F0 /* Helpers */ = {
