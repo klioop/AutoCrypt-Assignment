@@ -22,7 +22,7 @@ final class VaccinationCenterDetailViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.collectionViewLayout = layout
-        collectionView.backgroundColor = .systemGray
+        collectionView.backgroundColor = .lightGray
         configure?(collectionView)
     }
     
