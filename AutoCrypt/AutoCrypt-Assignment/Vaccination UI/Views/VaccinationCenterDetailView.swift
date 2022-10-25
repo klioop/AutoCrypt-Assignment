@@ -84,6 +84,12 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
         super.init(frame: .zero)
         backgroundColor = .systemBackground
         layer.cornerRadius = 8
+        layer.borderWidth = 1
+        layer.borderColor = UIColor.clear.cgColor
+        layer.shadowColor = UIColor.black.cgColor
+        layer.shadowOffset = CGSize(width: 0, height: 1)
+        layer.shadowOpacity = 0.5
+        layer.shadowRadius = 3.0
         
         addSubview(container)
         container.snp.makeConstraints {
