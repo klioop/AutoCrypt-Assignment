@@ -10,10 +10,7 @@ import SnapKit
 
 final class VaccinationCenterDetailView: UIView, UIContentView {
     
-    private(set) lazy var imageViewContainer: UIView = {
-        let view = UIView()
-        return view
-    }()
+    private(set) lazy var imageViewContainer = UIView()
     
     private(set) lazy var imageView: UIImageView = {
         let view = UIImageView()
@@ -45,9 +42,17 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
     
     private(set) lazy var container: UIView = {
         let view = UIView()
+        view.backgroundColor = .systemBackground
+        view.layer.cornerRadius = 8
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.clear.cgColor
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 1)
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowRadius = 3.0
         
         [imageViewContainer, titleLabel, descriptionLabel].forEach {
-            addSubview($0)
+            view.addSubview($0)
         }
         
         imageViewContainer.snp.makeConstraints {
@@ -83,14 +88,6 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
     init(configuration: VaccinationCenterConfiguration) {
         self.customConfiguration = configuration
         super.init(frame: .zero)
-        backgroundColor = .systemBackground
-        layer.cornerRadius = 8
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.clear.cgColor
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 1)
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 3.0
         
         addSubview(container)
         container.snp.makeConstraints {
