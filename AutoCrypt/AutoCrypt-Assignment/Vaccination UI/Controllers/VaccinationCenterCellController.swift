@@ -10,9 +10,11 @@ import RxDataSources
 
 final class VaccinationCenterCellController {
     private let model: VaccinationCenter
+    private let selection: () -> Void
     
-    init(model: VaccinationCenter) {
+    init(model: VaccinationCenter, selection: @escaping () -> Void) {
         self.model = model
+        self.selection = selection
     }
     
     func view() -> UITableViewCell {
@@ -23,6 +25,10 @@ final class VaccinationCenterCellController {
         cell.addressLabel.text = model.address
         cell.updatedAtLabel.text = model.updatedAt
         return cell
+    }
+    
+    func select() {
+        selection()
     }
 }
 

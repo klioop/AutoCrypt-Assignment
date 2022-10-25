@@ -86,7 +86,9 @@ class VaccinationCentersUIIntegrationTests: XCTestCase {
     
     private func makeSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: VaccinationCenterListViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = VaccinationCentersUIComposer.vaccinationCenterListComposedWith(loadSingle: loader.loadSingle)
+        let sut = VaccinationCentersUIComposer.vaccinationCenterListComposedWith(
+            loadSingle: loader.loadSingle,
+            selection: { _ in })
         trackMemoryLeak(loader, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
         return (sut, loader)
