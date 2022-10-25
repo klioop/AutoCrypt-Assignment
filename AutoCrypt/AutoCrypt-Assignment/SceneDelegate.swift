@@ -17,20 +17,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private lazy var httpClient: HTTPClient = {
         URLSessionHTTPClient(session: .shared)
     }()
+    
+    private lazy var navigationController = UINavigationController(rootViewController: VaccinationCentersUIComposer.vaccinationCenterListComposedWith(
+        loadSingle: makeRemoteCenterListLoader,
+        selection: showDetail))
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let scene = (scene as? UIWindowScene), !isRunningUnitTests() else { return }
         window = UIWindow(windowScene: scene)
         
-        let centerListController = VaccinationCentersUIComposer.vaccinationCenterListComposedWith(
-            loadSingle: makeRemoteCenterListLoader)
-        
-        window?.rootViewController = UINavigationController(rootViewController: centerListController)
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
     
     private func isRunningUnitTests() -> Bool {
         NSClassFromString("XCTestCase") != nil
+    }
+    
+    private func showDetail(for center: VaccinationCenter) {
+        let detailController = VaccinationCenterDetailUIComposer.makeDetailViewController(for: center)
+        navigationController.pushViewController(detailController, animated: true)
     }
     
     private func makeRemoteCenterListLoader() -> Single<Paginated<VaccinationCenter>> {

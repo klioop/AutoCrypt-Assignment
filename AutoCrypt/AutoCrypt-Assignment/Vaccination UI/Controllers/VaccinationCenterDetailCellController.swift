@@ -14,8 +14,12 @@ final class VaccinationCenterDetailCellController {
         self.model = model
     }
     
+    static func register(for collectionView: UICollectionView) {
+        collectionView.register(VaccinationCenterDetailCell.self, forCellWithReuseIdentifier: "cell")
+    }
+    
     func view(in collectionView: UICollectionView, for indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: "\(VaccinationCenterDetailCell.self)"), for: indexPath) as! VaccinationCenterDetailCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! VaccinationCenterDetailCell
         
         cell.image = model.image
         cell.title = model.title
