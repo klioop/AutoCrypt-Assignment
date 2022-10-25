@@ -67,7 +67,7 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
         
         descriptionLabel.snp.makeConstraints {
             $0.top.equalTo(titleLabel.snp.bottom).offset(3)
-            $0.leading.trailing.equalToSuperview().inset(30)
+            $0.leading.trailing.equalToSuperview().inset(20)
             $0.bottom.equalToSuperview().inset(30)
         }
         
