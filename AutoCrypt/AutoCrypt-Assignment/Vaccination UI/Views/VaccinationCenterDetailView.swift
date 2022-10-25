@@ -51,7 +51,7 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
         }
         
         imageViewContainer.snp.makeConstraints {
-            $0.top.equalToSuperview()
+            $0.top.equalToSuperview().offset(10)
             $0.centerX.equalToSuperview()
         }
         
