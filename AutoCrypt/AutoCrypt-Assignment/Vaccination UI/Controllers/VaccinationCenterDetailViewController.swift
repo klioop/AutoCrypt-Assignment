@@ -22,7 +22,7 @@ final class VaccinationCenterDetailViewController: UICollectionViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.collectionViewLayout = layout
-        collectionView.backgroundColor = .lightGray
+        collectionView.backgroundColor = .systemGray5
         configure?(collectionView)
     }
     
@@ -45,7 +45,7 @@ final class VaccinationCenterDetailViewController: UICollectionViewController {
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(150))
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(170))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
             group.interItemSpacing = .fixed(40)
             
