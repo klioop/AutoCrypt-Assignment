@@ -94,6 +94,7 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
             $0.leading.trailing.equalTo(layoutMarginsGuide)
             $0.top.bottom.equalTo(layoutMarginsGuide)
         }
+        
         apply(configuration)
     }
     
