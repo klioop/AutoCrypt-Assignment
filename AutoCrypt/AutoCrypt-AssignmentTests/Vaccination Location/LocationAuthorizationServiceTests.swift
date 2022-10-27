@@ -9,6 +9,10 @@ import XCTest
 
 final class LocationAuthorizationService {
     private(set) var completion: (() -> Void)?
+    
+    func start(completion: @escaping () -> Void) {
+        self.completion = completion
+    }
 }
 
 class LocationAuthorizationServiceTests: XCTestCase {
@@ -17,5 +21,13 @@ class LocationAuthorizationServiceTests: XCTestCase {
         let sut = LocationAuthorizationService()
         
         XCTAssertNil(sut.completion)
+    }
+    
+    func test_start_captureCompletion() {
+        let sut = LocationAuthorizationService()
+        
+        sut.start {}
+        
+        XCTAssertNotNil(sut.completion)
     }
 }
