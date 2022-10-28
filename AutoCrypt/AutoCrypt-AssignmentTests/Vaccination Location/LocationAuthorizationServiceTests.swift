@@ -36,7 +36,7 @@ final class LocationAuthorizationService: NSObject, CLLocationManagerDelegate {
         case .restricted:
             completion?(.unavailable)
          
-        case .authorizedWhenInUse:
+        case .authorizedWhenInUse, .authorizedAlways:
             completion?(.available)
             
         default: break
@@ -73,8 +73,14 @@ class LocationAuthorizationServiceTests: XCTestCase {
         expect(sut, toCompletedWith: .unavailable)
     }
     
-    func test_start_deliversAvailableWhenLocationServiceIsAvailable() {
+    func test_start_deliversAvailableWhenLocationServiceIsAvailableInUse() {
         let sut = makeSUT(stubStatus: .authorizedWhenInUse)
+        
+        expect(sut, toCompletedWith: .available)
+    }
+    
+    func test_start_deliversAvailableWhenLocationServiceIsAvailableAlways() {
+        let sut = makeSUT(stubStatus: .authorizedAlways)
         
         expect(sut, toCompletedWith: .available)
     }
