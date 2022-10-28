@@ -63,35 +63,20 @@ class LocationAuthorizationServiceTests: XCTestCase {
     
     func test_start_deliversDeniedForLocationServiceIsDenied() {
         let sut = makeSUT(stubStatus: .denied)
-        
-        let exp = expectation(description: "wait for start completion")
-        sut.start { status in
-            XCTAssertEqual(status, .denied)
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1.0)
+      
+        expect(sut, toCompletedWith: .denied)
     }
     
     func test_start_deliversUnavailableWhenLocationServiceIsUnavailable() {
         let sut = makeSUT(stubStatus: .restricted)
         
-        let exp = expectation(description: "wait for start completion")
-        sut.start { status in
-            XCTAssertEqual(status, .unavailable)
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1.0)
+        expect(sut, toCompletedWith: .unavailable)
     }
     
     func test_start_deliversAvailableWhenLocationServiceIsAvailable() {
         let sut = makeSUT(stubStatus: .authorizedWhenInUse)
         
-        let exp = expectation(description: "wait for start completion")
-        sut.start { status in
-            XCTAssertEqual(status, .available)
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1.0)
+        expect(sut, toCompletedWith: .available)
     }
     
     // MARK: - Helpers
@@ -102,6 +87,15 @@ class LocationAuthorizationServiceTests: XCTestCase {
         trackMemoryLeak(manager, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
         return sut
+    }
+    
+    private func expect(_ sut: LocationAuthorizationService, toCompletedWith expectedStatus: LocationAuthorizationService.AuthorizationStatus, file: StaticString = #filePath, line: UInt = #line) {
+        let exp = expectation(description: "wait for start completion")
+        sut.start { receivedStatus in
+            XCTAssertEqual(receivedStatus, expectedStatus)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
     }
     
     private class LocationManagerStub: CLLocationManager {
