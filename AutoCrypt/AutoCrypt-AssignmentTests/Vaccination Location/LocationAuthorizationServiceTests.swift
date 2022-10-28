@@ -12,6 +12,7 @@ final class LocationAuthorizationService: NSObject, CLLocationManagerDelegate {
     enum AuthorizationStatus {
         case denied
         case unavailable
+        case available
     }
     
     private let manager: CLLocationManager
@@ -34,6 +35,9 @@ final class LocationAuthorizationService: NSObject, CLLocationManagerDelegate {
             
         case .restricted:
             completion?(.unavailable)
+         
+        case .authorizedWhenInUse:
+            completion?(.available)
             
         default: break
         }
@@ -74,6 +78,17 @@ class LocationAuthorizationServiceTests: XCTestCase {
         let exp = expectation(description: "wait for start completion")
         sut.start { status in
             XCTAssertEqual(status, .unavailable)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
+    
+    func test_start_deliversAvailableWhenLocationServiceIsAvailable() {
+        let sut = makeSUT(stubStatus: .authorizedWhenInUse)
+        
+        let exp = expectation(description: "wait for start completion")
+        sut.start { status in
+            XCTAssertEqual(status, .available)
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1.0)
