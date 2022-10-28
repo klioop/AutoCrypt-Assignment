@@ -39,7 +39,8 @@ final class LocationAuthorizationService: NSObject, CLLocationManagerDelegate {
         case .authorizedWhenInUse, .authorizedAlways:
             completion?(.available)
             
-        default: break
+        case .notDetermined:
+            manager.requestWhenInUseAuthorization()
         }
     }
     
@@ -85,6 +86,16 @@ class LocationAuthorizationServiceTests: XCTestCase {
         expect(sut, toCompletedWith: .available)
     }
     
+    func test_start_requestsWhenInUseAuthorizationOnNotDetermined() {
+        let manager = LocationManagerStub(stubStatus: .notDetermined)
+        let sut = LocationAuthorizationService(manager: manager)
+        
+        sut.start { _ in }
+        manager.delegate?.locationManagerDidChangeAuthorization?(manager)
+        
+        XCTAssertEqual(manager.whenInUseAuthorizationRequestCallCount, 1)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(stubStatus: CLAuthorizationStatus = .notDetermined, file: StaticString = #filePath, line: UInt = #line) -> LocationAuthorizationService {
@@ -105,7 +116,9 @@ class LocationAuthorizationServiceTests: XCTestCase {
     }
     
     private class LocationManagerStub: CLLocationManager {
-        let stubStatus: CLAuthorizationStatus
+        var whenInUseAuthorizationRequestCallCount = 0
+        
+        var stubStatus: CLAuthorizationStatus
         
         init(stubStatus: CLAuthorizationStatus) {
             self.stubStatus = stubStatus
@@ -113,6 +126,10 @@ class LocationAuthorizationServiceTests: XCTestCase {
         
         override var authorizationStatus: CLAuthorizationStatus {
             stubStatus
+        }
+        
+        override func requestWhenInUseAuthorization() {
+            whenInUseAuthorizationRequestCallCount += 1
         }
     }
 }
