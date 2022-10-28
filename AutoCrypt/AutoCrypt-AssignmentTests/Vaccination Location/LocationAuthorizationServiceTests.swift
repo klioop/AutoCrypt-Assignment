@@ -6,48 +6,8 @@
 //
 
 import XCTest
+import AutoCrypt_Assignment
 import CoreLocation
-
-final class LocationAuthorizationService: NSObject, CLLocationManagerDelegate {
-    enum AuthorizationStatus {
-        case denied
-        case unavailable
-        case available
-        case unknown
-    }
-    
-    private let manager: CLLocationManager
-    
-    init(manager: CLLocationManager) {
-        self.manager = manager
-    }
-    
-    private(set) var completion: ((AuthorizationStatus) -> Void)?
-    
-    func start(completion: @escaping (AuthorizationStatus) -> Void) {
-        manager.delegate = self
-        self.completion = completion
-    }
-    
-    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .denied:
-            completion?(.denied)
-            
-        case .restricted:
-            completion?(.unavailable)
-         
-        case .authorizedWhenInUse, .authorizedAlways:
-            completion?(.available)
-            
-        case .notDetermined:
-            manager.requestWhenInUseAuthorization()
-            
-        @unknown default:
-            completion?(.unknown)
-        }
-    }
-}
 
 class LocationAuthorizationServiceTests: XCTestCase {
     
