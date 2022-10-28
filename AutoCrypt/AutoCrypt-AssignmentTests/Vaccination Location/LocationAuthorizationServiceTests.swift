@@ -40,15 +40,13 @@ final class LocationAuthorizationService: NSObject, CLLocationManagerDelegate {
 class LocationAuthorizationServiceTests: XCTestCase {
     
     func test_init_configures() {
-        let manager = LocationManagerStub(stubStatus: .denied)
-        let sut = LocationAuthorizationService(manager: manager)
+        let sut = makeSUT()
         
         XCTAssertNil(sut.completion)
     }
     
     func test_start_captureCompletion() {
-        let manager = LocationManagerStub(stubStatus: .denied)
-        let sut = LocationAuthorizationService(manager: manager)
+        let sut = makeSUT()
         
         sut.start { _ in }
         
@@ -56,8 +54,7 @@ class LocationAuthorizationServiceTests: XCTestCase {
     }
     
     func test_start_deliversDeniedForLocationServiceIsDenied() {
-        let manager = LocationManagerStub(stubStatus: .denied)
-        let sut = LocationAuthorizationService(manager: manager)
+        let sut = makeSUT(stubStatus: .denied)
         
         let exp = expectation(description: "wait for start completion")
         sut.start { status in
@@ -68,6 +65,14 @@ class LocationAuthorizationServiceTests: XCTestCase {
     }
     
     // MARK: - Helpers
+    
+    private func makeSUT(stubStatus: CLAuthorizationStatus = .notDetermined, file: StaticString = #filePath, line: UInt = #line) -> LocationAuthorizationService {
+        let manager = LocationManagerStub(stubStatus: stubStatus)
+        let sut = LocationAuthorizationService(manager: manager)
+        trackMemoryLeak(manager, file: file, line: line)
+        trackMemoryLeak(sut, file: file, line: line)
+        return sut
+    }
     
     private class LocationManagerStub: CLLocationManager {
         let stubStatus: CLAuthorizationStatus
