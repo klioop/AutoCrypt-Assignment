@@ -13,6 +13,7 @@ final class LocationAuthorizationService: NSObject, CLLocationManagerDelegate {
         case denied
         case unavailable
         case available
+        case unknown
     }
     
     private let manager: CLLocationManager
@@ -41,9 +42,11 @@ final class LocationAuthorizationService: NSObject, CLLocationManagerDelegate {
             
         case .notDetermined:
             manager.requestWhenInUseAuthorization()
+            
+        @unknown default:
+            completion?(.unknown)
         }
     }
-    
 }
 
 class LocationAuthorizationServiceTests: XCTestCase {
