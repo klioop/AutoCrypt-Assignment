@@ -34,16 +34,7 @@ public final class VaccinationCenterMapViewModel {
     
     public enum State: Equatable {
         public static func == (lhs: VaccinationCenterMapViewModel.State, rhs: VaccinationCenterMapViewModel.State) -> Bool {
-            switch (lhs, rhs) {
-            case let (.currentLocation(lhsRegion), .currentLocation(rhsRegion)):
-                return (lhsRegion.center.latitude == rhsRegion.center.latitude) && (lhsRegion.center.longitude == rhsRegion.center.longitude)
-                
-            case let (.unavailable(lMessage), .unavailable(rMessage)):
-                return lMessage == rMessage
-                
-            default:
-                return true
-            }
+            isSame(lhs, rhs)
         }
         
         case unavailable(message: String)
@@ -56,16 +47,28 @@ public final class VaccinationCenterMapViewModel {
     public var state: Observable<State> {
         Observable.merge(
             authorizationState(),
-            tap(on: vaccinationButtonViewModel, with: locationViewModel.coordinate),
-            currentButtonViewModel.tap
-                .flatMap { [locationViewModel] in
-                    locationViewModel.currentLocation()
-                }
-                .map { [mkRegion] in .currentLocation(region: mkRegion($0)) }
+            centerButtonTap(),
+            currentButtonTap()
         )
     }
     
     // MARK: - Helpers
+    
+    private static func isSame(_ lhs: VaccinationCenterMapViewModel.State, _ rhs: VaccinationCenterMapViewModel.State) -> Bool {
+        switch (lhs, rhs) {
+        case let (.currentLocation(lhsRegion), .currentLocation(rhsRegion)):
+            return (lhsRegion.center.latitude == rhsRegion.center.latitude) && (lhsRegion.center.longitude == rhsRegion.center.longitude)
+            
+        case let (.vaccinationLocation(lhsRegion), .vaccinationLocation(rhsRegion)):
+            return (lhsRegion.center.latitude == rhsRegion.center.latitude) && (lhsRegion.center.longitude == rhsRegion.center.longitude)
+            
+        case let (.unavailable(lMessage), .unavailable(rMessage)):
+            return lMessage == rMessage
+            
+        default:
+            return true
+        }
+    }
     
     private func authorizationState() -> Observable<State> {
         authorizationTrigger
@@ -85,11 +88,20 @@ public final class VaccinationCenterMapViewModel {
             }
     }
     
-    private func tap(on viewModel: LocationButtonViewModel, with coordinate: CLLocationCoordinate2D) -> Observable<State> {
-        viewModel
-            .tap
+    private func centerButtonTap() -> Observable<State> {
+        let coordinate = locationViewModel.coordinate
+        
+        return vaccinationButtonViewModel.tap
             .map { [mkRegion] in
                 .vaccinationLocation(region: mkRegion(coordinate))}
+    }
+    
+    private func currentButtonTap() -> Observable<State> {
+        currentButtonViewModel.tap
+            .flatMap { [locationViewModel] in
+                locationViewModel.currentLocation()
+            }
+            .map { [mkRegion] in .currentLocation(region: mkRegion($0)) }
     }
     
     private func mkRegion(_ coordinate: CLLocationCoordinate2D) -> MKCoordinateRegion {
