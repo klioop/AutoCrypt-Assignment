@@ -57,24 +57,28 @@ final class VaccinationCenterMapViewModel {
     
     var state: Observable<State> {
         Observable.merge(
-            authorizationTrigger
-                .flatMap { [start] in
-                    start()
-                }
-                .map { [locationViewModel] status in
-                    switch status {
-                    case .denied, .unavailable:
-                        return .unavailable(message: "위치 서비스 이용 불가능")
-                        
-                    case .available:
-                        let location = locationViewModel.currentLocation()
-                        return .available(region: .init(center: location.coordinate, span: locationViewModel.span))
-                            
-                        
-                    default: return .unknown
-                    }
-                }
+            authorizationState()
         )
+    }
+    
+    private func authorizationState() -> Observable<State> {
+        authorizationTrigger
+            .flatMap { [start] in
+                start()
+            }
+            .map { [locationViewModel] status in
+                switch status {
+                case .denied, .unavailable:
+                    return .unavailable(message: "위치 서비스 이용 불가능")
+                    
+                case .available:
+                    let location = locationViewModel.currentLocation()
+                    return .available(region: .init(center: location.coordinate, span: locationViewModel.span))
+                        
+                default: return .unknown
+                }
+            }
+
     }
 }
 
