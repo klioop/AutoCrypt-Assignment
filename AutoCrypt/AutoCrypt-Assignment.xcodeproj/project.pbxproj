@@ -292,10 +292,10 @@
 		3150819928FC4D0A00DA9EB7 /* Composition */ = {
 			isa = PBXGroup;
 			children = (
-				3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */,
+				31CDBBF1290EAD520050EE78 /* List */,
+				31CDBBF2290EAD580050EE78 /* Detail */,
 				31158F4628FD411E004C8283 /* RxSwift+getSingle.swift */,
 				31158F4A28FD7693004C8283 /* RxSwift+paginated.swift */,
-				319975722906AA4B005A44AD /* VaccinationCenterDetailUIComposer.swift */,
 				31CDBBE7290E47850050EE78 /* RxSwift+LocationAuthorization.swift */,
 			);
 			path = Composition;
@@ -389,6 +389,22 @@
 				31CDBBE1290E42800050EE78 /* VaccinationCenterMapViewModel.swift */,
 				31CDBBE3290E470F0050EE78 /* VaccinationCenterLocationViewModel.swift */,
 				31CDBBE5290E473C0050EE78 /* LocationButtonViewModel.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		31CDBBF1290EAD520050EE78 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				3150819A28FC4D2300DA9EB7 /* VaccinationCentersUIComposer.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		31CDBBF2290EAD580050EE78 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				319975722906AA4B005A44AD /* VaccinationCenterDetailUIComposer.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
