@@ -81,7 +81,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         let service = LocationServiceStub(status: status)
         let locationViewModel = VaccinationCenterLocationViewModel(coordinate: coordinate, span: span, currentLocation: { .just(currentCoordinate) })
         let sut = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
-                                                vaccinationButtonViewModel: vaccinationButton,
+                                                centerButtonViewModel: vaccinationButton,
                                                 currentButtonViewModel: currentButton,
                                                 start: service.start)
         let state = StateSpy(sut.state)

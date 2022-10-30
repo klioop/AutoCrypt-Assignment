@@ -45,7 +45,7 @@ final class VaccinationCenterMapViewController: UIViewController {
             .disposed(by: bag)
         
         mainView.centerLocationButton
-            .rx.tap.bind(to: viewModel.vaccinationButtonViewModel.tap)
+            .rx.tap.bind(to: viewModel.centerButtonViewModel.tap)
             .disposed(by: bag)
         
         viewModel.state

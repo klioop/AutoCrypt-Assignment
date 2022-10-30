@@ -17,17 +17,17 @@ public final class VaccinationCenterMapViewModel {
     public let authorizationTrigger = PublishRelay<Void>()
     
     private let locationViewModel: VaccinationCenterLocationViewModel
-    let vaccinationButtonViewModel: LocationButtonViewModel
+    let centerButtonViewModel: LocationButtonViewModel
     let currentButtonViewModel: LocationButtonViewModel
     private let start: () -> Single<AuthorizationStatus>
     
     public init(
         locationViewModel: VaccinationCenterLocationViewModel,
-        vaccinationButtonViewModel: LocationButtonViewModel,
+        centerButtonViewModel: LocationButtonViewModel,
         currentButtonViewModel: LocationButtonViewModel,
         start: @escaping () -> Single<AuthorizationStatus>) {
             self.locationViewModel = locationViewModel
-            self.vaccinationButtonViewModel = vaccinationButtonViewModel
+            self.centerButtonViewModel = centerButtonViewModel
             self.currentButtonViewModel = currentButtonViewModel
             self.start = start
     }
@@ -90,7 +90,7 @@ public final class VaccinationCenterMapViewModel {
     private func centerButtonTap() -> Observable<State> {
         let coordinate = locationViewModel.coordinate
         
-        return vaccinationButtonViewModel.tap
+        return centerButtonViewModel.tap
             .map { [mkRegion] in
                 .centerLocation(region: mkRegion(coordinate))}
     }
