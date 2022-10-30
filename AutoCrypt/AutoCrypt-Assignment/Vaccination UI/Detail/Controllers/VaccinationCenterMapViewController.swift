@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import MapKit
 
 final class VaccinationCenterMapViewController: UIViewController {
     private let bag = DisposeBag()
@@ -26,12 +27,13 @@ final class VaccinationCenterMapViewController: UIViewController {
     override func loadView() {
         super.loadView()
         self.view = VaccinationCenterMapMainView()
+        bind()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        bind()
         
+        viewModel?.authorizationTrigger.accept(())
         viewModel?.currentButtonViewModel.tap.accept(())
     }
     
@@ -49,8 +51,14 @@ final class VaccinationCenterMapViewController: UIViewController {
         viewModel.state
             .subscribe(onNext: { [weak mainView] state in
                 switch state {
-                case let .location(region: region):
+                case let .currentLocation(region):
                     mainView?.mapView.setRegion(region, animated: true)
+                    
+                case let .vaccinationLocation(region):
+                    mainView?.mapView.setRegion(region, animated: true)
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = region.center
+                    mainView?.mapView.addAnnotation(annotation)
                     
                 default: break
                 }

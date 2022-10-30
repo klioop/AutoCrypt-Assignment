@@ -35,7 +35,7 @@ public final class VaccinationCenterMapViewModel {
     public enum State: Equatable {
         public static func == (lhs: VaccinationCenterMapViewModel.State, rhs: VaccinationCenterMapViewModel.State) -> Bool {
             switch (lhs, rhs) {
-            case let (.location(lhsRegion), .location(rhsRegion)):
+            case let (.currentLocation(lhsRegion), .currentLocation(rhsRegion)):
                 return (lhsRegion.center.latitude == rhsRegion.center.latitude) && (lhsRegion.center.longitude == rhsRegion.center.longitude)
                 
             case let (.unavailable(lMessage), .unavailable(rMessage)):
@@ -49,7 +49,8 @@ public final class VaccinationCenterMapViewModel {
         case unavailable(message: String)
         case unknown
         case available
-        case location(region: MKCoordinateRegion)
+        case currentLocation(region: MKCoordinateRegion)
+        case vaccinationLocation(region: MKCoordinateRegion)
     }
     
     public var state: Observable<State> {
@@ -60,7 +61,7 @@ public final class VaccinationCenterMapViewModel {
                 .flatMap { [locationViewModel] in
                     locationViewModel.currentLocation()
                 }
-                .map { [mkRegion] in .location(region: mkRegion($0)) }
+                .map { [mkRegion] in .currentLocation(region: mkRegion($0)) }
         )
     }
     
@@ -71,7 +72,7 @@ public final class VaccinationCenterMapViewModel {
             .flatMap { [start] in
                 start()
             }
-            .map { [currentButtonViewModel] status in
+            .map { status in
                 switch status {
                 case .denied, .unavailable:
                     return .unavailable(message: "위치 서비스 이용 불가능")
@@ -88,7 +89,7 @@ public final class VaccinationCenterMapViewModel {
         viewModel
             .tap
             .map { [mkRegion] in
-                .location(region: mkRegion(coordinate))}
+                .vaccinationLocation(region: mkRegion(coordinate))}
     }
     
     private func mkRegion(_ coordinate: CLLocationCoordinate2D) -> MKCoordinateRegion {

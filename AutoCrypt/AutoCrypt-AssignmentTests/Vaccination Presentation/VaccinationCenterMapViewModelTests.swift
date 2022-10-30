@@ -37,9 +37,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
     }
     
     func test_triggerRequestAuthorization_sendsLocationStateWithCurrentRegionOnAvailable() {
-        let currentCoordinate = CLLocationCoordinate2D(latitude: 10.0, longitude: 10.0)
-        let currentRegion = MKCoordinateRegion(center: currentCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        let (sut, state, _) = makeSUT(currentCoordinate: currentCoordinate, status: .available)
+        let (sut, state, _) = makeSUT(status: .available)
         
         sut.authorizationTrigger.accept(())
         
@@ -53,7 +51,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         
         buttons.vaccination.tap.accept(())
         
-        XCTAssertEqual(state.values, [.location(region: centerRegion)])
+        XCTAssertEqual(state.values, [.vaccinationLocation(region: centerRegion)])
     }
     
     func test_currentLocationButtonTap_sendsLocationStateWithCurrentRegion() {
@@ -63,7 +61,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         
         buttons.current.tap.accept(())
         
-        XCTAssertEqual(state.values, [.location(region: currentRegion)])
+        XCTAssertEqual(state.values, [.currentLocation(region: currentRegion)])
     }
     
     // MARK: - Helpers
