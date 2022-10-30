@@ -14,12 +14,15 @@ final class CurrentLocationService: NSObject, CLLocationManagerDelegate {
     
     init(manager: CLLocationManager) {
         self.manager = manager
+        super.init()
+        manager.delegate = self
     }
     
     var completion: ((CLLocation) -> Void)?
     
     func start(completion: @escaping (CLLocation) -> Void) {
         manager.startUpdatingLocation()
+        self.completion = completion
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {

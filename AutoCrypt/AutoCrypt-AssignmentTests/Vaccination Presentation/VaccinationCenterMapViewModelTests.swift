@@ -43,7 +43,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         
         sut.authorizationTrigger.accept(())
         
-        XCTAssertTrue(state.values.contains(.location(region: currentRegion)))
+        XCTAssertEqual(state.values, [.available])
     }
     
     func test_vaccinationCenterLocationButtonTap_sendsLocationStateWithVaccinationCenterLocation() {

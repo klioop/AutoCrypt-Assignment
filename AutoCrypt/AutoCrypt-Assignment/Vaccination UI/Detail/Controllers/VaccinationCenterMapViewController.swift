@@ -32,7 +32,7 @@ final class VaccinationCenterMapViewController: UIViewController {
         super.viewDidLoad()
         bind()
         
-        viewModel?.authorizationTrigger.accept(())
+        viewModel?.currentButtonViewModel.tap.accept(())
     }
     
     func bind() {

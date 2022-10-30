@@ -42,7 +42,7 @@ public final class VaccinationCenterMapViewModel {
                 return lMessage == rMessage
                 
             default:
-                return false
+                return true
             }
         }
         
@@ -77,7 +77,6 @@ public final class VaccinationCenterMapViewModel {
                     return .unavailable(message: "위치 서비스 이용 불가능")
                     
                 case .available:
-                    currentButtonViewModel.tap.accept(())
                     return .available
                         
                 default: return .unknown
