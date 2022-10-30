@@ -9,14 +9,30 @@ import XCTest
 import AutoCrypt_Assignment
 import CoreLocation
 import RxSwift
+import RxRelay
 
 final class VaccinationCenterMapViewModel {
     typealias AuthorizationStatus = LocationAuthorizationService.AuthorizationStatus
+    let authorizationTrigger = PublishRelay<Void>()
     
     let start: () -> Single<AuthorizationStatus>
     
     init(start: @escaping () -> Single<AuthorizationStatus>) {
         self.start = start
+    }
+    
+    enum State: Equatable {
+        case unavailable(message: String)
+    }
+    
+    var state: Observable<State> {
+        Observable.merge(
+            authorizationTrigger
+                .flatMap { [start] in
+                    start()
+                }
+                .map { _ in .unavailable(message: "위치 서비스 이용 불가능") }
+        )
     }
 }
 
@@ -50,11 +66,20 @@ extension LocationAuthorizationService {
 class VaccinationCenterMapViewModelTests: XCTestCase {
     
     func test_init_doesNotRequestLocationAuthorization() {
-        let manager = CLLocationManager()
         let service = LocationServiceStub(status: .denied)
-        let sut = VaccinationCenterMapViewModel(start: service.start)
+        let _ = VaccinationCenterMapViewModel(start: service.start)
         
         XCTAssertEqual(service.startCallCount, 0)
+    }
+    
+    func test_() {
+        let service = LocationServiceStub(status: .denied)
+        let sut = VaccinationCenterMapViewModel(start: service.start)
+        let state = StateSpy(sut.state)
+        
+        sut.authorizationTrigger.accept(())
+        
+        XCTAssertEqual(state.values, [.unavailable(message: "위치 서비스 이용 불가능")])
     }
     
     // MARK: - Helpers
@@ -72,6 +97,18 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         func start() -> Single<Status> {
             startCallCount += 1
             return .just(status)
+        }
+    }
+    
+    private class StateSpy {
+        private let bag = DisposeBag()
+        private(set) var values = [VaccinationCenterMapViewModel.State]()
+        
+        init(_ observable: Observable<VaccinationCenterMapViewModel.State>) {
+            observable
+                .subscribe(onNext: { [weak self] in
+                    self?.values.append($0)
+                }).disposed(by: bag)
         }
     }
 }
