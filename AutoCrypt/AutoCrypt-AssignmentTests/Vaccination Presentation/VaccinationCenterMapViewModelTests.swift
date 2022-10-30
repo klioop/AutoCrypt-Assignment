@@ -65,14 +65,15 @@ extension LocationAuthorizationService {
 
 class VaccinationCenterMapViewModelTests: XCTestCase {
     
-    func test_init_doesNotRequestLocationAuthorization() {
+    func test_init_startsWithEmptyState() {
         let service = LocationServiceStub(status: .denied)
-        let _ = VaccinationCenterMapViewModel(start: service.start)
+        let sut = VaccinationCenterMapViewModel(start: service.start)
+        let state = StateSpy(sut.state)
         
-        XCTAssertEqual(service.startCallCount, 0)
+        XCTAssertEqual(state.values, [])
     }
     
-    func test_() {
+    func test_triggerRequestAuthorization_sendsUnavaliableStateWithMessage() {
         let service = LocationServiceStub(status: .denied)
         let sut = VaccinationCenterMapViewModel(start: service.start)
         let state = StateSpy(sut.state)
@@ -86,16 +87,14 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
     
     private class LocationServiceStub {
         typealias Status = LocationAuthorizationService.AuthorizationStatus
-        var startCallCount = 0
         
-        let status: Status
+        private let status: Status
         
         init(status: Status) {
             self.status = status
         }
         
         func start() -> Single<Status> {
-            startCallCount += 1
             return .just(status)
         }
     }
