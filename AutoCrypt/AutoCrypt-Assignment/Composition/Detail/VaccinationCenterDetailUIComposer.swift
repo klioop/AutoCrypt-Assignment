@@ -31,7 +31,7 @@ class VaccinationCenterDetailUIComposer {
             let viewModel = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
                                                           centerButtonViewModel: centerLocationButtonViewModel,
                                                           currentButtonViewModel: currentLocationButtonViewModel,
-                                                          start: locationService.startAuthorization)
+                                                          authorization: locationService.startAuthorization)
             let vc = VaccinationCenterMapViewController(viewModel: viewModel)
             vc.title = "지도"
             detailViewController?.navigationController?.pushViewController(vc, animated: true)

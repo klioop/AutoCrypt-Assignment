@@ -19,17 +19,17 @@ public final class VaccinationCenterMapViewModel {
     private let locationViewModel: VaccinationCenterLocationViewModel
     let centerButtonViewModel: LocationButtonViewModel
     let currentButtonViewModel: LocationButtonViewModel
-    private let start: () -> Single<AuthorizationStatus>
+    private let authorization: () -> Single<AuthorizationStatus>
     
     public init(
         locationViewModel: VaccinationCenterLocationViewModel,
         centerButtonViewModel: LocationButtonViewModel,
         currentButtonViewModel: LocationButtonViewModel,
-        start: @escaping () -> Single<AuthorizationStatus>) {
+        authorization: @escaping () -> Single<AuthorizationStatus>) {
             self.locationViewModel = locationViewModel
             self.centerButtonViewModel = centerButtonViewModel
             self.currentButtonViewModel = currentButtonViewModel
-            self.start = start
+            self.authorization = authorization
     }
     
     public enum State: Equatable {
@@ -71,8 +71,8 @@ public final class VaccinationCenterMapViewModel {
     
     private func authorizationState() -> Observable<State> {
         authorizationTrigger
-            .flatMap { [start] in
-                start()
+            .flatMap { [authorization] in
+                authorization()
             }
             .map { status in
                 switch status {

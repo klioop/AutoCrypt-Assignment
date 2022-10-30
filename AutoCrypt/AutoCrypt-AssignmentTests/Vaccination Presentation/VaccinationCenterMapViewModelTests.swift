@@ -83,7 +83,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         let sut = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
                                                 centerButtonViewModel: vaccinationButton,
                                                 currentButtonViewModel: currentButton,
-                                                start: service.start)
+                                                authorization: service.start)
         let state = StateSpy(sut.state)
         trackMemoryLeak(service, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
