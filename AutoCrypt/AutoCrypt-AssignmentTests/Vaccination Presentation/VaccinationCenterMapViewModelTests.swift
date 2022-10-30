@@ -66,17 +66,13 @@ extension LocationAuthorizationService {
 class VaccinationCenterMapViewModelTests: XCTestCase {
     
     func test_init_startsWithEmptyState() {
-        let service = LocationServiceStub(status: .denied)
-        let sut = VaccinationCenterMapViewModel(start: service.start)
-        let state = StateSpy(sut.state)
+        let (_, state) = makeSUT()
         
         XCTAssertEqual(state.values, [])
     }
     
-    func test_triggerRequestAuthorization_sendsUnavaliableStateWithMessage() {
-        let service = LocationServiceStub(status: .denied)
-        let sut = VaccinationCenterMapViewModel(start: service.start)
-        let state = StateSpy(sut.state)
+    func test_triggerRequestAuthorization_sendsUnavailableStateWithMessage() {
+        let (sut, state) = makeSUT(status: .denied)
         
         sut.authorizationTrigger.accept(())
         
@@ -85,9 +81,19 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
     
     // MARK: - Helpers
     
+    private func makeSUT(status: Status = .denied, file: StaticString = #filePath, line: UInt = #line) -> (sut: VaccinationCenterMapViewModel, state: StateSpy) {
+        let service = LocationServiceStub(status: status)
+        let sut = VaccinationCenterMapViewModel(start: service.start)
+        let state = StateSpy(sut.state)
+        trackMemoryLeak(service, file: file, line: line)
+        trackMemoryLeak(sut, file: file, line: line)
+        trackMemoryLeak(service, file: file, line: line)
+        return (sut, state)
+    }
+    
+    typealias Status = LocationAuthorizationService.AuthorizationStatus
+    
     private class LocationServiceStub {
-        typealias Status = LocationAuthorizationService.AuthorizationStatus
-        
         private let status: Status
         
         init(status: Status) {
