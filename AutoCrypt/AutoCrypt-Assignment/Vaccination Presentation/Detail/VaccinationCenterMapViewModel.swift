@@ -41,15 +41,14 @@ public final class VaccinationCenterMapViewModel {
         case unknown
         case available
         case currentLocation(region: MKCoordinateRegion)
-        case vaccinationLocation(region: MKCoordinateRegion)
+        case centerLocation(region: MKCoordinateRegion)
     }
     
     public var state: Observable<State> {
         Observable.merge(
             authorizationState(),
             centerButtonTap(),
-            currentButtonTap()
-        )
+            currentButtonTap())
     }
     
     // MARK: - Helpers
@@ -59,7 +58,7 @@ public final class VaccinationCenterMapViewModel {
         case let (.currentLocation(lhsRegion), .currentLocation(rhsRegion)):
             return (lhsRegion.center.latitude == rhsRegion.center.latitude) && (lhsRegion.center.longitude == rhsRegion.center.longitude)
             
-        case let (.vaccinationLocation(lhsRegion), .vaccinationLocation(rhsRegion)):
+        case let (.centerLocation(lhsRegion), .centerLocation(rhsRegion)):
             return (lhsRegion.center.latitude == rhsRegion.center.latitude) && (lhsRegion.center.longitude == rhsRegion.center.longitude)
             
         case let (.unavailable(lMessage), .unavailable(rMessage)):
@@ -93,7 +92,7 @@ public final class VaccinationCenterMapViewModel {
         
         return vaccinationButtonViewModel.tap
             .map { [mkRegion] in
-                .vaccinationLocation(region: mkRegion(coordinate))}
+                .centerLocation(region: mkRegion(coordinate))}
     }
     
     private func currentButtonTap() -> Observable<State> {

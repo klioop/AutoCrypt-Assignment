@@ -51,7 +51,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         
         buttons.vaccination.tap.accept(())
         
-        XCTAssertEqual(state.values, [.vaccinationLocation(region: centerRegion)])
+        XCTAssertEqual(state.values, [.centerLocation(region: centerRegion)])
     }
     
     func test_currentLocationButtonTap_sendsLocationStateWithCurrentRegion() {
