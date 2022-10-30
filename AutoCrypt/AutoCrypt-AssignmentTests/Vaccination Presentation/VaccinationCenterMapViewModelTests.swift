@@ -12,16 +12,14 @@ import RxSwift
 import RxRelay
 import MapKit
 
-final class VaccinationCenterLocationViewModel: NSObject, CLLocationManagerDelegate {
+struct VaccinationCenterLocationViewModel {
     let coordinate: CLLocationCoordinate2D
     let span: MKCoordinateSpan
     let currentLocation: () -> CLLocation
-    
-    init(coordinate: CLLocationCoordinate2D, span: MKCoordinateSpan, currentLocation: @escaping () -> CLLocation) {
-        self.coordinate = coordinate
-        self.span = span
-        self.currentLocation = currentLocation
-    }
+}
+
+struct LocationButtonViewModel {
+    let tap = PublishRelay<Void>()
 }
 
 final class VaccinationCenterMapViewModel {
@@ -29,17 +27,22 @@ final class VaccinationCenterMapViewModel {
     let authorizationTrigger = PublishRelay<Void>()
     
     let locationViewModel: VaccinationCenterLocationViewModel
+    let vaccinationButtonViewModel: LocationButtonViewModel
     let start: () -> Single<AuthorizationStatus>
     
-    init(locationViewModel: VaccinationCenterLocationViewModel, start: @escaping () -> Single<AuthorizationStatus>) {
-        self.locationViewModel = locationViewModel
-        self.start = start
+    init(
+        locationViewModel: VaccinationCenterLocationViewModel,
+        vaccinationButtonViewModel: LocationButtonViewModel,
+        start: @escaping () -> Single<AuthorizationStatus>) {
+            self.locationViewModel = locationViewModel
+            self.vaccinationButtonViewModel = vaccinationButtonViewModel
+            self.start = start
     }
     
     enum State: Equatable {
         static func == (lhs: VaccinationCenterMapViewModel.State, rhs: VaccinationCenterMapViewModel.State) -> Bool {
             switch (lhs, rhs) {
-            case let (.available(lhsRegion), .available(rhsRegion)):
+            case let (.location(lhsRegion), .location(rhsRegion)):
                 return (lhsRegion.center.latitude == rhsRegion.center.latitude) && (lhsRegion.center.longitude == rhsRegion.center.longitude)
                 
             case let (.unavailable(lMessage), .unavailable(rMessage)):
@@ -52,13 +55,16 @@ final class VaccinationCenterMapViewModel {
         
         case unavailable(message: String)
         case unknown
-        case available(region: MKCoordinateRegion)
+        case location(region: MKCoordinateRegion)
     }
     
     var state: Observable<State> {
         Observable.merge(
-            authorizationState()
-        )
+            authorizationState(),
+            vaccinationButtonViewModel
+                .tap
+                .map { [locationViewModel] in
+                    .location(region: .init(center: locationViewModel.coordinate, span: locationViewModel.span))})
     }
     
     private func authorizationState() -> Observable<State> {
@@ -73,7 +79,7 @@ final class VaccinationCenterMapViewModel {
                     
                 case .available:
                     let location = locationViewModel.currentLocation()
-                    return .available(region: .init(center: location.coordinate, span: locationViewModel.span))
+                    return .location(region: .init(center: location.coordinate, span: locationViewModel.span))
                         
                 default: return .unknown
                 }
@@ -112,13 +118,13 @@ extension LocationAuthorizationService {
 class VaccinationCenterMapViewModelTests: XCTestCase {
     
     func test_init_startsWithEmptyState() {
-        let (_, state) = makeSUT()
+        let (_, state, _) = makeSUT()
         
         XCTAssertEqual(state.values, [])
     }
     
     func test_triggerRequestAuthorization_sendsUnavailableStateWithMessageOnDenied() {
-        let (sut, state) = makeSUT(status: .denied)
+        let (sut, state, _) = makeSUT(status: .denied)
         
         sut.authorizationTrigger.accept(())
         
@@ -126,7 +132,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
     }
     
     func test_triggerRequestAuthorization_sendsUnavailableStateWithMessageOnUnavailable() {
-        let (sut, state) = makeSUT(status: .unavailable)
+        let (sut, state, _) = makeSUT(status: .unavailable)
         
         sut.authorizationTrigger.accept(())
         
@@ -136,11 +142,21 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
     func test_triggerRequestAuthorization_sendsCurrentRegionStateWithMessageOnUnavailable() {
         let currentCoordinate = CLLocationCoordinate2D(latitude: 10.0, longitude: 10.0)
         let currentRegion = MKCoordinateRegion(center: currentCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        let (sut, state) = makeSUT(currentCoordinate: currentCoordinate, status: .available)
+        let (sut, state, _) = makeSUT(currentCoordinate: currentCoordinate, status: .available)
         
         sut.authorizationTrigger.accept(())
         
-        XCTAssertEqual(state.values, [.available(region: currentRegion)])
+        XCTAssertEqual(state.values, [.location(region: currentRegion)])
+    }
+    
+    func test_vaccinationCenterLocationButtonTap_sendsLocationStateWithVaccinationCenterLocation() {
+        let centerLocation = CLLocationCoordinate2D(latitude: 4.0, longitude: 5.0)
+        let centerRegion = MKCoordinateRegion(center: centerLocation, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        let (_, state, vaccinationLocationButton) = makeSUT(coordinate: centerLocation)
+        
+        vaccinationLocationButton.tap.accept(())
+        
+        XCTAssertEqual(state.values, [.location(region: centerRegion)])
     }
     
     // MARK: - Helpers
@@ -152,15 +168,16 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         status: Status = .denied,
         file: StaticString = #filePath,
         line: UInt = #line)
-    -> (sut: VaccinationCenterMapViewModel, state: StateSpy) {
+    -> (sut: VaccinationCenterMapViewModel, state: StateSpy, vaccinationLocationButton: LocationButtonViewModel) {
+        let vaccinationButton = LocationButtonViewModel()
         let service = LocationServiceStub(status: status)
         let locationViewModel = VaccinationCenterLocationViewModel(coordinate: coordinate, span: span, currentLocation: { .init(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude) })
-        let sut = VaccinationCenterMapViewModel(locationViewModel: locationViewModel, start: service.start)
+        let sut = VaccinationCenterMapViewModel(locationViewModel: locationViewModel, vaccinationButtonViewModel: vaccinationButton, start: service.start)
         let state = StateSpy(sut.state)
         trackMemoryLeak(service, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
         trackMemoryLeak(service, file: file, line: line)
-        return (sut, state)
+        return (sut, state, vaccinationButton)
     }
     
     typealias Status = LocationAuthorizationService.AuthorizationStatus
