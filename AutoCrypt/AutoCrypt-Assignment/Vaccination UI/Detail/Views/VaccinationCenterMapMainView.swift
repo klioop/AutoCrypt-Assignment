@@ -10,7 +10,11 @@ import SnapKit
 import MapKit
 
 final class VaccinationCenterMapMainView: UIView {
-    private(set) lazy var mapView = MKMapView()
+    private(set) lazy var mapView: MKMapView = {
+        let view = MKMapView()
+        view.showsUserLocation = true
+        return view
+    }()
     
     private(set) lazy var attributeContainer: AttributeContainer = {
         var container = AttributeContainer()
@@ -51,7 +55,7 @@ final class VaccinationCenterMapMainView: UIView {
         mapView.addSubview(centerLocationButton)
         
         mapView.snp.makeConstraints {
-            $0.edges.equalToSuperview()
+            $0.edges.equalTo(safeAreaLayoutGuide)
         }
         
         centerLocationButton.snp.makeConstraints {
