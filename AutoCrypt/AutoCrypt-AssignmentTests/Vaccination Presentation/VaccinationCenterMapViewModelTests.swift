@@ -10,20 +10,49 @@ import AutoCrypt_Assignment
 import CoreLocation
 import RxSwift
 import RxRelay
+import MapKit
+
+final class VaccinationCenterLocationViewModel: NSObject, CLLocationManagerDelegate {
+    let coordinate: CLLocationCoordinate2D
+    let span: MKCoordinateSpan
+    let currentLocation: () -> CLLocation
+    
+    init(coordinate: CLLocationCoordinate2D, span: MKCoordinateSpan, currentLocation: @escaping () -> CLLocation) {
+        self.coordinate = coordinate
+        self.span = span
+        self.currentLocation = currentLocation
+    }
+}
 
 final class VaccinationCenterMapViewModel {
     typealias AuthorizationStatus = LocationAuthorizationService.AuthorizationStatus
     let authorizationTrigger = PublishRelay<Void>()
     
+    let locationViewModel: VaccinationCenterLocationViewModel
     let start: () -> Single<AuthorizationStatus>
     
-    init(start: @escaping () -> Single<AuthorizationStatus>) {
+    init(locationViewModel: VaccinationCenterLocationViewModel, start: @escaping () -> Single<AuthorizationStatus>) {
+        self.locationViewModel = locationViewModel
         self.start = start
     }
     
     enum State: Equatable {
+        static func == (lhs: VaccinationCenterMapViewModel.State, rhs: VaccinationCenterMapViewModel.State) -> Bool {
+            switch (lhs, rhs) {
+            case let (.available(lhsRegion), .available(rhsRegion)):
+                return (lhsRegion.center.latitude == rhsRegion.center.latitude) && (lhsRegion.center.longitude == rhsRegion.center.longitude)
+                
+            case let (.unavailable(lMessage), .unavailable(rMessage)):
+                return lMessage == rMessage
+                
+            default:
+                return false
+            }
+        }
+        
         case unavailable(message: String)
         case unknown
+        case available(region: MKCoordinateRegion)
     }
     
     var state: Observable<State> {
@@ -32,10 +61,15 @@ final class VaccinationCenterMapViewModel {
                 .flatMap { [start] in
                     start()
                 }
-                .map { status in
+                .map { [locationViewModel] status in
                     switch status {
                     case .denied, .unavailable:
                         return .unavailable(message: "위치 서비스 이용 불가능")
+                        
+                    case .available:
+                        let location = locationViewModel.currentLocation()
+                        return .available(region: .init(center: location.coordinate, span: locationViewModel.span))
+                            
                         
                     default: return .unknown
                     }
@@ -95,11 +129,29 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         XCTAssertEqual(state.values, [.unavailable(message: "위치 서비스 이용 불가능")])
     }
     
+    func test_triggerRequestAuthorization_sendsCurrentRegionStateWithMessageOnUnavailable() {
+        let currentCoordinate = CLLocationCoordinate2D(latitude: 10.0, longitude: 10.0)
+        let currentRegion = MKCoordinateRegion(center: currentCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
+        let (sut, state) = makeSUT(currentCoordinate: currentCoordinate, status: .available)
+        
+        sut.authorizationTrigger.accept(())
+        
+        XCTAssertEqual(state.values, [.available(region: currentRegion)])
+    }
+    
     // MARK: - Helpers
     
-    private func makeSUT(status: Status = .denied, file: StaticString = #filePath, line: UInt = #line) -> (sut: VaccinationCenterMapViewModel, state: StateSpy) {
+    private func makeSUT(
+        currentCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 1.0, longitude: 1.0),
+        span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01),
+        coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 2.0, longitude: 2.0),
+        status: Status = .denied,
+        file: StaticString = #filePath,
+        line: UInt = #line)
+    -> (sut: VaccinationCenterMapViewModel, state: StateSpy) {
         let service = LocationServiceStub(status: status)
-        let sut = VaccinationCenterMapViewModel(start: service.start)
+        let locationViewModel = VaccinationCenterLocationViewModel(coordinate: coordinate, span: span, currentLocation: { .init(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude) })
+        let sut = VaccinationCenterMapViewModel(locationViewModel: locationViewModel, start: service.start)
         let state = StateSpy(sut.state)
         trackMemoryLeak(service, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
