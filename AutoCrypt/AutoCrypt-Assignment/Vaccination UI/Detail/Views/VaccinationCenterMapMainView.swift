@@ -19,7 +19,7 @@ final class VaccinationCenterMapMainView: UIView {
     }()
     
     private(set) lazy var currentLocationButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(configuration: .filled())
         var config = button.configuration
         config?.background.backgroundColor = .blue
         config?.attributedTitle = AttributedString("현재위치로 이동", attributes: attributeContainer)
@@ -28,7 +28,7 @@ final class VaccinationCenterMapMainView: UIView {
     }()
     
     private(set) lazy var centerLocationButton: UIButton = {
-        let button = UIButton()
+        let button = UIButton(configuration: .filled())
         var config = button.configuration
         config?.background.backgroundColor = .red
         config?.attributedTitle = AttributedString("예방접종센터 위치로 이동", attributes: attributeContainer)
@@ -46,22 +46,24 @@ final class VaccinationCenterMapMainView: UIView {
     }
     
     private func configure() {
-        [mapView, currentLocationButton, centerLocationButton].forEach { addSubview($0) }
+        [mapView].forEach { addSubview($0) }
+        mapView.addSubview(currentLocationButton)
+        mapView.addSubview(centerLocationButton)
         
         mapView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
         
-        currentLocationButton.snp.makeConstraints {
-            $0.leading.trailing.equalToSuperview().inset(10)
-            $0.height.equalTo(30)
-            $0.bottom.equalToSuperview().inset(50)
-        }
-        
         centerLocationButton.snp.makeConstraints {
             $0.leading.trailing.equalToSuperview().inset(10)
-            $0.height.equalTo(30)
-            $0.bottom.equalToSuperview().inset(40)
+            $0.height.equalTo(56)
+            $0.bottom.equalToSuperview().inset(60)
+        }
+        
+        currentLocationButton.snp.makeConstraints {
+            $0.leading.trailing.equalToSuperview().inset(10)
+            $0.height.equalTo(56)
+            $0.bottom.equalTo(centerLocationButton.snp.top).inset(-10)
         }
     }
 }
