@@ -21,14 +21,12 @@ class VaccinationCenterDetailUIComposer {
             guard let latitude = Double(model.lat), let longitude = Double(model.lng) else { return }
             
             let manager = CLLocationManager()
-            let manager2 = CLLocationManager()
             let authorizationService = LocationAuthorizationService(manager: manager)
-            let currentLocationService = CurrentLocationService(manager: manager2)
             let currentLocationButtonViewModel = LocationButtonViewModel()
             let centerLocationButtonViewModel = LocationButtonViewModel()
             let locationViewModel = VaccinationCenterLocationViewModel(coordinate: .init(latitude: .init(latitude), longitude: .init(longitude)),
                                                                        span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01),
-                                                                       currentLocation: currentLocationService.start)
+                                                                       currentLocation: authorizationService.currentLocation)
             
             let viewModel = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
                                                           centerButtonViewModel: centerLocationButtonViewModel,

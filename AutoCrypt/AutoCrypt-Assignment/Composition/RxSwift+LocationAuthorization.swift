@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreLocation
 import RxSwift
 
 public extension LocationAuthorizationService {
@@ -28,6 +29,17 @@ public extension LocationAuthorizationService {
                     case .available:
                         return status
                     }
+                })
+            }
+            return Disposables.create()
+        }
+    }
+    
+    func currentLocation() -> Single<CLLocationCoordinate2D> {
+        Single.create { [weak self] observer in
+            self?.currentLocation { location in
+                observer(Result {
+                    return location.coordinate
                 })
             }
             return Disposables.create()
