@@ -54,15 +54,8 @@ public final class VaccinationCenterMapViewModel {
     public var state: Observable<State> {
         Observable.merge(
             authorizationState(),
-            vaccinationButtonViewModel
-                .tap
-                .map { [locationViewModel] in
-                    .location(region: .init(center: locationViewModel.coordinate, span: locationViewModel.span))},
-            currentButtonViewModel
-                .tap
-                .map { [locationViewModel] in
-                    let location = locationViewModel.currentLocation()
-                    return .location(region: .init(center: location.coordinate, span: locationViewModel.span))}
+            tap(on: vaccinationButtonViewModel, with: locationViewModel.coordinate),
+            tap(on: currentButtonViewModel, with: locationViewModel.currentLocation().coordinate)
         )
     }
     
@@ -83,6 +76,16 @@ public final class VaccinationCenterMapViewModel {
                 default: return .unknown
                 }
             }
-
+    }
+    
+    private func tap(on viewModel: LocationButtonViewModel, with coordinate: CLLocationCoordinate2D) -> Observable<State> {
+        viewModel
+            .tap
+            .map { [mkRegion] in
+                .location(region: mkRegion(coordinate))}
+    }
+    
+    private func mkRegion(_ coordinate: CLLocationCoordinate2D) -> MKCoordinateRegion {
+        MKCoordinateRegion(center: coordinate, span: locationViewModel.span)
     }
 }
