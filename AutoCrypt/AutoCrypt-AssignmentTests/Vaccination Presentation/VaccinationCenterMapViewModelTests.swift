@@ -23,6 +23,7 @@ final class VaccinationCenterMapViewModel {
     
     enum State: Equatable {
         case unavailable(message: String)
+        case unknown
     }
     
     var state: Observable<State> {
@@ -31,7 +32,14 @@ final class VaccinationCenterMapViewModel {
                 .flatMap { [start] in
                     start()
                 }
-                .map { _ in .unavailable(message: "위치 서비스 이용 불가능") }
+                .map { status in
+                    switch status {
+                    case .denied, .unavailable:
+                        return .unavailable(message: "위치 서비스 이용 불가능")
+                        
+                    default: return .unknown
+                    }
+                }
         )
     }
 }
@@ -71,8 +79,16 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         XCTAssertEqual(state.values, [])
     }
     
-    func test_triggerRequestAuthorization_sendsUnavailableStateWithMessage() {
+    func test_triggerRequestAuthorization_sendsUnavailableStateWithMessageOnDenied() {
         let (sut, state) = makeSUT(status: .denied)
+        
+        sut.authorizationTrigger.accept(())
+        
+        XCTAssertEqual(state.values, [.unavailable(message: "위치 서비스 이용 불가능")])
+    }
+    
+    func test_triggerRequestAuthorization_sendsUnavailableStateWithMessageOnUnavailable() {
+        let (sut, state) = makeSUT(status: .unavailable)
         
         sut.authorizationTrigger.accept(())
         
