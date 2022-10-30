@@ -279,11 +279,8 @@
 		3150819428FC478900DA9EB7 /* Vaccination Presentation */ = {
 			isa = PBXGroup;
 			children = (
-				3150819C28FD060300DA9EB7 /* VaccinationCentersViewModel.swift */,
-				31158F4E28FD76CD004C8283 /* PagingViewModel.swift */,
-				31CDBBE1290E42800050EE78 /* VaccinationCenterMapViewModel.swift */,
-				31CDBBE3290E470F0050EE78 /* VaccinationCenterLocationViewModel.swift */,
-				31CDBBE5290E473C0050EE78 /* LocationButtonViewModel.swift */,
+				31CDBBE9290E4BCE0050EE78 /* List */,
+				31CDBBEA290E4BD40050EE78 /* Detail */,
 			);
 			path = "Vaccination Presentation";
 			sourceTree = "<group>";
@@ -369,6 +366,25 @@
 				31CDBBDD290BEBAF0050EE78 /* LocationAuthorizationService.swift */,
 			);
 			path = "Vaccination Location";
+			sourceTree = "<group>";
+		};
+		31CDBBE9290E4BCE0050EE78 /* List */ = {
+			isa = PBXGroup;
+			children = (
+				3150819C28FD060300DA9EB7 /* VaccinationCentersViewModel.swift */,
+				31158F4E28FD76CD004C8283 /* PagingViewModel.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
+		31CDBBEA290E4BD40050EE78 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				31CDBBE1290E42800050EE78 /* VaccinationCenterMapViewModel.swift */,
+				31CDBBE3290E470F0050EE78 /* VaccinationCenterLocationViewModel.swift */,
+				31CDBBE5290E473C0050EE78 /* LocationButtonViewModel.swift */,
+			);
+			path = Detail;
 			sourceTree = "<group>";
 		};
 		31DEF6DA28FE73DA0019F6E9 /* API */ = {
