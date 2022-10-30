@@ -139,7 +139,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         XCTAssertEqual(state.values, [.unavailable(message: "위치 서비스 이용 불가능")])
     }
     
-    func test_triggerRequestAuthorization_sendsCurrentRegionStateWithMessageOnUnavailable() {
+    func test_triggerRequestAuthorization_sendsLocationStateWithCurrentRegionOnAvailable() {
         let currentCoordinate = CLLocationCoordinate2D(latitude: 10.0, longitude: 10.0)
         let currentRegion = MKCoordinateRegion(center: currentCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         let (sut, state, _) = makeSUT(currentCoordinate: currentCoordinate, status: .available)
