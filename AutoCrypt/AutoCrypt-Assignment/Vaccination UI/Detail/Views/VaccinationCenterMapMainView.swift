@@ -50,6 +50,7 @@ final class VaccinationCenterMapMainView: UIView {
     }
     
     private func configure() {
+        backgroundColor = .systemBackground
         [mapView].forEach { addSubview($0) }
         mapView.addSubview(currentLocationButton)
         mapView.addSubview(centerLocationButton)
