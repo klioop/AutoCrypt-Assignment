@@ -10,10 +10,7 @@ import SnapKit
 
 final class VaccinationCenterDetailView: UIView, UIContentView {
     
-    private(set) lazy var imageViewContainer: UIView = {
-        let view = UIView()
-        return view
-    }()
+    private(set) lazy var imageViewContainer = UIView()
     
     private(set) lazy var imageView: UIImageView = {
         let view = UIImageView()
@@ -45,13 +42,21 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
     
     private(set) lazy var container: UIView = {
         let view = UIView()
+        view.backgroundColor = .systemBackground
+        view.layer.cornerRadius = 8
+        view.layer.borderWidth = 1
+        view.layer.borderColor = UIColor.clear.cgColor
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOffset = CGSize(width: 0, height: 1)
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowRadius = 3.0
         
         [imageViewContainer, titleLabel, descriptionLabel].forEach {
-            addSubview($0)
+            view.addSubview($0)
         }
         
         imageViewContainer.snp.makeConstraints {
-            $0.top.equalToSuperview().offset(10)
+            $0.top.equalToSuperview().offset(30)
             $0.centerX.equalToSuperview()
         }
         
@@ -61,9 +66,9 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
         }
         
         descriptionLabel.snp.makeConstraints {
-            $0.top.equalTo(titleLabel.snp.bottom).offset(10)
-            $0.leading.trailing.equalToSuperview().inset(30)
-            $0.bottom.equalToSuperview().inset(10)
+            $0.top.equalTo(titleLabel.snp.bottom).offset(3)
+            $0.leading.trailing.equalToSuperview().inset(20)
+            $0.bottom.equalToSuperview().inset(30)
         }
         
         return view
@@ -83,20 +88,13 @@ final class VaccinationCenterDetailView: UIView, UIContentView {
     init(configuration: VaccinationCenterConfiguration) {
         self.customConfiguration = configuration
         super.init(frame: .zero)
-        backgroundColor = .systemBackground
-        layer.cornerRadius = 8
-        layer.borderWidth = 1
-        layer.borderColor = UIColor.clear.cgColor
-        layer.shadowColor = UIColor.black.cgColor
-        layer.shadowOffset = CGSize(width: 0, height: 1)
-        layer.shadowOpacity = 0.5
-        layer.shadowRadius = 3.0
         
         addSubview(container)
         container.snp.makeConstraints {
             $0.leading.trailing.equalTo(layoutMarginsGuide)
             $0.top.bottom.equalTo(layoutMarginsGuide)
         }
+        
         apply(configuration)
     }
     

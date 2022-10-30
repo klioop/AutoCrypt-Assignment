@@ -31,7 +31,7 @@ final class VaccinationCenterDetailViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        section == 0 ? 4 : 1
+        collectionModels[section].count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -45,13 +45,13 @@ final class VaccinationCenterDetailViewController: UICollectionViewController {
             let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .fractionalHeight(1.0))
             let item = NSCollectionLayoutItem(layoutSize: itemSize)
             
-            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(170))
+            let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .estimated(210))
             let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitem: item, count: columns)
-            group.interItemSpacing = .fixed(40)
+            group.interItemSpacing = .fixed(20)
             
             let section = NSCollectionLayoutSection(group: group)
-            section.interGroupSpacing = 20
-            section.contentInsets = NSDirectionalEdgeInsets(top: 20, leading: 20, bottom: 20, trailing: 20)
+            section.interGroupSpacing = 0
+            section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 15, bottom: 0, trailing: 15)
             return section
         }
         return layout
