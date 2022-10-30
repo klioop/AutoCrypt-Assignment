@@ -59,6 +59,8 @@ public final class VaccinationCenterMapViewModel {
         )
     }
     
+    // MARK: - Helpers
+    
     private func authorizationState() -> Observable<State> {
         authorizationTrigger
             .flatMap { [start] in
