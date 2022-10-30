@@ -17,8 +17,8 @@ public final class VaccinationCenterMapViewModel {
     public let authorizationTrigger = PublishRelay<Void>()
     
     private let locationViewModel: VaccinationCenterLocationViewModel
-    private let vaccinationButtonViewModel: LocationButtonViewModel
-    private let currentButtonViewModel: LocationButtonViewModel
+    let vaccinationButtonViewModel: LocationButtonViewModel
+    let currentButtonViewModel: LocationButtonViewModel
     private let start: () -> Single<AuthorizationStatus>
     
     public init(
