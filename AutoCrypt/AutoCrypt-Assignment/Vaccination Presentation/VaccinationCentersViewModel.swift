@@ -37,7 +37,7 @@ public final class VaccinationCentersViewModel {
                         .do(afterSuccess: { _ in loadingRelay.accept(false) },
                             onError: { _ in loadingRelay.accept(false) })
                         .asObservable()
-                }                
+                }
                 .map { .loaded($0) }
         ])
     }
