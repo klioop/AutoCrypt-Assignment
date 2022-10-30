@@ -53,6 +53,7 @@
 		31CDBBE8290E47850050EE78 /* RxSwift+LocationAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBE7290E47850050EE78 /* RxSwift+LocationAuthorization.swift */; };
 		31CDBBEC290E4CFF0050EE78 /* VaccinationCenterMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBEB290E4CFF0050EE78 /* VaccinationCenterMapViewController.swift */; };
 		31CDBBEE290E4E740050EE78 /* VaccinationCenterMapMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBED290E4E740050EE78 /* VaccinationCenterMapMainView.swift */; };
+		31CDBBF0290E56BC0050EE78 /* CurrentLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBEF290E56BC0050EE78 /* CurrentLocationService.swift */; };
 		31DEF6CF28FDB83C0019F6E9 /* UIView+forceLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DEF6CE28FDB83C0019F6E9 /* UIView+forceLayout.swift */; };
 		31DEF6D228FE55910019F6E9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D128FE55910019F6E9 /* RxCocoa */; };
 		31DEF6D428FE55910019F6E9 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D328FE55910019F6E9 /* RxRelay */; };
@@ -127,6 +128,7 @@
 		31CDBBE7290E47850050EE78 /* RxSwift+LocationAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxSwift+LocationAuthorization.swift"; sourceTree = "<group>"; };
 		31CDBBEB290E4CFF0050EE78 /* VaccinationCenterMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterMapViewController.swift; sourceTree = "<group>"; };
 		31CDBBED290E4E740050EE78 /* VaccinationCenterMapMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterMapMainView.swift; sourceTree = "<group>"; };
+		31CDBBEF290E56BC0050EE78 /* CurrentLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationService.swift; sourceTree = "<group>"; };
 		31DEF6CE28FDB83C0019F6E9 /* UIView+forceLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+forceLayout.swift"; sourceTree = "<group>"; };
 		31DEF6DC28FE74070019F6E9 /* VaccinationCentersEndPointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersEndPointTests.swift; sourceTree = "<group>"; };
 		31DEF6DE28FE7AB90019F6E9 /* VaccinationCenterListEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterListEndPoint.swift; sourceTree = "<group>"; };
@@ -370,6 +372,7 @@
 			isa = PBXGroup;
 			children = (
 				31CDBBDD290BEBAF0050EE78 /* LocationAuthorizationService.swift */,
+				31CDBBEF290E56BC0050EE78 /* CurrentLocationService.swift */,
 			);
 			path = "Vaccination Location";
 			sourceTree = "<group>";
@@ -581,6 +584,7 @@
 				31DEF6DF28FE7AB90019F6E9 /* VaccinationCenterListEndPoint.swift in Sources */,
 				3150819628FC47AF00DA9EB7 /* VaccinationCentersRefreshController.swift in Sources */,
 				319975732906AA4B005A44AD /* VaccinationCenterDetailUIComposer.swift in Sources */,
+				31CDBBF0290E56BC0050EE78 /* CurrentLocationService.swift in Sources */,
 				31CDBBEC290E4CFF0050EE78 /* VaccinationCenterMapViewController.swift in Sources */,
 				3199756529054D8C005A44AD /* VaccinationCenterDetailView.swift in Sources */,
 				3150817128FBD4F100DA9EB7 /* VaccinationCenter.swift in Sources */,
