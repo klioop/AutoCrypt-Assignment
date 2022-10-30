@@ -11,9 +11,11 @@ import CoreLocation
 import RxSwift
 
 final class VaccinationCenterMapViewModel {
-    let start: () -> Single<LocationAuthorizationService.AuthorizationStatus>
+    typealias AuthorizationStatus = LocationAuthorizationService.AuthorizationStatus
     
-    init(start: @escaping () -> Single<LocationAuthorizationService.AuthorizationStatus>) {
+    let start: () -> Single<AuthorizationStatus>
+    
+    init(start: @escaping () -> Single<AuthorizationStatus>) {
         self.start = start
     }
 }
