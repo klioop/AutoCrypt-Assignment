@@ -14,15 +14,15 @@ class LocationAuthorizationServiceTests: XCTestCase {
     func test_init_configures() {
         let sut = makeSUT()
         
-        XCTAssertNil(sut.completion)
+        XCTAssertNil(sut.authorizationCompletion)
     }
     
     func test_start_captureCompletion() {
         let sut = makeSUT()
         
-        sut.start { _ in }
+        sut.startAuthorization { _ in }
         
-        XCTAssertNotNil(sut.completion)
+        XCTAssertNotNil(sut.authorizationCompletion)
     }
     
     func test_start_deliversDeniedForLocationServiceIsDenied() {
@@ -53,7 +53,7 @@ class LocationAuthorizationServiceTests: XCTestCase {
         let manager = LocationManagerStub(stubStatus: .notDetermined)
         let sut = LocationAuthorizationService(manager: manager)
         
-        sut.start { _ in }
+        sut.startAuthorization { _ in }
         manager.delegate?.locationManagerDidChangeAuthorization?(manager)
         
         XCTAssertEqual(manager.whenInUseAuthorizationRequestCallCount, 1)
@@ -71,7 +71,7 @@ class LocationAuthorizationServiceTests: XCTestCase {
     
     private func expect(_ sut: LocationAuthorizationService, toCompletedWith expectedStatus: LocationAuthorizationService.AuthorizationStatus, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "wait for start completion")
-        sut.start { receivedStatus in
+        sut.startAuthorization { receivedStatus in
             XCTAssertEqual(receivedStatus, expectedStatus)
             exp.fulfill()
         }

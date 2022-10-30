@@ -14,9 +14,9 @@ public extension LocationAuthorizationService {
         case unRepresented
     }
     
-    func start() -> Single<AuthorizationStatus> {
+    func startAuthorization() -> Single<AuthorizationStatus> {
         Single.create { observer in
-            self.start { status in
+            self.startAuthorization { status in
                 observer(Result {
                     switch status {
                     case .denied, .unavailable:
