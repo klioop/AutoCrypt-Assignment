@@ -48,6 +48,7 @@ public final class VaccinationCenterMapViewModel {
         
         case unavailable(message: String)
         case unknown
+        case available
         case location(region: MKCoordinateRegion)
     }
     
@@ -55,7 +56,11 @@ public final class VaccinationCenterMapViewModel {
         Observable.merge(
             authorizationState(),
             tap(on: vaccinationButtonViewModel, with: locationViewModel.coordinate),
-            tap(on: currentButtonViewModel, with: locationViewModel.currentLocation().coordinate)
+            currentButtonViewModel.tap
+                .flatMap { [locationViewModel] in
+                    locationViewModel.currentLocation()
+                }
+                .map { [mkRegion] in .location(region: mkRegion($0)) }
         )
     }
     
@@ -66,14 +71,14 @@ public final class VaccinationCenterMapViewModel {
             .flatMap { [start] in
                 start()
             }
-            .map { [locationViewModel] status in
+            .map { [currentButtonViewModel] status in
                 switch status {
                 case .denied, .unavailable:
                     return .unavailable(message: "위치 서비스 이용 불가능")
                     
                 case .available:
-                    let location = locationViewModel.currentLocation()
-                    return .location(region: .init(center: location.coordinate, span: locationViewModel.span))
+                    currentButtonViewModel.tap.accept(())
+                    return .available
                         
                 default: return .unknown
                 }

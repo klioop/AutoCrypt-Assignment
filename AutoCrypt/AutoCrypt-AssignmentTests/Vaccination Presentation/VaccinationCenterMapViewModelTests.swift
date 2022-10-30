@@ -43,7 +43,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         
         sut.authorizationTrigger.accept(())
         
-        XCTAssertEqual(state.values, [.location(region: currentRegion)])
+        XCTAssertTrue(state.values.contains(.location(region: currentRegion)))
     }
     
     func test_vaccinationCenterLocationButtonTap_sendsLocationStateWithVaccinationCenterLocation() {
@@ -81,7 +81,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         let vaccinationButton = LocationButtonViewModel()
         let currentButton = LocationButtonViewModel()
         let service = LocationServiceStub(status: status)
-        let locationViewModel = VaccinationCenterLocationViewModel(coordinate: coordinate, span: span, currentLocation: { .init(latitude: currentCoordinate.latitude, longitude: currentCoordinate.longitude) })
+        let locationViewModel = VaccinationCenterLocationViewModel(coordinate: coordinate, span: span, currentLocation: { .just(currentCoordinate) })
         let sut = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
                                                 vaccinationButtonViewModel: vaccinationButton,
                                                 currentButtonViewModel: currentButton,
