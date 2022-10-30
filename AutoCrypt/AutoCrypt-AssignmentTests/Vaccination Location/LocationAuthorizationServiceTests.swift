@@ -51,7 +51,7 @@ class LocationAuthorizationServiceTests: XCTestCase {
     
     func test_start_requestsWhenInUseAuthorizationOnNotDetermined() {
         let manager = LocationManagerStub(stubStatus: .notDetermined)
-        let sut = LocationAuthorizationService(manager: manager)
+        let sut = LocationService(manager: manager)
         
         sut.startAuthorization { _ in }
         manager.delegate?.locationManagerDidChangeAuthorization?(manager)
@@ -61,15 +61,15 @@ class LocationAuthorizationServiceTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(stubStatus: CLAuthorizationStatus = .notDetermined, file: StaticString = #filePath, line: UInt = #line) -> LocationAuthorizationService {
+    private func makeSUT(stubStatus: CLAuthorizationStatus = .notDetermined, file: StaticString = #filePath, line: UInt = #line) -> LocationService {
         let manager = LocationManagerStub(stubStatus: stubStatus)
-        let sut = LocationAuthorizationService(manager: manager)
+        let sut = LocationService(manager: manager)
         trackMemoryLeak(manager, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
         return sut
     }
     
-    private func expect(_ sut: LocationAuthorizationService, toCompletedWith expectedStatus: LocationAuthorizationService.AuthorizationStatus, file: StaticString = #filePath, line: UInt = #line) {
+    private func expect(_ sut: LocationService, toCompletedWith expectedStatus: LocationService.AuthorizationStatus, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "wait for start completion")
         sut.startAuthorization { receivedStatus in
             XCTAssertEqual(receivedStatus, expectedStatus)

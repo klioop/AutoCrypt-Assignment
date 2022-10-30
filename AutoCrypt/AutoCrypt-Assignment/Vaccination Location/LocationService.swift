@@ -1,5 +1,5 @@
 //
-//  LocationAuthorizationService.swift
+//  LocationService.swift
 //  AutoCrypt-Assignment
 //
 //  Created by klioop on 2022/10/28.
@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-public final class LocationAuthorizationService: NSObject, CLLocationManagerDelegate {
+public final class LocationService: NSObject, CLLocationManagerDelegate {
     public enum AuthorizationStatus {
         case denied
         case unavailable

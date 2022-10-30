@@ -21,21 +21,20 @@ class VaccinationCenterDetailUIComposer {
             guard let latitude = Double(model.lat), let longitude = Double(model.lng) else { return }
             
             let manager = CLLocationManager()
-            let authorizationService = LocationAuthorizationService(manager: manager)
+            let locationService = LocationService(manager: manager)
             let currentLocationButtonViewModel = LocationButtonViewModel()
             let centerLocationButtonViewModel = LocationButtonViewModel()
             let locationViewModel = VaccinationCenterLocationViewModel(coordinate: .init(latitude: .init(latitude), longitude: .init(longitude)),
                                                                        span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01),
-                                                                       currentLocation: authorizationService.currentLocation)
+                                                                       currentLocation: locationService.currentLocation)
             
             let viewModel = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
                                                           centerButtonViewModel: centerLocationButtonViewModel,
                                                           currentButtonViewModel: currentLocationButtonViewModel,
-                                                          start: authorizationService.startAuthorization)
+                                                          start: locationService.startAuthorization)
             let vc = VaccinationCenterMapViewController(viewModel: viewModel)
             vc.title = "지도"
             detailViewController?.navigationController?.pushViewController(vc, animated: true)
-            
         })
         return detailViewController
     }

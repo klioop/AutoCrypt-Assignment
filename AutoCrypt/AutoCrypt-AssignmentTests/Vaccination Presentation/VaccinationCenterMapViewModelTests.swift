@@ -91,7 +91,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         return (sut, state, (vaccinationButton, currentButton))
     }
     
-    typealias Status = LocationAuthorizationService.AuthorizationStatus
+    typealias Status = LocationService.AuthorizationStatus
     
     private class LocationServiceStub {
         private let status: Status

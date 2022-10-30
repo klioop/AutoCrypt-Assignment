@@ -45,7 +45,7 @@
 		31A8BBC828FECEBF009459F0 /* VaccinationCenterListViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A8BBC728FECEBF009459F0 /* VaccinationCenterListViewController+TestHelpers.swift */; };
 		31A8BBCB28FECF4F009459F0 /* VaccinationCenterCell+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A8BBCA28FECF4F009459F0 /* VaccinationCenterCell+TestHelpers.swift */; };
 		31CDBBDB290957210050EE78 /* LocationAuthorizationServiceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBDA290957210050EE78 /* LocationAuthorizationServiceTests.swift */; };
-		31CDBBDE290BEBAF0050EE78 /* LocationAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBDD290BEBAF0050EE78 /* LocationAuthorizationService.swift */; };
+		31CDBBDE290BEBAF0050EE78 /* LocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBDD290BEBAF0050EE78 /* LocationService.swift */; };
 		31CDBBE0290E197D0050EE78 /* VaccinationCenterMapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBDF290E197D0050EE78 /* VaccinationCenterMapViewModelTests.swift */; };
 		31CDBBE2290E42800050EE78 /* VaccinationCenterMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBE1290E42800050EE78 /* VaccinationCenterMapViewModel.swift */; };
 		31CDBBE4290E470F0050EE78 /* VaccinationCenterLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBE3290E470F0050EE78 /* VaccinationCenterLocationViewModel.swift */; };
@@ -119,7 +119,7 @@
 		31A8BBC728FECEBF009459F0 /* VaccinationCenterListViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VaccinationCenterListViewController+TestHelpers.swift"; sourceTree = "<group>"; };
 		31A8BBCA28FECF4F009459F0 /* VaccinationCenterCell+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VaccinationCenterCell+TestHelpers.swift"; sourceTree = "<group>"; };
 		31CDBBDA290957210050EE78 /* LocationAuthorizationServiceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationServiceTests.swift; sourceTree = "<group>"; };
-		31CDBBDD290BEBAF0050EE78 /* LocationAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationService.swift; sourceTree = "<group>"; };
+		31CDBBDD290BEBAF0050EE78 /* LocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationService.swift; sourceTree = "<group>"; };
 		31CDBBDF290E197D0050EE78 /* VaccinationCenterMapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterMapViewModelTests.swift; sourceTree = "<group>"; };
 		31CDBBE1290E42800050EE78 /* VaccinationCenterMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterMapViewModel.swift; sourceTree = "<group>"; };
 		31CDBBE3290E470F0050EE78 /* VaccinationCenterLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterLocationViewModel.swift; sourceTree = "<group>"; };
@@ -369,7 +369,7 @@
 		31CDBBDC290BEBA20050EE78 /* Vaccination Location */ = {
 			isa = PBXGroup;
 			children = (
-				31CDBBDD290BEBAF0050EE78 /* LocationAuthorizationService.swift */,
+				31CDBBDD290BEBAF0050EE78 /* LocationService.swift */,
 			);
 			path = "Vaccination Location";
 			sourceTree = "<group>";
@@ -562,7 +562,7 @@
 				31158F4728FD411E004C8283 /* RxSwift+getSingle.swift in Sources */,
 				3150819D28FD060300DA9EB7 /* VaccinationCentersViewModel.swift in Sources */,
 				3199757129069FDD005A44AD /* VaccinationCenterDetailModel.swift in Sources */,
-				31CDBBDE290BEBAF0050EE78 /* LocationAuthorizationService.swift in Sources */,
+				31CDBBDE290BEBAF0050EE78 /* LocationService.swift in Sources */,
 				3150819328FC472800DA9EB7 /* VaccinationCenterCell.swift in Sources */,
 				3199756F29069A9A005A44AD /* VaccinationCenterDetailCell.swift in Sources */,
 				31158F4928FD416B004C8283 /* Paginated.swift in Sources */,
