@@ -11,24 +11,6 @@ import CoreLocation
 import RxSwift
 import RxRelay
 
-public struct VaccinationCenterLocationViewModel {
-    public let coordinate: CLLocationCoordinate2D
-    public let span: MKCoordinateSpan
-    public let currentLocation: () -> CLLocation
-    
-    public init(coordinate: CLLocationCoordinate2D, span: MKCoordinateSpan, currentLocation: @escaping () -> CLLocation) {
-        self.coordinate = coordinate
-        self.span = span
-        self.currentLocation = currentLocation
-    }
-}
-
-public struct LocationButtonViewModel {
-    public let tap = PublishRelay<Void>()
-    
-    public init() {}
-}
-
 public final class VaccinationCenterMapViewModel {
     public typealias AuthorizationStatus = LocationAuthorizationService.AuthorizationStatus
     
@@ -102,32 +84,5 @@ public final class VaccinationCenterMapViewModel {
                 }
             }
 
-    }
-}
-
-public extension LocationAuthorizationService {
-    enum Error: Swift.Error {
-        case unavailable
-        case unRepresented
-    }
-    
-    func start() -> Single<AuthorizationStatus> {
-        Single.create { observer in
-            self.start { status in
-                observer(Result {
-                    switch status {
-                    case .denied, .unavailable:
-                        throw Error.unavailable
-                        
-                    case .unknown:
-                        throw Error.unRepresented
-                        
-                    case .available:
-                        return status
-                    }
-                })
-            }
-            return Disposables.create()
-        }
     }
 }

@@ -48,6 +48,9 @@
 		31CDBBDE290BEBAF0050EE78 /* LocationAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBDD290BEBAF0050EE78 /* LocationAuthorizationService.swift */; };
 		31CDBBE0290E197D0050EE78 /* VaccinationCenterMapViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBDF290E197D0050EE78 /* VaccinationCenterMapViewModelTests.swift */; };
 		31CDBBE2290E42800050EE78 /* VaccinationCenterMapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBE1290E42800050EE78 /* VaccinationCenterMapViewModel.swift */; };
+		31CDBBE4290E470F0050EE78 /* VaccinationCenterLocationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBE3290E470F0050EE78 /* VaccinationCenterLocationViewModel.swift */; };
+		31CDBBE6290E473C0050EE78 /* LocationButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBE5290E473C0050EE78 /* LocationButtonViewModel.swift */; };
+		31CDBBE8290E47850050EE78 /* RxSwift+LocationAuthorization.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBE7290E47850050EE78 /* RxSwift+LocationAuthorization.swift */; };
 		31DEF6CF28FDB83C0019F6E9 /* UIView+forceLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DEF6CE28FDB83C0019F6E9 /* UIView+forceLayout.swift */; };
 		31DEF6D228FE55910019F6E9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D128FE55910019F6E9 /* RxCocoa */; };
 		31DEF6D428FE55910019F6E9 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D328FE55910019F6E9 /* RxRelay */; };
@@ -117,6 +120,9 @@
 		31CDBBDD290BEBAF0050EE78 /* LocationAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationService.swift; sourceTree = "<group>"; };
 		31CDBBDF290E197D0050EE78 /* VaccinationCenterMapViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterMapViewModelTests.swift; sourceTree = "<group>"; };
 		31CDBBE1290E42800050EE78 /* VaccinationCenterMapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterMapViewModel.swift; sourceTree = "<group>"; };
+		31CDBBE3290E470F0050EE78 /* VaccinationCenterLocationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterLocationViewModel.swift; sourceTree = "<group>"; };
+		31CDBBE5290E473C0050EE78 /* LocationButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationButtonViewModel.swift; sourceTree = "<group>"; };
+		31CDBBE7290E47850050EE78 /* RxSwift+LocationAuthorization.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RxSwift+LocationAuthorization.swift"; sourceTree = "<group>"; };
 		31DEF6CE28FDB83C0019F6E9 /* UIView+forceLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+forceLayout.swift"; sourceTree = "<group>"; };
 		31DEF6DC28FE74070019F6E9 /* VaccinationCentersEndPointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersEndPointTests.swift; sourceTree = "<group>"; };
 		31DEF6DE28FE7AB90019F6E9 /* VaccinationCenterListEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterListEndPoint.swift; sourceTree = "<group>"; };
@@ -276,6 +282,8 @@
 				3150819C28FD060300DA9EB7 /* VaccinationCentersViewModel.swift */,
 				31158F4E28FD76CD004C8283 /* PagingViewModel.swift */,
 				31CDBBE1290E42800050EE78 /* VaccinationCenterMapViewModel.swift */,
+				31CDBBE3290E470F0050EE78 /* VaccinationCenterLocationViewModel.swift */,
+				31CDBBE5290E473C0050EE78 /* LocationButtonViewModel.swift */,
 			);
 			path = "Vaccination Presentation";
 			sourceTree = "<group>";
@@ -287,6 +295,7 @@
 				31158F4628FD411E004C8283 /* RxSwift+getSingle.swift */,
 				31158F4A28FD7693004C8283 /* RxSwift+paginated.swift */,
 				319975722906AA4B005A44AD /* VaccinationCenterDetailUIComposer.swift */,
+				31CDBBE7290E47850050EE78 /* RxSwift+LocationAuthorization.swift */,
 			);
 			path = Composition;
 			sourceTree = "<group>";
@@ -527,6 +536,7 @@
 				3150817528FBDC7800DA9EB7 /* URLSessionHTTPClient.swift in Sources */,
 				31158F4B28FD7693004C8283 /* RxSwift+paginated.swift in Sources */,
 				31CDBBE2290E42800050EE78 /* VaccinationCenterMapViewModel.swift in Sources */,
+				31CDBBE4290E470F0050EE78 /* VaccinationCenterLocationViewModel.swift in Sources */,
 				31158F4728FD411E004C8283 /* RxSwift+getSingle.swift in Sources */,
 				3150819D28FD060300DA9EB7 /* VaccinationCentersViewModel.swift in Sources */,
 				3199757129069FDD005A44AD /* VaccinationCenterDetailModel.swift in Sources */,
@@ -540,7 +550,9 @@
 				3145BFC928FBA92200798FC0 /* AppDelegate.swift in Sources */,
 				3199756D29069A0B005A44AD /* VaccinationCenterDetailCellController.swift in Sources */,
 				3150819828FC4BD600DA9EB7 /* VaccinationCenterCellController.swift in Sources */,
+				31CDBBE6290E473C0050EE78 /* LocationButtonViewModel.swift in Sources */,
 				3199756729055851005A44AD /* VaccinationCenterConfiguration.swift in Sources */,
+				31CDBBE8290E47850050EE78 /* RxSwift+LocationAuthorization.swift in Sources */,
 				3150816F28FBD4C900DA9EB7 /* HTTPClient.swift in Sources */,
 				3145BFCB28FBA92200798FC0 /* SceneDelegate.swift in Sources */,
 				31DEF6DF28FE7AB90019F6E9 /* VaccinationCenterListEndPoint.swift in Sources */,
