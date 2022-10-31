@@ -1,5 +1,5 @@
 //
-//  RxSwift+LocationAuthorization.swift
+//  RxSwift+LocationService.swift
 //  AutoCrypt-Assignment
 //
 //  Created by klioop on 2022/10/30.
