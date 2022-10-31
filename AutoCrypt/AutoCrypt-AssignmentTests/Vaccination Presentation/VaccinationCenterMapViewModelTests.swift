@@ -79,11 +79,12 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         let vaccinationButton = LocationButtonViewModel()
         let currentButton = LocationButtonViewModel()
         let service = LocationServiceStub(status: status)
-        let locationViewModel = VaccinationCenterLocationViewModel(coordinate: coordinate, span: span, currentLocation: { .just(currentCoordinate) })
+        let locationViewModel = VaccinationCenterLocationViewModel(coordinate: coordinate, span: span)
         let sut = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
                                                 centerButtonViewModel: vaccinationButton,
                                                 currentButtonViewModel: currentButton,
-                                                authorization: service.start)
+                                                authorization: service.start,
+                                                currentLocation: { .just(currentCoordinate) })
         let state = StateSpy(sut.state)
         trackMemoryLeak(service, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
