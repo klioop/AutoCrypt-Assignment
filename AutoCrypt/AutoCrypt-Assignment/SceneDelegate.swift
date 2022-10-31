@@ -7,6 +7,7 @@
 
 import UIKit
 import RxSwift
+import CoreLocation
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -35,8 +36,31 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     private func showDetail(for center: VaccinationCenter) {
-        let detailController = VaccinationCenterDetailUIComposer.makeDetailViewController(for: center)
+        let detailController = VaccinationCenterDetailUIComposer.makeDetailViewController(for: center, didTapBarItem: { [weak self] in
+            self?.showMap(for: center)
+        })
         navigationController.pushViewController(detailController, animated: true)
+    }
+    
+    private func showMap(for center: VaccinationCenter) {
+        guard let latitude = Double(center.lat), let longitude = Double(center.lng) else { return }
+        
+        let manager = CLLocationManager()
+        let locationService = LocationService(manager: manager)
+        let currentLocationButtonViewModel = LocationButtonViewModel()
+        let centerLocationButtonViewModel = LocationButtonViewModel()
+        let locationViewModel = VaccinationCenterLocationViewModel(coordinate: .init(latitude: .init(latitude),
+                                                                                     longitude: .init(longitude)),
+                                                                   span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05))
+        
+        let viewModel = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
+                                                      centerButtonViewModel: centerLocationButtonViewModel,
+                                                      currentButtonViewModel: currentLocationButtonViewModel,
+                                                      authorization: locationService.startAuthorization,
+                                                      currentLocation: locationService.currentLocation)
+        let mapViewController = VaccinationCenterMapViewController(viewModel: viewModel)
+        mapViewController.title = "지도"
+        navigationController.pushViewController(mapViewController, animated: true)
     }
     
     private func makeRemoteCenterListLoader() -> Single<Paginated<VaccinationCenter>> {

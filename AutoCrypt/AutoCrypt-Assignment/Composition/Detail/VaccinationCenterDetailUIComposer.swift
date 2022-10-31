@@ -6,10 +6,9 @@
 //
 
 import UIKit
-import CoreLocation
 
 class VaccinationCenterDetailUIComposer {
-    static func makeDetailViewController(for model: VaccinationCenter) -> VaccinationCenterDetailViewController {
+    static func makeDetailViewController(for model: VaccinationCenter, didTapBarItem: @escaping () -> Void) -> VaccinationCenterDetailViewController {
         let detailViewController = VaccinationCenterDetailViewController()
         detailViewController.configure = { [weak detailViewController] in
             VaccinationCenterDetailCellController.register(for: $0)
@@ -17,24 +16,8 @@ class VaccinationCenterDetailUIComposer {
             detailViewController?.collectionView.reloadData()
         }
         detailViewController.title = model.name
-        detailViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "지도", primaryAction: UIAction { [weak detailViewController] _ in
-            guard let latitude = Double(model.lat), let longitude = Double(model.lng) else { return }
-            
-            let manager = CLLocationManager()
-            let locationService = LocationService(manager: manager)
-            let currentLocationButtonViewModel = LocationButtonViewModel()
-            let centerLocationButtonViewModel = LocationButtonViewModel()
-            let locationViewModel = VaccinationCenterLocationViewModel(coordinate: .init(latitude: .init(latitude), longitude: .init(longitude)),
-                                                                       span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01),
-                                                                       currentLocation: locationService.currentLocation)
-            
-            let viewModel = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
-                                                          centerButtonViewModel: centerLocationButtonViewModel,
-                                                          currentButtonViewModel: currentLocationButtonViewModel,
-                                                          authorization: locationService.startAuthorization)
-            let vc = VaccinationCenterMapViewController(viewModel: viewModel)
-            vc.title = "지도"
-            detailViewController?.navigationController?.pushViewController(vc, animated: true)
+        detailViewController.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "지도", primaryAction: UIAction { _ in
+            didTapBarItem()
         })
         return detailViewController
     }
