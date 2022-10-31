@@ -20,16 +20,19 @@ public final class VaccinationCenterMapViewModel {
     let centerButtonViewModel: LocationButtonViewModel
     let currentButtonViewModel: LocationButtonViewModel
     private let authorization: () -> Single<AuthorizationStatus>
+    private let currentLocation: () -> Single<CLLocationCoordinate2D>
     
     public init(
         locationViewModel: VaccinationCenterLocationViewModel,
         centerButtonViewModel: LocationButtonViewModel,
         currentButtonViewModel: LocationButtonViewModel,
-        authorization: @escaping () -> Single<AuthorizationStatus>) {
+        authorization: @escaping () -> Single<AuthorizationStatus>,
+        currentLocation: @escaping () -> Single<CLLocationCoordinate2D>) {
             self.locationViewModel = locationViewModel
             self.centerButtonViewModel = centerButtonViewModel
             self.currentButtonViewModel = currentButtonViewModel
             self.authorization = authorization
+            self.currentLocation = currentLocation
     }
     
     public enum State: Equatable {
@@ -71,8 +74,8 @@ public final class VaccinationCenterMapViewModel {
     
     private func authorizationState() -> Observable<State> {
         authorizationTrigger
-            .flatMap { [authorization] in
-                authorization()
+            .flatMap { [weak self] in
+                self?.authorization() ?? .just(.unknown)
             }
             .map { status in
                 switch status {
@@ -90,17 +93,18 @@ public final class VaccinationCenterMapViewModel {
     private func centerButtonTap() -> Observable<State> {
         let coordinate = locationViewModel.coordinate
         
+        let region = mkRegion(coordinate)
         return centerButtonViewModel.tap
-            .map { [mkRegion] in
-                .centerLocation(region: mkRegion(coordinate))}
+            .map { .centerLocation(region: region) }
     }
     
     private func currentButtonTap() -> Observable<State> {
         currentButtonViewModel.tap
-            .flatMap { [locationViewModel] in
-                locationViewModel.currentLocation()
+            .flatMap { [weak self] in
+                self?.currentLocation() ?? .just(.init(latitude: 1.00, longitude: 1.00))
             }
-            .map { [mkRegion] in .currentLocation(region: mkRegion($0)) }
+            .map(mkRegion)
+            .map { .currentLocation(region: $0) }
     }
     
     private func mkRegion(_ coordinate: CLLocationCoordinate2D) -> MKCoordinateRegion {
