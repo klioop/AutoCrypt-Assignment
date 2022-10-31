@@ -16,8 +16,8 @@ public extension LocationService {
     }
     
     func startAuthorization() -> Single<AuthorizationStatus> {
-        Single.create { observer in
-            self.startAuthorization { status in
+        Single.create { [weak self] observer in
+            self?.startAuthorization { status in                
                 observer(Result {
                     switch status {
                     case .denied, .unavailable:
