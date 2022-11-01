@@ -11,11 +11,15 @@ import CoreLocation
 import RxSwift
 import RxRelay
 
-public struct CurrentLocationViewModel {
+public struct CoordinateViewModel: Equatable {
     public let coordinate: CLLocationCoordinate2D
     
     public init(coordinate: CLLocationCoordinate2D) {
         self.coordinate = coordinate
+    }
+    
+    public static func ==(lhs: CoordinateViewModel, rhs: CoordinateViewModel) -> Bool {
+        lhs.coordinate.latitude == rhs.coordinate.latitude && lhs.coordinate.longitude == rhs.coordinate.longitude
     }
 }
 
@@ -42,14 +46,10 @@ public final class VaccinationCenterMapViewModel {
     }
     
     public enum State: Equatable {
-        public static func == (lhs: VaccinationCenterMapViewModel.State, rhs: VaccinationCenterMapViewModel.State) -> Bool {
-            isSame(lhs, rhs)
-        }
-        
         case unAuthorized
         case available
-        case currentLocation(CurrentLocationViewModel)
-        case centerLocation(region: MKCoordinateRegion)
+        case currentLocation(CoordinateViewModel)
+        case centerLocation(CoordinateViewModel)
     }
     
     public var state: Observable<State> {
@@ -60,16 +60,6 @@ public final class VaccinationCenterMapViewModel {
     }
     
     // MARK: - Helpers
-    
-    private static func isSame(_ lhs: VaccinationCenterMapViewModel.State, _ rhs: VaccinationCenterMapViewModel.State) -> Bool {
-        switch (lhs, rhs) {
-        case let (.centerLocation(lhsRegion), .centerLocation(rhsRegion)):
-            return (lhsRegion.center.latitude == rhsRegion.center.latitude) && (lhsRegion.center.longitude == rhsRegion.center.longitude)
-            
-        default:
-            return true
-        }
-    }
     
     private func authorizationState() -> Observable<State> {
         authorizationTrigger
@@ -82,9 +72,8 @@ public final class VaccinationCenterMapViewModel {
     private func centerButtonTap() -> Observable<State> {
         let coordinate = locationViewModel.coordinate
         
-        let region = mkRegion(coordinate)
         return centerButtonViewModel.tap
-            .map { .centerLocation(region: region) }
+            .map { .centerLocation(CoordinateViewModel(coordinate: coordinate)) }
     }
     
     private func currentButtonTap() -> Observable<State> {
@@ -92,7 +81,7 @@ public final class VaccinationCenterMapViewModel {
             .flatMap { [currentLocation] in
                 currentLocation()
             }
-            .map { .currentLocation(CurrentLocationViewModel(coordinate: $0)) }
+            .map { .currentLocation(CoordinateViewModel(coordinate: $0)) }
     }
     
     private func mkRegion(_ coordinate: CLLocationCoordinate2D) -> MKCoordinateRegion {
