@@ -8,13 +8,7 @@
 import Foundation
 import CoreLocation
 
-public final class CoreLocationService: NSObject, CLLocationManagerDelegate, LocationAuthorizationService, CurrentLocationService {
-    public enum Error: Swift.Error {
-        case denied
-        case unavailable
-        case unknown
-    }
-    
+public final class CoreLocationService: NSObject, CLLocationManagerDelegate {
     private let manager: CLLocationManager
     
     public init(manager: CLLocationManager) {
@@ -23,21 +17,18 @@ public final class CoreLocationService: NSObject, CLLocationManagerDelegate, Loc
     
     private(set) public var authorizationCompletion: ((LocationAuthorizationService.Result) -> Void)?
     private(set) public var currentLocationCompletion: ((CurrentLocationService.Result) -> Void)?
+}
+
+extension CoreLocationService: LocationAuthorizationService {
+    public enum Error: Swift.Error {
+        case denied
+        case unavailable
+        case unknown
+    }
     
     public func startAuthorization(completion: @escaping (LocationAuthorizationService.Result) -> Void) {
         manager.delegate = self
         self.authorizationCompletion = completion
-    }
-    
-    public func currentLocation(completion: @escaping (CurrentLocationService.Result) -> Void) {
-        manager.startUpdatingLocation()
-        self.currentLocationCompletion = completion
-    }
-    
-    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        guard let location = locations.last else { return }
-        currentLocationCompletion?(.success(CoordinateViewModel(coordinate: location.coordinate)))
-        manager.stopUpdatingLocation()
     }
     
     public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
@@ -57,5 +48,18 @@ public final class CoreLocationService: NSObject, CLLocationManagerDelegate, Loc
         @unknown default:
             authorizationCompletion?(.failure(Error.unknown))
         }
+    }
+}
+
+extension CoreLocationService: CurrentLocationService {
+    public func currentLocation(completion: @escaping (CurrentLocationService.Result) -> Void) {
+        manager.startUpdatingLocation()
+        self.currentLocationCompletion = completion
+    }
+    
+    public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        guard let location = locations.last else { return }
+        currentLocationCompletion?(.success(CoordinateViewModel(coordinate: location.coordinate)))
+        manager.stopUpdatingLocation()
     }
 }
