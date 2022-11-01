@@ -10,7 +10,6 @@ import AutoCrypt_Assignment
 import CoreLocation
 import RxSwift
 import RxRelay
-import MapKit
 
 class VaccinationCenterMapViewModelTests: XCTestCase {
     
@@ -31,7 +30,6 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
     func test_vaccinationCenterLocationButtonTap_sendsLocationStateWithVaccinationCenterLocation() {
         let centerLocation = CLLocationCoordinate2D(latitude: 4.0, longitude: 5.0)
         let viewModel = CoordinateViewModel(coordinate: centerLocation)
-        let centerRegion = MKCoordinateRegion(center: centerLocation, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         let (_, state, buttons) = makeSUT(coordinate: centerLocation)
         
         buttons.vaccination.tap.accept(())
@@ -42,7 +40,6 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
     func test_currentLocationButtonTap_sendsLocationStateWithCurrentRegion() {
         let currentCoordinate = CLLocationCoordinate2D(latitude: 10.0, longitude: 10.0)
         let viewModel = CoordinateViewModel(coordinate: currentCoordinate)
-        let currentRegion = MKCoordinateRegion(center: currentCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         let (_, state, buttons) = makeSUT(currentCoordinate: currentCoordinate, status: .success(()))
         
         buttons.current.tap.accept(())
@@ -54,7 +51,6 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
     
     private func makeSUT(
         currentCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 1.0, longitude: 1.0),
-        span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01),
         coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 2.0, longitude: 2.0),
         status: Result<Void, Error> = .failure(anyNSError()),
         file: StaticString = #filePath,
@@ -65,7 +61,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         let vaccinationButton = LocationButtonViewModel()
         let currentButton = LocationButtonViewModel()
         let service = LocationServiceStub(status: status)
-        let locationViewModel = VaccinationCenterLocationViewModel(coordinate: coordinate, span: span)
+        let locationViewModel = VaccinationCenterLocationViewModel(coordinate: coordinate)
         let sut = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
                                                 centerButtonViewModel: vaccinationButton,
                                                 currentButtonViewModel: currentButton,

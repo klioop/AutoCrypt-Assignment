@@ -6,16 +6,13 @@
 //
 
 import Foundation
-import MapKit
 import CoreLocation
 import RxSwift
 
 public struct VaccinationCenterLocationViewModel {
     public let coordinate: CLLocationCoordinate2D
-    public let span: MKCoordinateSpan
     
-    public init(coordinate: CLLocationCoordinate2D, span: MKCoordinateSpan) {
+    public init(coordinate: CLLocationCoordinate2D) {
         self.coordinate = coordinate
-        self.span = span
     }
 }

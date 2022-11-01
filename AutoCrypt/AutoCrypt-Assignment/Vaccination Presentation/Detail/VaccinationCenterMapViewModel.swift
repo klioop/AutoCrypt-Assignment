@@ -6,22 +6,9 @@
 //
 
 import Foundation
-import MapKit
 import CoreLocation
 import RxSwift
 import RxRelay
-
-public struct CoordinateViewModel: Equatable {
-    public let coordinate: CLLocationCoordinate2D
-    
-    public init(coordinate: CLLocationCoordinate2D) {
-        self.coordinate = coordinate
-    }
-    
-    public static func ==(lhs: CoordinateViewModel, rhs: CoordinateViewModel) -> Bool {
-        lhs.coordinate.latitude == rhs.coordinate.latitude && lhs.coordinate.longitude == rhs.coordinate.longitude
-    }
-}
 
 public final class VaccinationCenterMapViewModel {
     public let authorizationTrigger = PublishRelay<Void>()
@@ -82,9 +69,5 @@ public final class VaccinationCenterMapViewModel {
                 currentLocation()
             }
             .map { .currentLocation(CoordinateViewModel(coordinate: $0)) }
-    }
-    
-    private func mkRegion(_ coordinate: CLLocationCoordinate2D) -> MKCoordinateRegion {
-        MKCoordinateRegion(center: coordinate, span: locationViewModel.span)
     }
 }

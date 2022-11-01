@@ -51,8 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let currentLocationButtonViewModel = LocationButtonViewModel()
         let centerLocationButtonViewModel = LocationButtonViewModel()
         let locationViewModel = VaccinationCenterLocationViewModel(coordinate: .init(latitude: .init(latitude),
-                                                                                     longitude: .init(longitude)),
-                                                                   span: .init(latitudeDelta: 0.05, longitudeDelta: 0.05))
+                                                                                     longitude: .init(longitude)))
         
         let viewModel = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
                                                       centerButtonViewModel: centerLocationButtonViewModel,
