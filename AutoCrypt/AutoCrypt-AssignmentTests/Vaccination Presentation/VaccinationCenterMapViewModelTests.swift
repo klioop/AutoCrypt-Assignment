@@ -40,12 +40,13 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
     
     func test_currentLocationButtonTap_sendsLocationStateWithCurrentRegion() {
         let currentCoordinate = CLLocationCoordinate2D(latitude: 10.0, longitude: 10.0)
+        let viewModel = CurrentLocationViewModel(coordinate: currentCoordinate)
         let currentRegion = MKCoordinateRegion(center: currentCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
         let (_, state, buttons) = makeSUT(currentCoordinate: currentCoordinate, status: .success(()))
         
         buttons.current.tap.accept(())
         
-        XCTAssertEqual(state.values, [.currentLocation(region: currentRegion)])
+        XCTAssertEqual(state.values, [.currentLocation(viewModel)])
     }
     
     // MARK: - Helpers

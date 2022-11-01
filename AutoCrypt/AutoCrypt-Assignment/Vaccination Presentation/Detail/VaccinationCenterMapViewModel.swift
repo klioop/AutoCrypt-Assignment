@@ -11,6 +11,14 @@ import CoreLocation
 import RxSwift
 import RxRelay
 
+public struct CurrentLocationViewModel {
+    public let coordinate: CLLocationCoordinate2D
+    
+    public init(coordinate: CLLocationCoordinate2D) {
+        self.coordinate = coordinate
+    }
+}
+
 public final class VaccinationCenterMapViewModel {
     public let authorizationTrigger = PublishRelay<Void>()
     
@@ -40,7 +48,7 @@ public final class VaccinationCenterMapViewModel {
         
         case unAuthorized
         case available
-        case currentLocation(region: MKCoordinateRegion)
+        case currentLocation(CurrentLocationViewModel)
         case centerLocation(region: MKCoordinateRegion)
     }
     
@@ -55,9 +63,6 @@ public final class VaccinationCenterMapViewModel {
     
     private static func isSame(_ lhs: VaccinationCenterMapViewModel.State, _ rhs: VaccinationCenterMapViewModel.State) -> Bool {
         switch (lhs, rhs) {
-        case let (.currentLocation(lhsRegion), .currentLocation(rhsRegion)):
-            return (lhsRegion.center.latitude == rhsRegion.center.latitude) && (lhsRegion.center.longitude == rhsRegion.center.longitude)
-            
         case let (.centerLocation(lhsRegion), .centerLocation(rhsRegion)):
             return (lhsRegion.center.latitude == rhsRegion.center.latitude) && (lhsRegion.center.longitude == rhsRegion.center.longitude)
             
@@ -87,8 +92,7 @@ public final class VaccinationCenterMapViewModel {
             .flatMap { [currentLocation] in
                 currentLocation()
             }
-            .map(mkRegion)
-            .map { .currentLocation(region: $0) }
+            .map { .currentLocation(CurrentLocationViewModel(coordinate: $0)) }
     }
     
     private func mkRegion(_ coordinate: CLLocationCoordinate2D) -> MKCoordinateRegion {

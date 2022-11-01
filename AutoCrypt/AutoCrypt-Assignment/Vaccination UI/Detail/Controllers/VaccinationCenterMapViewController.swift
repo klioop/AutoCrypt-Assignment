@@ -51,8 +51,8 @@ final class VaccinationCenterMapViewController: UIViewController {
         viewModel.state
             .subscribe(onNext: { [weak mainView] state in
                 switch state {
-                case let .currentLocation(region):
-                    mainView?.mapView.setRegion(region, animated: true)
+                case let .currentLocation(viewModel):
+                    mainView?.mapView.setRegion(MKCoordinateRegion(center: viewModel.coordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: true)
                     
                 case let .centerLocation(region):
                     mainView?.mapView.setRegion(region, animated: true)
