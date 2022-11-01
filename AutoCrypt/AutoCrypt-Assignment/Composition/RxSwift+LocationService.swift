@@ -9,38 +9,22 @@ import Foundation
 import CoreLocation
 import RxSwift
 
-public extension LocationService {
-    enum Error: Swift.Error {
-        case unavailable
-        case unRepresented
-    }
-    
-    func startAuthorization() -> Single<AuthorizationStatus> {
-        Single.create { [weak self] observer in
-            self?.startAuthorization { status in                
-                observer(Result {
-                    switch status {
-                    case .denied, .unavailable:
-                        throw Error.unavailable
-                        
-                    case .unknown:
-                        throw Error.unRepresented
-                        
-                    case .available:
-                        return status
-                    }
-                })
+public extension LocationAuthorizationService {
+    func startAuthorization() -> Single<Void> {
+        Single.create { observer in
+            self.startAuthorization { result in
+                observer(result)
             }
             return Disposables.create()
         }
     }
-    
+}
+ 
+public extension CurrentLocationService {
     func currentLocation() -> Single<CLLocationCoordinate2D> {
-        Single.create { [weak self] observer in
-            self?.currentLocation { location in
-                observer(Result {
-                    return location.coordinate
-                })
+        Single.create { observer in
+            self.currentLocation { result in
+                observer(result)
             }
             return Disposables.create()
         }

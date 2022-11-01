@@ -51,18 +51,28 @@ final class VaccinationCenterMapViewController: UIViewController {
         viewModel.state
             .subscribe(onNext: { [weak mainView] state in
                 switch state {
-                case let .currentLocation(region):
-                    mainView?.mapView.setRegion(region, animated: true)
+                case let .currentLocation(viewModel):
+                    mainView?.mapView.setRegion(viewModel.mkRegion, animated: true)
                     
-                case let .centerLocation(region):
-                    mainView?.mapView.setRegion(region, animated: true)
-                    let annotation = MKPointAnnotation()
-                    annotation.coordinate = region.center
-                    mainView?.mapView.addAnnotation(annotation)
+                case let .centerLocation(viewModel):
+                    mainView?.mapView.setRegion(viewModel.mkRegion, animated: true)
+                    mainView?.mapView.addAnnotation(viewModel.annotation)
                     
                 default: break
                 }
             })
             .disposed(by: bag)
+    }
+}
+
+extension CoordinateViewModel {
+    var mkRegion: MKCoordinateRegion {
+        MKCoordinateRegion(center: coordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
+    }
+    
+    var annotation: MKPointAnnotation {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        return annotation
     }
 }

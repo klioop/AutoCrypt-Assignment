@@ -28,30 +28,30 @@ class LocationAuthorizationServiceTests: XCTestCase {
     func test_start_deliversDeniedForLocationServiceIsDenied() {
         let sut = makeSUT(stubStatus: .denied)
       
-        expect(sut, toCompletedWith: .denied)
+        expect(sut, toCompletedWith: .failure(anyNSError()))
     }
     
     func test_start_deliversUnavailableWhenLocationServiceIsUnavailable() {
         let sut = makeSUT(stubStatus: .restricted)
         
-        expect(sut, toCompletedWith: .unavailable)
+        expect(sut, toCompletedWith: .failure(anyNSError()))
     }
     
     func test_start_deliversAvailableWhenLocationServiceIsAvailableInUse() {
         let sut = makeSUT(stubStatus: .authorizedWhenInUse)
         
-        expect(sut, toCompletedWith: .available)
+        expect(sut, toCompletedWith: .success(()))
     }
     
     func test_start_deliversAvailableWhenLocationServiceIsAvailableAlways() {
         let sut = makeSUT(stubStatus: .authorizedAlways)
         
-        expect(sut, toCompletedWith: .available)
+        expect(sut, toCompletedWith: .success(()))
     }
     
     func test_start_requestsWhenInUseAuthorizationOnNotDetermined() {
         let manager = LocationManagerStub(stubStatus: .notDetermined)
-        let sut = LocationService(manager: manager)
+        let sut = CoreLocationService(manager: manager)
         
         sut.startAuthorization { _ in }
         manager.delegate?.locationManagerDidChangeAuthorization?(manager)
@@ -61,18 +61,20 @@ class LocationAuthorizationServiceTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT(stubStatus: CLAuthorizationStatus = .notDetermined, file: StaticString = #filePath, line: UInt = #line) -> LocationService {
+    private func makeSUT(stubStatus: CLAuthorizationStatus = .notDetermined, file: StaticString = #filePath, line: UInt = #line) -> CoreLocationService {
         let manager = LocationManagerStub(stubStatus: stubStatus)
-        let sut = LocationService(manager: manager)
+        let sut = CoreLocationService(manager: manager)
         trackMemoryLeak(manager, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
         return sut
     }
     
-    private func expect(_ sut: LocationService, toCompletedWith expectedStatus: LocationService.AuthorizationStatus, file: StaticString = #filePath, line: UInt = #line) {
+    private func expect(_ sut: CoreLocationService, toCompletedWith expectedResult: LocationAuthorizationService.Result, file: StaticString = #filePath, line: UInt = #line) {
         let exp = expectation(description: "wait for start completion")
-        sut.startAuthorization { receivedStatus in
-            XCTAssertEqual(receivedStatus, expectedStatus)
+        sut.startAuthorization { receivedResult in
+            if case let .failure(receivedError) = receivedResult {
+                XCTAssertNotNil(receivedError)
+            }
             exp.fulfill()
         }
         wait(for: [exp], timeout: 1.0)
