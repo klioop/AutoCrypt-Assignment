@@ -61,8 +61,8 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         let vaccinationButton = LocationButtonViewModel()
         let currentButton = LocationButtonViewModel()
         let service = LocationServiceStub(status: status)
-        let locationViewModel = VaccinationCenterLocationViewModel(coordinate: coordinate)
-        let sut = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
+        let locationViewModel = VaccinationCenterLocation(coordinate: coordinate)
+        let sut = VaccinationCenterMapViewModel(centerLocation: locationViewModel,
                                                 centerButtonViewModel: vaccinationButton,
                                                 currentButtonViewModel: currentButton,
                                                 authorization: service.start,

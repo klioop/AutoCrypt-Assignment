@@ -50,10 +50,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let locationService = CoreLocationService(manager: locationManager)
         let currentLocationButtonViewModel = LocationButtonViewModel()
         let centerLocationButtonViewModel = LocationButtonViewModel()
-        let locationViewModel = VaccinationCenterLocationViewModel(coordinate: .init(latitude: .init(latitude),
+        let centerLocation = VaccinationCenterLocation(coordinate: .init(latitude: .init(latitude),
                                                                                      longitude: .init(longitude)))
         
-        let viewModel = VaccinationCenterMapViewModel(locationViewModel: locationViewModel,
+        let viewModel = VaccinationCenterMapViewModel(centerLocation: centerLocation,
                                                       centerButtonViewModel: centerLocationButtonViewModel,
                                                       currentButtonViewModel: currentLocationButtonViewModel,
                                                       authorization: locationService.startAuthorization,

@@ -13,19 +13,19 @@ import RxRelay
 public final class VaccinationCenterMapViewModel {
     public let authorizationTrigger = PublishRelay<Void>()
     
-    private let locationViewModel: VaccinationCenterLocationViewModel
+    private let centerLocation: VaccinationCenterLocation
     let centerButtonViewModel: LocationButtonViewModel
     let currentButtonViewModel: LocationButtonViewModel
     private let authorization: () -> Single<Void>
     private let currentLocation: () -> Single<CLLocationCoordinate2D>
     
     public init(
-        locationViewModel: VaccinationCenterLocationViewModel,
+        centerLocation: VaccinationCenterLocation,
         centerButtonViewModel: LocationButtonViewModel,
         currentButtonViewModel: LocationButtonViewModel,
         authorization: @escaping () -> Single<Void>,
         currentLocation: @escaping () -> Single<CLLocationCoordinate2D>) {
-            self.locationViewModel = locationViewModel
+            self.centerLocation = centerLocation
             self.centerButtonViewModel = centerButtonViewModel
             self.currentButtonViewModel = currentButtonViewModel
             self.authorization = authorization
@@ -57,7 +57,7 @@ public final class VaccinationCenterMapViewModel {
     }
     
     private func centerButtonTap() -> Observable<State> {
-        let coordinate = locationViewModel.coordinate
+        let coordinate = centerLocation.coordinate
         
         return centerButtonViewModel.tap
             .map { .centerLocation(CoordinateViewModel(coordinate: coordinate)) }
