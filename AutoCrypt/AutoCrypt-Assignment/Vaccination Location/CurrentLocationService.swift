@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreLocation
 
 public protocol CurrentLocationService {
     typealias Result = Swift.Result <CoordinateViewModel, Error>
