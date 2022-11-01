@@ -36,7 +36,7 @@ public final class CoreLocationService: NSObject, CLLocationManagerDelegate, Loc
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        currentLocationCompletion?(.success(location.coordinate))
+        currentLocationCompletion?(.success(CoordinateViewModel(coordinate: location.coordinate)))
         manager.stopUpdatingLocation()
     }
     

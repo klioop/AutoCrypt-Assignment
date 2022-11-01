@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import CoreLocation
 import RxSwift
 import RxRelay
 
@@ -17,14 +16,14 @@ public final class VaccinationCenterMapViewModel {
     let centerButtonViewModel: LocationButtonViewModel
     let currentButtonViewModel: LocationButtonViewModel
     private let authorization: () -> Single<Void>
-    private let currentLocation: () -> Single<CLLocationCoordinate2D>
+    private let currentLocation: () -> Single<CoordinateViewModel>
     
     public init(
         centerLocation: VaccinationCenterLocation,
         centerButtonViewModel: LocationButtonViewModel,
         currentButtonViewModel: LocationButtonViewModel,
         authorization: @escaping () -> Single<Void>,
-        currentLocation: @escaping () -> Single<CLLocationCoordinate2D>) {
+        currentLocation: @escaping () -> Single<CoordinateViewModel>) {
             self.centerLocation = centerLocation
             self.centerButtonViewModel = centerButtonViewModel
             self.currentButtonViewModel = currentButtonViewModel
@@ -64,6 +63,6 @@ public final class VaccinationCenterMapViewModel {
     private func currentButtonTap() -> Observable<State> {
         currentButtonViewModel.tap
             .flatMap { [currentLocation] in currentLocation() }
-            .map { .currentLocation(CoordinateViewModel(coordinate: $0)) }
+            .map { .currentLocation($0) }
     }
 }

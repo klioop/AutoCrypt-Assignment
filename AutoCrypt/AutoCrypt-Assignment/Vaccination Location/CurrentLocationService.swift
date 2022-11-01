@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 
 public protocol CurrentLocationService {
-    typealias Result = Swift.Result <CLLocationCoordinate2D, Error>
+    typealias Result = Swift.Result <CoordinateViewModel, Error>
     
     func currentLocation(completion: @escaping (Result) -> Void)
 }
