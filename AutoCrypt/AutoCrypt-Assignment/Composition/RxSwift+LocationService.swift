@@ -10,26 +10,10 @@ import CoreLocation
 import RxSwift
 
 public extension CoreLocationService {
-    enum Error: Swift.Error {
-        case unavailable
-        case unRepresented
-    }
-    
-    func startAuthorization() -> Single<AuthorizationStatus> {
+    func startAuthorization() -> Single<Void> {
         Single.create { [weak self] observer in
-            self?.startAuthorization { status in
-                observer(Result {
-                    switch status {
-                    case .denied, .unavailable:
-                        throw Error.unavailable
-                        
-                    case .unknown:
-                        throw Error.unRepresented
-                        
-                    case .available:
-                        return status
-                    }
-                })
+            self?.startAuthorization { result in
+                observer(result)
             }
             return Disposables.create()
         }
@@ -38,7 +22,7 @@ public extension CoreLocationService {
     func currentLocation() -> Single<CLLocationCoordinate2D> {
         Single.create { [weak self] observer in
             self?.currentLocation { coordinate in
-                observer(Result {
+                observer(Swift.Result {
                     return coordinate
                 })
             }

@@ -20,24 +20,8 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         XCTAssertEqual(state.values, [])
     }
     
-    func test_triggerRequestAuthorization_sendsUnavailableStateWithMessageOnDenied() {
-        let (sut, state, _) = makeSUT(status: .denied)
-        
-        sut.authorizationTrigger.accept(())
-        
-        XCTAssertEqual(state.values, [.unavailable(message: "위치 서비스 이용 불가능")])
-    }
-    
-    func test_triggerRequestAuthorization_sendsUnavailableStateWithMessageOnUnavailable() {
-        let (sut, state, _) = makeSUT(status: .unavailable)
-        
-        sut.authorizationTrigger.accept(())
-        
-        XCTAssertEqual(state.values, [.unavailable(message: "위치 서비스 이용 불가능")])
-    }
-    
     func test_triggerRequestAuthorization_sendsLocationStateWithCurrentRegionOnAvailable() {
-        let (sut, state, _) = makeSUT(status: .available)
+        let (sut, state, _) = makeSUT(status: .success(()))
         
         sut.authorizationTrigger.accept(())
         
@@ -57,7 +41,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
     func test_currentLocationButtonTap_sendsLocationStateWithCurrentRegion() {
         let currentCoordinate = CLLocationCoordinate2D(latitude: 10.0, longitude: 10.0)
         let currentRegion = MKCoordinateRegion(center: currentCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01))
-        let (_, state, buttons) = makeSUT(currentCoordinate: currentCoordinate, status: .available)
+        let (_, state, buttons) = makeSUT(currentCoordinate: currentCoordinate, status: .success(()))
         
         buttons.current.tap.accept(())
         
@@ -70,7 +54,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         currentCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 1.0, longitude: 1.0),
         span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01),
         coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 2.0, longitude: 2.0),
-        status: Status = .denied,
+        status: Result<Void, Error> = .failure(anyNSError()),
         file: StaticString = #filePath,
         line: UInt = #line)
     -> (sut: VaccinationCenterMapViewModel,
@@ -92,17 +76,19 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
         return (sut, state, (vaccinationButton, currentButton))
     }
     
-    typealias Status = CoreLocationService.AuthorizationStatus
-    
     private class LocationServiceStub {
-        private let status: Status
+        private let status: Result<Void, Error>
         
-        init(status: Status) {
+        init(status: Result<Void, Error>) {
             self.status = status
         }
         
-        func start() -> Single<Status> {
-            return .just(status)
+        func start() -> Single<Void> {
+            if let _ = try? status.get() {
+                return .just(())
+            } else {
+                return .error(anyNSError())
+            }
         }
     }
     

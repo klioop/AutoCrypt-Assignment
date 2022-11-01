@@ -8,11 +8,10 @@
 import Foundation
 import CoreLocation
 
-public final class CoreLocationService: NSObject, CLLocationManagerDelegate {
-    public enum AuthorizationStatus {
+public final class CoreLocationService: NSObject, CLLocationManagerDelegate, LocationAuthorizationService {
+    public enum Error: Swift.Error {
         case denied
         case unavailable
-        case available
         case unknown
     }
     
@@ -22,10 +21,10 @@ public final class CoreLocationService: NSObject, CLLocationManagerDelegate {
         self.manager = manager
     }
     
-    private(set) public var authorizationCompletion: ((AuthorizationStatus) -> Void)?
+    private(set) public var authorizationCompletion: ((LocationAuthorizationService.Result) -> Void)?
     private(set) public var currentLocationCompletion: ((CLLocationCoordinate2D) -> Void)?
     
-    public func startAuthorization(completion: @escaping (AuthorizationStatus) -> Void) {
+    public func startAuthorization(completion: @escaping (LocationAuthorizationService.Result) -> Void) {
         manager.delegate = self
         self.authorizationCompletion = completion
     }
@@ -44,19 +43,19 @@ public final class CoreLocationService: NSObject, CLLocationManagerDelegate {
     public func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .denied:
-            authorizationCompletion?(.denied)
+            authorizationCompletion?(.failure(Error.denied))
             
         case .restricted:
-            authorizationCompletion?(.unavailable)
+            authorizationCompletion?(.failure(Error.unavailable))
          
         case .authorizedWhenInUse, .authorizedAlways:
-            authorizationCompletion?(.available)
+            authorizationCompletion?(.success(()))
             
         case .notDetermined:
             manager.requestWhenInUseAuthorization()
             
         @unknown default:
-            authorizationCompletion?(.unknown)
+            authorizationCompletion?(.failure(Error.unknown))
         }
     }
 }
