@@ -15,7 +15,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private lazy var baseURL = URL(string: "https://api.odcloud.kr/api")!
     
-    private lazy var locationManager = CLLocationManager()
+    private lazy var locationService = CoreLocationService(manager: CLLocationManager())
         
     private lazy var httpClient: HTTPClient = {
         URLSessionHTTPClient(session: .shared)
@@ -47,7 +47,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func showMap(for center: VaccinationCenter) {
         guard let latitude = Double(center.lat), let longitude = Double(center.lng) else { return }
         
-        let locationService = CoreLocationService(manager: locationManager)
         let currentLocationButtonViewModel = LocationButtonViewModel()
         let centerLocationButtonViewModel = LocationButtonViewModel()
         let centerLocation = VaccinationCenterLocation(coordinate: .init(latitude: .init(latitude),
