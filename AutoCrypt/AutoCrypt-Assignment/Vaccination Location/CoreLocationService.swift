@@ -8,7 +8,7 @@
 import Foundation
 import CoreLocation
 
-public final class CoreLocationService: NSObject, CLLocationManagerDelegate, LocationAuthorizationService {
+public final class CoreLocationService: NSObject, CLLocationManagerDelegate, LocationAuthorizationService, CurrentLocationService {
     public enum Error: Swift.Error {
         case denied
         case unavailable
@@ -22,21 +22,21 @@ public final class CoreLocationService: NSObject, CLLocationManagerDelegate, Loc
     }
     
     private(set) public var authorizationCompletion: ((LocationAuthorizationService.Result) -> Void)?
-    private(set) public var currentLocationCompletion: ((CLLocationCoordinate2D) -> Void)?
+    private(set) public var currentLocationCompletion: ((CurrentLocationService.Result) -> Void)?
     
     public func startAuthorization(completion: @escaping (LocationAuthorizationService.Result) -> Void) {
         manager.delegate = self
         self.authorizationCompletion = completion
     }
     
-    public func currentLocation(completion: @escaping (CLLocationCoordinate2D) -> Void) {
+    public func currentLocation(completion: @escaping (CurrentLocationService.Result) -> Void) {
         manager.startUpdatingLocation()
         self.currentLocationCompletion = completion
     }
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        currentLocationCompletion?(location.coordinate)
+        currentLocationCompletion?(.success(location.coordinate))
         manager.stopUpdatingLocation()
     }
     

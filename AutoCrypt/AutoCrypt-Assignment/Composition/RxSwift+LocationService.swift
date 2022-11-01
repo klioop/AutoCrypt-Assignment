@@ -21,10 +21,8 @@ public extension CoreLocationService {
     
     func currentLocation() -> Single<CLLocationCoordinate2D> {
         Single.create { [weak self] observer in
-            self?.currentLocation { coordinate in
-                observer(Swift.Result {
-                    return coordinate
-                })
+            self?.currentLocation { result in
+                observer(result)
             }
             return Disposables.create()
         }
