@@ -50,9 +50,7 @@ public final class VaccinationCenterMapViewModel {
     
     private func authorizationState() -> Observable<State> {
         authorizationTrigger
-            .flatMap { [authorization] in
-                authorization()
-            }
+            .flatMap { [authorization] in authorization() }
             .map { .available }
     }
     
@@ -65,9 +63,7 @@ public final class VaccinationCenterMapViewModel {
     
     private func currentButtonTap() -> Observable<State> {
         currentButtonViewModel.tap
-            .flatMap { [currentLocation] in
-                currentLocation()
-            }
+            .flatMap { [currentLocation] in currentLocation() }
             .map { .currentLocation(CoordinateViewModel(coordinate: $0)) }
     }
 }
