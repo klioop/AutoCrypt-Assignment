@@ -34,18 +34,18 @@ final class VaccinationCenterMapViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel?.authorizationTrigger.accept(())
-        viewModel?.currentButtonViewModel.tap.accept(())
+        viewModel?.currentButtonTapInput.accept(())
     }
     
     func bind() {
         guard let viewModel = self.viewModel else { return }
         
         mainView.currentLocationButton
-            .rx.tap.bind(to: viewModel.currentButtonViewModel.tap)
+            .rx.tap.bind(to: viewModel.currentButtonTapInput)
             .disposed(by: bag)
         
         mainView.centerLocationButton
-            .rx.tap.bind(to: viewModel.centerButtonViewModel.tap)
+            .rx.tap.bind(to: viewModel.centerButtonTapInput)
             .disposed(by: bag)
         
         viewModel.state

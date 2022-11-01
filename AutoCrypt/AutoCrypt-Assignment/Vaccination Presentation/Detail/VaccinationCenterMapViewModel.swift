@@ -13,8 +13,8 @@ public final class VaccinationCenterMapViewModel {
     public let authorizationTrigger = PublishRelay<Void>()
     
     private let centerLocation: VaccinationCenterLocation
-    let centerButtonViewModel: LocationButtonViewModel
-    let currentButtonViewModel: LocationButtonViewModel
+    private let centerButtonViewModel: LocationButtonViewModel
+    private let currentButtonViewModel: LocationButtonViewModel
     private let authorization: () -> Single<Void>
     private let currentLocation: () -> Single<CoordinateViewModel>
     
@@ -43,6 +43,14 @@ public final class VaccinationCenterMapViewModel {
             authorizationState(),
             centerButtonTap(),
             currentButtonTap())
+    }
+    
+    var currentButtonTapInput: PublishRelay<Void> {
+        currentButtonViewModel.tap
+    }
+    
+    var centerButtonTapInput: PublishRelay<Void> {
+        centerButtonViewModel.tap
     }
     
     // MARK: - Helpers
