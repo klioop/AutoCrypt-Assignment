@@ -84,8 +84,8 @@ public final class VaccinationCenterMapViewModel {
     
     private func currentButtonTap() -> Observable<State> {
         currentButtonViewModel.tap
-            .flatMap { [weak self] in
-                self?.currentLocation() ?? .just(.init(latitude: 1.00, longitude: 1.00))
+            .flatMap { [currentLocation] in
+                currentLocation()
             }
             .map(mkRegion)
             .map { .currentLocation(region: $0) }

@@ -9,19 +9,21 @@ import Foundation
 import CoreLocation
 import RxSwift
 
-public extension CoreLocationService {
+public extension LocationAuthorizationService {
     func startAuthorization() -> Single<Void> {
-        Single.create { [weak self] observer in
-            self?.startAuthorization { result in
+        Single.create {observer in
+            self.startAuthorization { result in
                 observer(result)
             }
             return Disposables.create()
         }
     }
-    
+}
+ 
+public extension CurrentLocationService {
     func currentLocation() -> Single<CLLocationCoordinate2D> {
-        Single.create { [weak self] observer in
-            self?.currentLocation { result in
+        Single.create { observer in
+            self.currentLocation { result in
                 observer(result)
             }
             return Disposables.create()
