@@ -12,7 +12,7 @@ import RxSwift
 import RxRelay
 
 public final class VaccinationCenterMapViewModel {
-    public typealias AuthorizationStatus = LocationService.AuthorizationStatus
+    public typealias AuthorizationStatus = CoreLocationService.AuthorizationStatus
     
     public let authorizationTrigger = PublishRelay<Void>()
     

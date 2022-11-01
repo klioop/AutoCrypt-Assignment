@@ -47,7 +47,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     private func showMap(for center: VaccinationCenter) {
         guard let latitude = Double(center.lat), let longitude = Double(center.lng) else { return }
         
-        let locationService = LocationService(manager: locationManager)
+        let locationService = CoreLocationService(manager: locationManager)
         let currentLocationButtonViewModel = LocationButtonViewModel()
         let centerLocationButtonViewModel = LocationButtonViewModel()
         let locationViewModel = VaccinationCenterLocationViewModel(coordinate: .init(latitude: .init(latitude),

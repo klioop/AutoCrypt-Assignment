@@ -9,7 +9,7 @@ import Foundation
 import CoreLocation
 import RxSwift
 
-public extension LocationService {
+public extension CoreLocationService {
     enum Error: Swift.Error {
         case unavailable
         case unRepresented
