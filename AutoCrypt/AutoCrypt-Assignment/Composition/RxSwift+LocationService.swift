@@ -11,7 +11,7 @@ import RxSwift
 
 public extension LocationAuthorizationService {
     func startAuthorization() -> Single<Void> {
-        Single.create {observer in
+        Single.create { observer in
             self.startAuthorization { result in
                 observer(result)
             }
