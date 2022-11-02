@@ -23,20 +23,23 @@ class VaccinationCenterDetailUIComposer {
     }
     
     private static func makeCellControllersForFirstSection(from model: VaccinationCenter) -> [VaccinationCenterDetailCellController] {
-        let center = VaccinationCenterDetailCellController(model: .init(image: UIImage(named: "hospital"), title: "센터명", description: model.name))
-        let facility = VaccinationCenterDetailCellController(model: .init(image: UIImage(named: "building"), title: "건물명", description: model.facilityName))
-        let phoneNumber = VaccinationCenterDetailCellController(model: .init(image: UIImage(named: "telephone"), title: "전화번호", description: model.phoneNumber))
-        let updatedAt = VaccinationCenterDetailCellController(model: .init(image: UIImage(named: "chat"), title: "업데이트 시간", description: model.updatedAt))
-        return [center, facility, phoneNumber, updatedAt]
+        let center = detail(imageName: "hospital", title: "센터명", description: model.name)
+        let facility = detail(imageName: "building", title: "건물명", description: model.facilityName)
+        let phoneNumber = detail(imageName: "telephone", title: "전화번호", description: model.phoneNumber)
+        let updatedAt = detail(imageName: "chat", title: "업데이트 시간", description: model.updatedAt)
+        
+        return [center, facility, phoneNumber, updatedAt].map(VaccinationCenterDetailCellController.init)
     }
     
     private static func makeCellControllersForSecondSection(from model: VaccinationCenter) -> [VaccinationCenterDetailCellController] {
-        [VaccinationCenterDetailCellController(model: .init(image: UIImage(named: "placeholder"), title: "주소", description: model.address))]
+        [VaccinationCenterDetailCellController(model: detail(imageName: "placeholder", title: "주소", description: model.address))]
     }
     
     private static func makeSections(from model: VaccinationCenter) -> [[VaccinationCenterDetailCellController]] {
         [makeCellControllersForFirstSection(from: model), makeCellControllersForSecondSection(from: model)]
     }
+    
+    private static func detail(imageName: String, title: String, description: String) -> VaccinationCenterDetail {
+        VaccinationCenterDetail(image: UIImage(named: imageName), title: title, description: description.isEmpty ? "미등록" : description)
+    }
 }
-
-
