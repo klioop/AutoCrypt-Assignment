@@ -26,8 +26,7 @@ final class VaccinationCenterMapViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        self.view = VaccinationCenterMapMainView()
-        bind()
+        self.view = binded(VaccinationCenterMapMainView())
     }
     
     override func viewDidLoad() {
@@ -37,14 +36,14 @@ final class VaccinationCenterMapViewController: UIViewController {
         viewModel?.currentButtonTapInput.accept(())
     }
     
-    func bind() {
-        guard let viewModel = self.viewModel else { return }
+    private func binded(_ view: VaccinationCenterMapMainView) -> VaccinationCenterMapMainView? {
+        guard let viewModel = self.viewModel else { return nil }
         
-        mainView.currentLocationButton
+        view.currentLocationButton
             .rx.tap.bind(to: viewModel.currentButtonTapInput)
             .disposed(by: bag)
         
-        mainView.centerLocationButton
+        view.centerLocationButton
             .rx.tap.bind(to: viewModel.centerButtonTapInput)
             .disposed(by: bag)
         
@@ -54,19 +53,19 @@ final class VaccinationCenterMapViewController: UIViewController {
                 
                 switch state {
                 case let .currentLocation(location):
-                    self.mainView.mapView.setRegion(self.mkRegion(from: location.coordinate), animated: true)
+                    view.mapView.setRegion(self.mkRegion(from: location.coordinate), animated: true)
                     
                 case let .centerLocation(location):
-                    self.mainView.mapView.setRegion(self.mkRegion(from: location.coordinate), animated: true)
-                    self.mainView.mapView.addAnnotation(self.annotation(from: location.coordinate, with: location.name))
+                    view.mapView.setRegion(self.mkRegion(from: location.coordinate), animated: true)
+                    view.mapView.addAnnotation(self.annotation(from: location.coordinate, with: location.name))
                     
                 default: break
                 }
             })
             .disposed(by: bag)
+        
+        return view
     }
-    
-    // MARK: - Helpers
     
     private func mkRegion(from coordinate: CLLocationCoordinate2D) -> MKCoordinateRegion {
         MKCoordinateRegion(center: coordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
