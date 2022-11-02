@@ -49,6 +49,34 @@ final class VaccinationCenterMapMainView: UIView {
         nil
     }
     
+    private var animated: Bool {
+        count == 1 ? false : true
+    }
+    
+    private var count = 0
+    
+    func setRegion(with coordinate: CLLocationCoordinate2D) {
+        count += 1
+        mapView.setRegion(mkRegion(from: coordinate), animated: animated)
+    }
+    
+    func setRegion(with coordinate: CLLocationCoordinate2D, animated: Bool) {
+        mapView.setRegion(mkRegion(from: coordinate), animated: animated)
+    }
+    
+    func addAnnotation(for coordinate: CLLocationCoordinate2D, with title: String) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = coordinate
+        annotation.title = title
+        mapView.addAnnotation(annotation)
+    }
+    
+    // MARK: - Helpers
+    
+    private func mkRegion(from coordinate: CLLocationCoordinate2D) -> MKCoordinateRegion {
+        MKCoordinateRegion(center: coordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
+    }
+    
     private func configure() {
         backgroundColor = .systemBackground
         [mapView].forEach { addSubview($0) }
