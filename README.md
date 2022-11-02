@@ -24,8 +24,8 @@
 
 1. 시스템은 start 을 실행한다
 2. 위치 권한 요청 상태에 따라 다음의 행동을 한다:
-   - denied 상태면 denied 메세지를 전달한다
-   - restricted 상태면 unavailable 메세지를 전달한다
+   - denied 상태면 에러를 전달한다
+   - restricted 상태면 에러를 전달한다
    - whenInUse, always usage 상태면 available 메세지를 전달한다
    - notDetermined 상태면 location manager 에게 requestWhenInUseAuthorization 을 하라고 말한다
    - Unknown 상태에는 unknown 메세지를 전달한다
@@ -43,6 +43,7 @@
 * lat: String
 * lng: String
 * updatedAt: String
+* phoneNumber: String
 
 **CenterID**
 
