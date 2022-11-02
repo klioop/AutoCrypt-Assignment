@@ -10,6 +10,22 @@ import SnapKit
 import MapKit
 
 final class VaccinationCenterMapMainView: UIView {
+    var currentCoordinate: CLLocationCoordinate2D {
+        get { mapView.region.center }
+        set {
+            count += 1
+            setRegion(with: newValue, animated: animated)
+        }
+    }
+    
+    var centerInfo: (coordinate: CLLocationCoordinate2D, name: String) {
+        get { (mapView.region.center, "name") }
+        set {
+            setRegion(with: newValue.coordinate, animated: true)
+            addAnnotation(for: newValue.coordinate, with: newValue.name)
+        }
+    }
+    
     private(set) lazy var mapView: MKMapView = {
         let view = MKMapView()
         view.showsUserLocation = true
@@ -55,16 +71,11 @@ final class VaccinationCenterMapMainView: UIView {
     
     private var count = 0
     
-    func setRegion(with coordinate: CLLocationCoordinate2D) {
-        count += 1
+    private func setRegion(with coordinate: CLLocationCoordinate2D, animated: Bool) {
         mapView.setRegion(mkRegion(from: coordinate), animated: animated)
     }
     
-    func setRegion(with coordinate: CLLocationCoordinate2D, animated: Bool) {
-        mapView.setRegion(mkRegion(from: coordinate), animated: animated)
-    }
-    
-    func addAnnotation(for coordinate: CLLocationCoordinate2D, with title: String) {
+    private func addAnnotation(for coordinate: CLLocationCoordinate2D, with title: String) {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
         annotation.title = title
