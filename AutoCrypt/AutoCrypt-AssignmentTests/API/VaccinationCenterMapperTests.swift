@@ -43,7 +43,8 @@ class VaccinationCenterMapperTests: XCTestCase {
                           address: String = "a address",
                           lat: String = "1.0",
                           lng: String = "1.0",
-                          updatedAt: String)
+                          updatedAt: String,
+                          phoneNumber: String = "02-000-0000")
     -> (model: VaccinationCenter, item: [String: Any]) {
         let model = uniqueCenter(id: id, name: name, facilityName: facilityName, address: address, lat: lat, lng: lng, updatedAt: updatedAt)
         let item: [String: Any] = [
@@ -54,6 +55,7 @@ class VaccinationCenterMapperTests: XCTestCase {
             "lat": "\(lat)",
             "lng": "\(lng)",
             "updatedAt": updatedAt,
+            "phoneNumber": phoneNumber
         ].compactMapValues { $0 }
         
         return (model, item)
