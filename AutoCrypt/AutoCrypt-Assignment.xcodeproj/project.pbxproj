@@ -39,7 +39,7 @@
 		3199756B29068E6A005A44AD /* VaccinationCenterDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3199756A29068E6A005A44AD /* VaccinationCenterDetailViewController.swift */; };
 		3199756D29069A0B005A44AD /* VaccinationCenterDetailCellController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3199756C29069A0B005A44AD /* VaccinationCenterDetailCellController.swift */; };
 		3199756F29069A9A005A44AD /* VaccinationCenterDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3199756E29069A9A005A44AD /* VaccinationCenterDetailCell.swift */; };
-		3199757129069FDD005A44AD /* VaccinationCenterDetailModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3199757029069FDD005A44AD /* VaccinationCenterDetailModel.swift */; };
+		3199757129069FDD005A44AD /* VaccinationCenterDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3199757029069FDD005A44AD /* VaccinationCenterDetail.swift */; };
 		319975732906AA4B005A44AD /* VaccinationCenterDetailUIComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 319975722906AA4B005A44AD /* VaccinationCenterDetailUIComposer.swift */; };
 		31A8BBC628FEA714009459F0 /* VaccinationCenterMapperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A8BBC528FEA714009459F0 /* VaccinationCenterMapperTests.swift */; };
 		31A8BBC828FECEBF009459F0 /* VaccinationCenterListViewController+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31A8BBC728FECEBF009459F0 /* VaccinationCenterListViewController+TestHelpers.swift */; };
@@ -116,7 +116,7 @@
 		3199756A29068E6A005A44AD /* VaccinationCenterDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterDetailViewController.swift; sourceTree = "<group>"; };
 		3199756C29069A0B005A44AD /* VaccinationCenterDetailCellController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterDetailCellController.swift; sourceTree = "<group>"; };
 		3199756E29069A9A005A44AD /* VaccinationCenterDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterDetailCell.swift; sourceTree = "<group>"; };
-		3199757029069FDD005A44AD /* VaccinationCenterDetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterDetailModel.swift; sourceTree = "<group>"; };
+		3199757029069FDD005A44AD /* VaccinationCenterDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterDetail.swift; sourceTree = "<group>"; };
 		319975722906AA4B005A44AD /* VaccinationCenterDetailUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterDetailUIComposer.swift; sourceTree = "<group>"; };
 		31A8BBC528FEA714009459F0 /* VaccinationCenterMapperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterMapperTests.swift; sourceTree = "<group>"; };
 		31A8BBC728FECEBF009459F0 /* VaccinationCenterListViewController+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "VaccinationCenterListViewController+TestHelpers.swift"; sourceTree = "<group>"; };
@@ -223,7 +223,7 @@
 			isa = PBXGroup;
 			children = (
 				3150817028FBD4F100DA9EB7 /* VaccinationCenter.swift */,
-				3199757029069FDD005A44AD /* VaccinationCenterDetailModel.swift */,
+				3199757029069FDD005A44AD /* VaccinationCenterDetail.swift */,
 			);
 			path = "Vaccination Feature";
 			sourceTree = "<group>";
@@ -586,7 +586,7 @@
 				31CDBBE4290E470F0050EE78 /* VaccinationCenterLocation.swift in Sources */,
 				31158F4728FD411E004C8283 /* RxSwift+getSingle.swift in Sources */,
 				3150819D28FD060300DA9EB7 /* VaccinationCentersViewModel.swift in Sources */,
-				3199757129069FDD005A44AD /* VaccinationCenterDetailModel.swift in Sources */,
+				3199757129069FDD005A44AD /* VaccinationCenterDetail.swift in Sources */,
 				31CDBBDE290BEBAF0050EE78 /* CoreLocationService.swift in Sources */,
 				3150819328FC472800DA9EB7 /* VaccinationCenterCell.swift in Sources */,
 				31CDBBFB2911017F0050EE78 /* CoordinateViewModel.swift in Sources */,

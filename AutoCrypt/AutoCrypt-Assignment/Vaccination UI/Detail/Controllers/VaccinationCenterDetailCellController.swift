@@ -8,9 +8,9 @@
 import UIKit
 
 final class VaccinationCenterDetailCellController {
-    private let model: VaccinationCenterDetailModel
+    private let model: VaccinationCenterDetail
     
-    init(model: VaccinationCenterDetailModel) {
+    init(model: VaccinationCenterDetail) {
         self.model = model
     }
     
