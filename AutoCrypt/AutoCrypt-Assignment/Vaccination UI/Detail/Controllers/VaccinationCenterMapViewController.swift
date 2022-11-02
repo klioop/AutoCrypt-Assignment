@@ -55,8 +55,11 @@ final class VaccinationCenterMapViewController: UIViewController {
                     mainView?.mapView.setRegion(viewModel.mkRegion, animated: true)
                     
                 case let .centerLocation(viewModel):
-                    mainView?.mapView.setRegion(viewModel.mkRegion, animated: true)
-                    mainView?.mapView.addAnnotation(viewModel.annotation)
+                    mainView?.mapView.setRegion(MKCoordinateRegion(center: viewModel.coordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01)), animated: true)
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = viewModel.coordinate
+                    annotation.title = viewModel.name
+                    mainView?.mapView.addAnnotation(annotation)
                     
                 default: break
                 }
