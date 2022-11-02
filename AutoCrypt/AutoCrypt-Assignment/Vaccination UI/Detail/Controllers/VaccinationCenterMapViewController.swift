@@ -20,10 +20,6 @@ final class VaccinationCenterMapViewController: UIViewController {
         self.viewModel = viewModel
     }
     
-    private var mainView: VaccinationCenterMapMainView {
-        view as! VaccinationCenterMapMainView
-    }
-    
     override func loadView() {
         super.loadView()
         self.view = binded(VaccinationCenterMapMainView())
