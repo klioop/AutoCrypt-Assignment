@@ -35,7 +35,7 @@ public final class VaccinationCenterMapViewModel {
         case unAuthorized
         case available
         case currentLocation(CoordinateViewModel)
-        case centerLocation(CoordinateViewModel)
+        case centerLocation(VaccinationCenterLocation)
     }
     
     public var state: Observable<State> {
@@ -62,10 +62,10 @@ public final class VaccinationCenterMapViewModel {
     }
     
     private func centerButtonTap() -> Observable<State> {
-        let coordinate = centerLocation.coordinate
+        let centerLocation = self.centerLocation
         
         return centerButtonViewModel.tap
-            .map { .centerLocation(CoordinateViewModel(coordinate: coordinate)) }
+            .map { .centerLocation(centerLocation) }
     }
     
     private func currentButtonTap() -> Observable<State> {
