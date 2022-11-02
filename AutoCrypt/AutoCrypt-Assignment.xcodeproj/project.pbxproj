@@ -222,7 +222,6 @@
 		3150816A28FBD3F000DA9EB7 /* Vaccination Feature */ = {
 			isa = PBXGroup;
 			children = (
-				31CDBBE3290E470F0050EE78 /* VaccinationCenterLocation.swift */,
 				3150817028FBD4F100DA9EB7 /* VaccinationCenter.swift */,
 				3199757029069FDD005A44AD /* VaccinationCenterDetailModel.swift */,
 			);
@@ -376,6 +375,7 @@
 		31CDBBDC290BEBA20050EE78 /* Vaccination Location */ = {
 			isa = PBXGroup;
 			children = (
+				31CDBBE3290E470F0050EE78 /* VaccinationCenterLocation.swift */,
 				31CDBBDD290BEBAF0050EE78 /* CoreLocationService.swift */,
 				31CDBBF62910ECB50050EE78 /* LocationAuthorizationService.swift */,
 				31CDBBF82910F9BE0050EE78 /* CurrentLocationService.swift */,

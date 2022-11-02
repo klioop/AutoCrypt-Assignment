@@ -7,7 +7,6 @@
 
 import Foundation
 import CoreLocation
-import RxSwift
 
 public struct VaccinationCenterLocation {
     public let coordinate: CLLocationCoordinate2D
