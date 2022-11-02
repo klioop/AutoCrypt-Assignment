@@ -26,8 +26,7 @@ final class VaccinationCenterMapViewController: UIViewController {
     
     override func loadView() {
         super.loadView()
-        self.view = VaccinationCenterMapMainView()
-        bind()
+        self.view = binded(VaccinationCenterMapMainView())
     }
     
     override func viewDidLoad() {
@@ -37,42 +36,45 @@ final class VaccinationCenterMapViewController: UIViewController {
         viewModel?.currentButtonTapInput.accept(())
     }
     
-    func bind() {
-        guard let viewModel = self.viewModel else { return }
+    private func binded(_ view: VaccinationCenterMapMainView) -> VaccinationCenterMapMainView? {
+        guard let viewModel = self.viewModel else { return nil }
         
-        mainView.currentLocationButton
+        view.currentLocationButton
             .rx.tap.bind(to: viewModel.currentButtonTapInput)
             .disposed(by: bag)
         
-        mainView.centerLocationButton
+        view.centerLocationButton
             .rx.tap.bind(to: viewModel.centerButtonTapInput)
             .disposed(by: bag)
         
         viewModel.state
-            .subscribe(onNext: { [weak mainView] state in
+            .subscribe(onNext: { [weak self] state in
+                guard let self = self else { return }
+                
                 switch state {
-                case let .currentLocation(viewModel):
-                    mainView?.mapView.setRegion(viewModel.mkRegion, animated: true)
+                case let .currentLocation(location):
+                    view.mapView.setRegion(self.mkRegion(from: location.coordinate), animated: true)
                     
-                case let .centerLocation(viewModel):
-                    mainView?.mapView.setRegion(viewModel.mkRegion, animated: true)
-                    mainView?.mapView.addAnnotation(viewModel.annotation)
+                case let .centerLocation(location):
+                    view.mapView.setRegion(self.mkRegion(from: location.coordinate), animated: true)
+                    view.mapView.addAnnotation(self.annotation(from: location.coordinate, with: location.name))
                     
                 default: break
                 }
             })
             .disposed(by: bag)
+        
+        return view
     }
-}
-
-extension CoordinateViewModel {
-    var mkRegion: MKCoordinateRegion {
+    
+    private func mkRegion(from coordinate: CLLocationCoordinate2D) -> MKCoordinateRegion {
         MKCoordinateRegion(center: coordinate, span: .init(latitudeDelta: 0.01, longitudeDelta: 0.01))
     }
     
-    var annotation: MKPointAnnotation {
+    private func annotation(from coordinate: CLLocationCoordinate2D, with title: String) -> MKPointAnnotation {
         let annotation = MKPointAnnotation()
         annotation.coordinate = coordinate
+        annotation.title = title
         return annotation
     }
 }

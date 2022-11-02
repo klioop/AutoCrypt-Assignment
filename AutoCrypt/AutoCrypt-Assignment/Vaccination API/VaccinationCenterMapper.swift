@@ -21,13 +21,14 @@ public enum VaccinationCenterMapper {
                               facilityName: item.facilityName,
                               address: item.address,
                               lat: item.lat, lng: item.lng,
-                              updatedAt: item.updatedAt)
+                              updatedAt: item.updatedAt,
+                              phoneNumber: item.phoneNumber)
         }
     }
     
     private struct Item: Decodable {
         let id: Int
-        let centerName, facilityName, address: String
+        let centerName, facilityName, address, phoneNumber: String
         let lat, lng: String
         let updatedAt: String
     }
