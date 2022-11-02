@@ -25,7 +25,7 @@ class VaccinationCenterDetailUIComposer {
     private static func makeCellControllersForFirstSection(from model: VaccinationCenter) -> [VaccinationCenterDetailCellController] {
         let center = VaccinationCenterDetailCellController(model: .init(image: UIImage(named: "hospital"), title: "센터명", description: model.name))
         let facility = VaccinationCenterDetailCellController(model: .init(image: UIImage(named: "building"), title: "건물명", description: model.facilityName))
-        let phoneNumber = VaccinationCenterDetailCellController(model: .init(image: UIImage(named: "telephone"), title: "전화번호", description: model.lat))
+        let phoneNumber = VaccinationCenterDetailCellController(model: .init(image: UIImage(named: "telephone"), title: "전화번호", description: model.phoneNumber))
         let updatedAt = VaccinationCenterDetailCellController(model: .init(image: UIImage(named: "chat"), title: "업데이트 시간", description: model.updatedAt))
         return [center, facility, phoneNumber, updatedAt]
     }
