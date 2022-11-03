@@ -46,12 +46,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     private func showMap(for center: VaccinationCenter) {
         guard let latitude = Double(center.lat), let longitude = Double(center.lng) else { return }
+        let coordinate = CLLocationCoordinate2D(latitude: .init(latitude), longitude: .init(longitude))
         
         let currentLocationButtonViewModel = LocationButtonViewModel()
         let centerLocationButtonViewModel = LocationButtonViewModel()
-        let centerLocation = VaccinationCenterLocation(name: center.name,
-                                                       coordinate: .init(latitude: .init(latitude),
-                                                                         longitude: .init(longitude)))
+        let centerLocation = VaccinationCenterLocation(name: center.name, coordinate: coordinate)
         
         let viewModel = VaccinationCenterMapViewModel(centerLocation: centerLocation,
                                                       centerButtonViewModel: centerLocationButtonViewModel,
@@ -59,6 +58,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                                                       authorization: locationService.startAuthorization,
                                                       currentLocation: locationService.currentLocation)
         let mapViewController = VaccinationCenterMapViewController(viewModel: viewModel)
+        mapViewController.configure = { view in
+            guard let view = view as? VaccinationCenterMapMainView else { return }
+            view.centerInfo = (coordinate, center.name)
+        }
         mapViewController.title = "지도"
         navigationController.pushViewController(mapViewController, animated: true)
     }

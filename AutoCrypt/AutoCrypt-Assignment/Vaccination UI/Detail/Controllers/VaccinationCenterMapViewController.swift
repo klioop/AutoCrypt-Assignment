@@ -19,6 +19,8 @@ final class VaccinationCenterMapViewController: UIViewController {
         self.viewModel = viewModel
     }
     
+    var configure: ((UIView) -> Void)?
+    
     override func loadView() {
         super.loadView()
         self.view = binded(VaccinationCenterMapMainView())
@@ -28,7 +30,7 @@ final class VaccinationCenterMapViewController: UIViewController {
         super.viewDidLoad()
         
         viewModel?.authorizationTrigger.accept(())
-        viewModel?.currentButtonTapInput.accept(())
+        configure?(view)
     }
     
     private func binded(_ view: VaccinationCenterMapMainView) -> VaccinationCenterMapMainView? {

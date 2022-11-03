@@ -13,15 +13,15 @@ final class VaccinationCenterMapMainView: UIView {
     var currentCoordinate: CLLocationCoordinate2D {
         get { mapView.region.center }
         set {
-            count += 1
-            setRegion(with: newValue, animated: animated)
+            setRegion(with: newValue, animated: true)
         }
     }
     
     var centerInfo: (coordinate: CLLocationCoordinate2D, name: String) {
         get { (mapView.region.center, "name") }
         set {
-            setRegion(with: newValue.coordinate, animated: true)
+            count += 1
+            setRegion(with: newValue.coordinate, animated: animated)
             addAnnotation(for: newValue.coordinate, with: newValue.name)
         }
     }
