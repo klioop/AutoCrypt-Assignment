@@ -42,6 +42,8 @@ public final class VaccinationCenterListViewController: UITableViewController {
     }
     
     public override func viewDidLoad() {
+        super.viewDidLoad()
+        
         tableView.delegate = nil
         tableView.dataSource = nil
         
