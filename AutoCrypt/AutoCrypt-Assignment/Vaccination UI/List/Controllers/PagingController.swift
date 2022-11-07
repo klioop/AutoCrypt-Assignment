@@ -23,9 +23,7 @@ final class PagingController {
     private func binded() {
         viewModel
             .paginatedObservable
-            .subscribe(onNext: { [weak self] in
-                self?.onLoadMore?($0)
-            })
+            .subscribe(onNext: onLoadMore)
             .disposed(by: bag)
     }
     
