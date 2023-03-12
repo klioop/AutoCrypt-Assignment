@@ -7,7 +7,6 @@
 
 import XCTest
 import AutoCrypt_Assignment
-import CoreLocation
 import RxSwift
 import RxRelay
 
@@ -28,7 +27,7 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
     }
     
     func test_vaccinationCenterLocationButtonTap_sendsLocationStateWithVaccinationCenterLocation() {
-        let centerLocation = CLLocationCoordinate2D(latitude: 4.0, longitude: 5.0)
+        let centerLocation = VaccinationCenterCoordinate(latitude: 4.0, longitude: 5.0)
         let center = VaccinationCenterLocation(name: "any", coordinate: centerLocation)
         let (_, state, buttons) = makeSUT(coordinate: centerLocation)
         
@@ -38,20 +37,19 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
     }
     
     func test_currentLocationButtonTap_sendsLocationStateWithCurrentRegion() {
-        let currentCoordinate = CLLocationCoordinate2D(latitude: 10.0, longitude: 10.0)
-        let viewModel = CoordinateViewModel(coordinate: currentCoordinate)
-        let (_, state, buttons) = makeSUT(currentCoordinate: currentCoordinate, status: .success(()))
+        let centerLocation = VaccinationCenterCoordinate(latitude: 4.0, longitude: 5.0)
+        let (_, state, buttons) = makeSUT(currentCoordinate: centerLocation, status: .success(()))
         
         buttons.current.tap.accept(())
         
-        XCTAssertEqual(state.values, [.currentLocation(viewModel)])
+        XCTAssertEqual(state.values, [.currentLocation(centerLocation)])
     }
     
     // MARK: - Helpers
     
     private func makeSUT(
-        currentCoordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 1.0, longitude: 1.0),
-        coordinate: CLLocationCoordinate2D = CLLocationCoordinate2D(latitude: 2.0, longitude: 2.0),
+        currentCoordinate: VaccinationCenterCoordinate = VaccinationCenterCoordinate(latitude: 1.0, longitude: 1.0),
+        coordinate: VaccinationCenterCoordinate = VaccinationCenterCoordinate(latitude: 2.0, longitude: 2.0),
         status: Result<Void, Error> = .failure(anyNSError()),
         file: StaticString = #filePath,
         line: UInt = #line)
@@ -66,8 +64,9 @@ class VaccinationCenterMapViewModelTests: XCTestCase {
                                                 centerButtonViewModel: vaccinationButton,
                                                 currentButtonViewModel: currentButton,
                                                 authorization: service.start,
-                                                currentLocation: { .just(CoordinateViewModel(coordinate: currentCoordinate)) })
+                                                currentLocation: { .just(currentCoordinate) })
         let state = StateSpy(sut.state)
+        
         trackMemoryLeak(service, file: file, line: line)
         trackMemoryLeak(sut, file: file, line: line)
         trackMemoryLeak(service, file: file, line: line)
