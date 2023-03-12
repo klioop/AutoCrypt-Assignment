@@ -28,12 +28,14 @@ final class VaccinationCenterMapMainView: UIView {
     
     private(set) lazy var mapView: MKMapView = {
         let view = MKMapView()
+        
         view.showsUserLocation = true
         return view
     }()
     
     private(set) lazy var attributeContainer: AttributeContainer = {
         var container = AttributeContainer()
+        
         container.foregroundColor = .white
         return container
     }()
@@ -41,6 +43,7 @@ final class VaccinationCenterMapMainView: UIView {
     private(set) lazy var currentLocationButton: UIButton = {
         let button = UIButton(configuration: .filled())
         var config = button.configuration
+        
         config?.background.backgroundColor = .blue
         config?.attributedTitle = AttributedString("현재위치로 이동", attributes: attributeContainer)
         button.configuration = config
@@ -50,6 +53,7 @@ final class VaccinationCenterMapMainView: UIView {
     private(set) lazy var centerLocationButton: UIButton = {
         let button = UIButton(configuration: .filled())
         var config = button.configuration
+        
         config?.background.backgroundColor = .red
         config?.attributedTitle = AttributedString("예방접종센터 위치로 이동", attributes: attributeContainer)
         button.configuration = config
@@ -77,6 +81,7 @@ final class VaccinationCenterMapMainView: UIView {
     
     private func addAnnotation(for coordinate: CLLocationCoordinate2D, with title: String) {
         let annotation = MKPointAnnotation()
+        
         annotation.coordinate = coordinate
         annotation.title = title
         mapView.addAnnotation(annotation)

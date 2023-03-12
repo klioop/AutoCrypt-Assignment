@@ -16,14 +16,14 @@ public final class VaccinationCenterMapViewModel {
     private let centerButtonViewModel: LocationButtonViewModel
     private let currentButtonViewModel: LocationButtonViewModel
     private let authorization: () -> Single<Void>
-    private let currentLocation: () -> Single<CoordinateViewModel>
+    private let currentLocation: () -> Single<VaccinationCenterCoordinate>
     
     public init(
         centerLocation: VaccinationCenterLocation,
         centerButtonViewModel: LocationButtonViewModel,
         currentButtonViewModel: LocationButtonViewModel,
         authorization: @escaping () -> Single<Void>,
-        currentLocation: @escaping () -> Single<CoordinateViewModel>) {
+        currentLocation: @escaping () -> Single<VaccinationCenterCoordinate>) {
             self.centerLocation = centerLocation
             self.centerButtonViewModel = centerButtonViewModel
             self.currentButtonViewModel = currentButtonViewModel
@@ -34,7 +34,7 @@ public final class VaccinationCenterMapViewModel {
     public enum State: Equatable {
         case unAuthorized
         case available
-        case currentLocation(CoordinateViewModel)
+        case currentLocation(VaccinationCenterCoordinate)
         case centerLocation(VaccinationCenterLocation)
     }
     

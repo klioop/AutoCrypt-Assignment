@@ -7,8 +7,13 @@
 
 import Foundation
 
+public struct VaccinationCenterCoordinate: Equatable {
+    public let latitude: Double
+    public let longitude: Double
+}
+
 public protocol CurrentLocationService {
-    typealias Result = Swift.Result <CoordinateViewModel, Error>
+    typealias Result = Swift.Result <VaccinationCenterCoordinate, Error>
     
     func currentLocation(completion: @escaping (Result) -> Void)
 }

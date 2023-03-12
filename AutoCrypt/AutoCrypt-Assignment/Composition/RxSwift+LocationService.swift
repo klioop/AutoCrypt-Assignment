@@ -21,7 +21,7 @@ public extension LocationAuthorizationService {
 }
  
 public extension CurrentLocationService {
-    func currentLocation() -> Single<CoordinateViewModel> {
+    func currentLocation() -> Single<VaccinationCenterCoordinate> {
         Single.create { observer in
             self.currentLocation { result in
                 observer(result)

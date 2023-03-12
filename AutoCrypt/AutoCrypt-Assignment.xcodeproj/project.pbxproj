@@ -55,7 +55,6 @@
 		31CDBBEE290E4E740050EE78 /* VaccinationCenterMapMainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBED290E4E740050EE78 /* VaccinationCenterMapMainView.swift */; };
 		31CDBBF72910ECB50050EE78 /* LocationAuthorizationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBF62910ECB50050EE78 /* LocationAuthorizationService.swift */; };
 		31CDBBF92910F9BE0050EE78 /* CurrentLocationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBF82910F9BE0050EE78 /* CurrentLocationService.swift */; };
-		31CDBBFB2911017F0050EE78 /* CoordinateViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31CDBBFA2911017F0050EE78 /* CoordinateViewModel.swift */; };
 		31DEF6CF28FDB83C0019F6E9 /* UIView+forceLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31DEF6CE28FDB83C0019F6E9 /* UIView+forceLayout.swift */; };
 		31DEF6D228FE55910019F6E9 /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D128FE55910019F6E9 /* RxCocoa */; };
 		31DEF6D428FE55910019F6E9 /* RxRelay in Frameworks */ = {isa = PBXBuildFile; productRef = 31DEF6D328FE55910019F6E9 /* RxRelay */; };
@@ -132,7 +131,6 @@
 		31CDBBED290E4E740050EE78 /* VaccinationCenterMapMainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterMapMainView.swift; sourceTree = "<group>"; };
 		31CDBBF62910ECB50050EE78 /* LocationAuthorizationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationAuthorizationService.swift; sourceTree = "<group>"; };
 		31CDBBF82910F9BE0050EE78 /* CurrentLocationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentLocationService.swift; sourceTree = "<group>"; };
-		31CDBBFA2911017F0050EE78 /* CoordinateViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinateViewModel.swift; sourceTree = "<group>"; };
 		31DEF6CE28FDB83C0019F6E9 /* UIView+forceLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+forceLayout.swift"; sourceTree = "<group>"; };
 		31DEF6DC28FE74070019F6E9 /* VaccinationCentersEndPointTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCentersEndPointTests.swift; sourceTree = "<group>"; };
 		31DEF6DE28FE7AB90019F6E9 /* VaccinationCenterListEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VaccinationCenterListEndPoint.swift; sourceTree = "<group>"; };
@@ -397,7 +395,6 @@
 			children = (
 				31CDBBE1290E42800050EE78 /* VaccinationCenterMapViewModel.swift */,
 				31CDBBE5290E473C0050EE78 /* LocationButtonViewModel.swift */,
-				31CDBBFA2911017F0050EE78 /* CoordinateViewModel.swift */,
 			);
 			path = Detail;
 			sourceTree = "<group>";
@@ -589,7 +586,6 @@
 				3199757129069FDD005A44AD /* VaccinationCenterDetail.swift in Sources */,
 				31CDBBDE290BEBAF0050EE78 /* CoreLocationService.swift in Sources */,
 				3150819328FC472800DA9EB7 /* VaccinationCenterCell.swift in Sources */,
-				31CDBBFB2911017F0050EE78 /* CoordinateViewModel.swift in Sources */,
 				3199756F29069A9A005A44AD /* VaccinationCenterDetailCell.swift in Sources */,
 				31158F4928FD416B004C8283 /* Paginated.swift in Sources */,
 				31158F4D28FD76B8004C8283 /* PagingController.swift in Sources */,

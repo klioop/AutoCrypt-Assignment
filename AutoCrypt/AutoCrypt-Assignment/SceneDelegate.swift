@@ -50,7 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         let currentLocationButtonViewModel = LocationButtonViewModel()
         let centerLocationButtonViewModel = LocationButtonViewModel()
-        let centerLocation = VaccinationCenterLocation(name: center.name, coordinate: coordinate)
+        let centerLocation = VaccinationCenterLocation(name: center.name, coordinate: VaccinationCenterCoordinate(latitude: latitude, longitude: longitude))
         
         let viewModel = VaccinationCenterMapViewModel(centerLocation: centerLocation,
                                                       centerButtonViewModel: centerLocationButtonViewModel,

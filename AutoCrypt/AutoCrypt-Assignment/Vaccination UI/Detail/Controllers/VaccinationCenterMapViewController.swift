@@ -48,10 +48,10 @@ final class VaccinationCenterMapViewController: UIViewController {
             .subscribe(onNext: { state in
                 switch state {
                 case let .currentLocation(location):
-                    view.currentCoordinate = location.coordinate
+                    view.currentCoordinate = .init(latitude: location.latitude, longitude: location.longitude)
                     
                 case let .centerLocation(location):
-                    view.centerInfo = (location.coordinate, location.name)
+                    view.centerInfo = (.init(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude), location.name)
                     
                 default: break
                 }

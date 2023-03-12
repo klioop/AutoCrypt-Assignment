@@ -53,13 +53,19 @@ extension CoreLocationService: LocationAuthorizationService {
 
 extension CoreLocationService: CurrentLocationService {
     public func currentLocation(completion: @escaping (CurrentLocationService.Result) -> Void) {
-        manager.startUpdatingLocation()
         self.currentLocationCompletion = completion
+        
+        manager.startUpdatingLocation()
     }
     
     public func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
-        currentLocationCompletion?(.success(CoordinateViewModel(coordinate: location.coordinate)))
+        
+        let coordinate = VaccinationCenterCoordinate(
+            latitude: location.coordinate.latitude,
+            longitude: location.coordinate.longitude)
+        
+        currentLocationCompletion?(.success(coordinate))
         manager.stopUpdatingLocation()
     }
 }
